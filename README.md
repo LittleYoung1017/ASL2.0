@@ -1,10 +1,10 @@
 ASL is a common diagram for audio splicing detection and localization.
-this is a LCNN common diagram.
+this is a LCNN+LSTM model.
 
 
 ## Data preprocessing
 ```
-python downsample.py
+python downsampling_mfcc_lfcc_concat2.py
 ```
 
 ## Train
@@ -16,10 +16,6 @@ python trainer.py
 ```
 python test.py
 ```
-
-新数据集的制作：
-1. 使用两个独立数据集进行拼接，两个数据集以及拼接之后的数据集作为训练集(三个数据集)，正反比例1：1
-2. 使用两个独立数据集进行拼接，两个数据集以及拼接之后的数据集作为测试集(三个数据集)，正反比例1：1
 
 
 数据多线程加载：

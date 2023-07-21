@@ -34,7 +34,7 @@
         "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-music-2s-8k/",
         "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-guangda-spg-3s-8k-3/"
         ],
-        "downsample_data":"/home/yangruixiong/ASL2/ASL7/data/train_data/",
+        "downsample_data":"/home/yangruixiong/ASL2/ASL10_data",
         "prepared_train_data_x":"train_data_x_mfcc_lfcc.npy",
         "prepared_train_data_y":"train_data_y_mfcc_lfcc.npy",
         "prepared_test_data_x":"test_data_x_mfcc_lfcc.npy",
