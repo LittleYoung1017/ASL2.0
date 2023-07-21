@@ -1,0 +1,14 @@
+librosa==0.10.0.post2
+matplotlib==3.3.4
+numpy==1.22.4
+pandas==1.2.4
+PyWavelets==1.4.1
+PyWavelets==1.1.1
+scikit_learn==1.2.2
+scikit_learn==0.24.1
+scipy==1.10.1
+torch==2.0.0
+torchvision==0.15.1
+tqdm==4.59.0
+typing_extensions==4.6.3
+spafe
