@@ -1,12 +1,11 @@
 {
     "data":{
         "raw_data":[
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-ESC-3s-8k",
-            "/home/yangruixiong/dataset/ESC-50/ESC-3s-8k-p1",
-            "/home/yangruixiong/dataset/ESC-50/ESC-3s-8k-p2",
-            "/home/yangruixiong/dataset/ESC-50/ESC-25s-8k-p1-2",
-            "/home/yangruixiong/dataset/ESC-50/ESC-25s-8k-p2-2",
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-ESC-25s-8k"
+            "/home/yangruixiong/dataset/new_splicing_detection_dataset/concat-gdbank-spg-3s-8k",
+            "/home/yangruixiong/dataset/new_splicing_detection_dataset/southern-power-grid-3s-8k",
+            "/home/yangruixiong/dataset/new_splicing_detection_dataset/music-3s-8k-p1-original",
+            "/home/yangruixiong/dataset/new_splicing_detection_dataset/music-3s-8k-p2-original",
+            "/home/yangruixiong/dataset/new_splicing_detection_dataset/guangda-bank-3s-8k"
 
         ],
         "@raw_data":[

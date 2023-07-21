@@ -7,7 +7,9 @@ import math
 # import pandas as pd
 import math
 from torch.utils.data import Dataset, DataLoader
-from MyTool.featureExtraction import featureExtracting
+# from MyTool.featureExtraction import featureExtracting
+from utils import featureExtracting
+
 import utils
 from utils import MyDataset
 
@@ -18,7 +20,7 @@ config_path = 'config.json'
 hps = utils.get_hparams_from_file(config_path)
 data_paths = hps.data.raw_data
 
-for data_path in data_paths:
+for data_path in tqdm(data_paths):
     type_list = os.listdir(data_path)
 
     datasetName = data_path.split('/')[-1]
@@ -28,7 +30,7 @@ for data_path in data_paths:
     count_train=0
     count_test=0
     for t in type_list:
-        if 'train' in data_path:
+        if 'train' in t:
             save_path = os.path.join(hps.data.downsample_data,datasetName,'train_data_mfcc_lfcc.npz')
         else:
             save_path = os.path.join(hps.data.downsample_data,datasetName,'test_data_mfcc_lfcc.npz')
@@ -38,7 +40,7 @@ for data_path in data_paths:
 
         for i in tqdm(range(len(data_list))):
             try:
-                wav,sr = librosa.load(os.path.join(data_path,data_list[i]),sr=8000)
+                wav,sr = librosa.load(os.path.join(data_path,t,data_list[i]),sr=8000)
             except:
                 continue
             
@@ -69,7 +71,6 @@ for data_path in data_paths:
 
             #concat mfcc and lfcc
             data_feature = np.vstack((data_feature_mfcc,data_feature_lfcc))
-
             if data_feature.shape[1] < 300:
                 arr_0 = np.zeros((32,300-data_feature.shape[1]))
                 data_feature = np.concatenate((data_feature,arr_0),axis=1)
@@ -80,7 +81,7 @@ for data_path in data_paths:
                 X_data = np.array(X_data)
                 y_data = np.array(y_data)
                 
-                if 'train' in save_name:
+                if 'train' in save_path:
                     save_name = save_path.split('.')[0]+str(count_train)+'.npz'
                     while os.path.exists(save_name):
                         count_train+=1
@@ -102,7 +103,7 @@ for data_path in data_paths:
             X_data = np.array(X_data)
             y_data = np.array(y_data)
             
-            if 'train' in save_name:
+            if 'train' in save_path:
                 save_name = save_path.split('.')[0]+str(count_train)+'.npz'
                 while os.path.exists(save_name):
                     count_train+=1
