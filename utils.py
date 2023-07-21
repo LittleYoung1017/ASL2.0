@@ -268,26 +268,37 @@ def load_data_new(hps):
     test_data_y = np.empty((1,))
     setList = os.listdir(hps.data.downsample_data)
     for s in setList:
-      setpath = os.path.join(hps.data.downsample_data,s)
-      print(setpath)
-      npyList = os.listdir(setpath)
-      count = sum(1 for item in npyList if 'train' in item)
-      for i in tqdm(range(int(count/2-1))):
-          npyName = os.path.join(setpath,'train_data_mfcc_lfcc.npz')
-          data = np.load(npyName.split('.')[0]+str(i)+'.npz')
-          matrix = data['matrix']
-          labels = data['labels']
-          train_data_x = np.concatenate((train_data_x,matrix),axis=0)
-          train_data_y = np.concatenate((train_data_y,labels),axis=0)
+        setpath = os.path.join(hps.data.downsample_data,s)
+        print(setpath)
+        npyList = os.listdir(setpath)
+        for item in tqdm(npyList):
+            npyName = os.path.join(setpath,npyList)
+            data = np.load(npyName) 
+            matrix = data['matrix']
+            labels = data['labels']
+            if 'train' in npyName:
+                train_data_x = np.concatenate((train_data_x,matrix),axis=0)
+                train_data_y = np.concatenate((train_data_y,labels),axis=0)
+            elif 'test' in npyName:
+                test_data_x = np.concatenate((test_data_x,matrix),axis=0)
+                test_data_y = np.concatenate((test_data_y,labels),axis=0)
+    #   count = sum(1 for item in npyList if 'train' in item)
+    #   for i in tqdm(range(int(count))):
+    #       npyName = os.path.join(setpath,'train_data_mfcc_lfcc.npz')
+    #       data = np.load(npyName.split('.')[0]+str(i)+'.npz')
+    #       matrix = data['matrix']
+    #       labels = data['labels']
+    #       train_data_x = np.concatenate((train_data_x,matrix),axis=0)
+    #       train_data_y = np.concatenate((train_data_y,labels),axis=0)
 
-      count = sum(1 for item in npyList if 'test' in item)
-      for i in tqdm(range(int(count/2-1))):
-          npyName = os.path.join(setpath,'test_data_mfcc_lfcc.npz')
-          data = np.load(npyName.split('.')[0]+str(i)+'.npz')
-          matrix = data['matrix']
-          labels = data['labels']
-          test_data_x = np.concatenate((test_data_x,matrix),axis=0)
-          test_data_y = np.concatenate((test_data_y,labels),axis=0)
+    #   count = sum(1 for item in npyList if 'test' in item)
+    #   for i in tqdm(range(int(count/2-1))):
+    #       npyName = os.path.join(setpath,'test_data_mfcc_lfcc.npz')
+    #       data = np.load(npyName.split('.')[0]+str(i)+'.npz')
+    #       matrix = data['matrix']
+    #       labels = data['labels']
+    #       test_data_x = np.concatenate((test_data_x,matrix),axis=0)
+    #       test_data_y = np.concatenate((test_data_y,labels),axis=0)
           
 
 
