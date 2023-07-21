@@ -9,16 +9,25 @@ import math
 from torch.utils.data import Dataset, DataLoader
 # from MyTool.featureExtraction import featureExtracting
 from utils import featureExtracting
-
 import utils
 from utils import MyDataset
-
 from spafe.utils.preprocessing import SlidingWindow
 
+def read_file(file_path):
+    # Open the file in read mode
+    with open(file_path, 'r') as file:
+        # Read the contents of the file
+        lines = file.readlines()
+    
+    # Remove newline characters and whitespace from each line
+    lines = [line.strip() for line in lines]
+    
+    return lines
 
 config_path = 'config.json'
 hps = utils.get_hparams_from_file(config_path)
-data_paths = hps.data.raw_data
+data_paths = read_file(hps.data.raw_data)
+
 
 for data_path in tqdm(data_paths):
     type_list = os.listdir(data_path)
@@ -49,6 +58,7 @@ for data_path in tqdm(data_paths):
             else:
                 y_data.append(1)
 
+#==================================== 特征提取=====================================
             #提取mfcc特征,将原语音和纯语音mfcc相减获取本底特征
             data_feature_mfcc = featureExtracting(wav,sr,hps.data.feature_type[0],
                         pre_emph=1,
@@ -77,6 +87,7 @@ for data_path in tqdm(data_paths):
 
             X_data.append(data_feature)
 
+#==================================================================================
             if len(X_data) >= 2000:#每2000个保存一个npz文件
                 X_data = np.array(X_data)
                 y_data = np.array(y_data)
@@ -118,7 +129,3 @@ for data_path in tqdm(data_paths):
                 print('save test file:',save_name)
                 count_test+=1
             np.savez(save_name,matrix=X_data,labels=y_data)
-
-            
-            
-

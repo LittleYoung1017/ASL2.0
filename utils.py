@@ -434,7 +434,7 @@ def concat(data_path,data_path_2,save_path,sr):
 
     if not os.path.isdir(save_path):
         os.makedirs(save_path)
-    for i in tqdm(range(len(file_list1))):
+    for i in tqdm(range(min(len(file_list1),len(file_list2)))):
         data,rate = librosa.load(os.path.join(file_path_1,file_list1[i]),sr=sr)
         data2,rate2 = librosa.load(os.path.join(file_path_2,file_list2[i]),sr=sr)
 
@@ -541,7 +541,7 @@ def dividing_train_test_resample_spliting(data_path_1,save_path,s_sr,t_sr,cuttin
                 sf.write(path,split,t_sr)
             count+=1
 
-    print(f"Dataset split complete. {num_train} files moved to training set, {num_val} files moved to validation set.")
+    print(f"Dataset split complete. {num_train1} files moved to training set, {num_val1} files moved to validation set.")
     return dividing_dataset_path1,dataset_Name1
 
 """
@@ -550,8 +550,8 @@ usage example:
     python utils.py \
         --type dividing_resample_spliting_concat \
         --drop_last 1 \
-        --s_path /home/yangruixiong/dataset/splicing-detection/music/music-8k-p1 \
-        --s_path2 /home/yangruixiong/dataset/splicing-detection/music/music-8k-p2 \
+        --s_path /home/yangruixiong/dataset/splicing-detection/music/music-8k-p11 \
+        --s_path2 /home/yangruixiong/dataset/splicing-detection/music/music-8k-p22 \
         --t_path /home/yangruixiong/ASL2/ASL10_data \
         --s_sr 8000 \
         --t_sr 8000 \
@@ -647,4 +647,10 @@ if __name__ == '__main__':
 
         concat(train_dir1,train_dir2,train_save_path,t_sr)
         concat(test_dir1,test_dir2,test_save_path,t_sr)
+        
+        #记录生成的分割和拼接数据目录
+        with open('data/data_path.txt','w+') as f:
+            f.write(target_path1+'\n')
+            f.write(target_path2+'\n')
+            f.write(save_path+'\n')
         print('audio concating complete.')

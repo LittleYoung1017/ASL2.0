@@ -1,43 +1,11 @@
 {
     "data":{
-        "raw_data":[
-            "/home/yangruixiong/dataset/new_splicing_detection_dataset/concat-gdbank-spg-3s-8k",
-            "/home/yangruixiong/dataset/new_splicing_detection_dataset/southern-power-grid-3s-8k",
-            "/home/yangruixiong/dataset/new_splicing_detection_dataset/music-3s-8k-p1-original",
-            "/home/yangruixiong/dataset/new_splicing_detection_dataset/music-3s-8k-p2-original",
-            "/home/yangruixiong/dataset/new_splicing_detection_dataset/guangda-bank-3s-8k"
-
-        ],
-        "@raw_data":[
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-AISHELL-VCTK-2s-8k",
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-music-2s-8k",
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-singing-AISHELL-2s-8k",
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-singing-music-2s-8k",
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-singing-VCTK-2s-8k",
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-VCTK-AISHELL-2s-8k",
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-VCTK-singing-2s-8k",
-            "/home/yangruixiong/dataset/southern-power-grid/southern-power-grid-3s-8k-original",
-            "/home/yangruixiong/dataset/guangda-bank/guangda-bank-3s-8k-original",
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-guangda-spg-3s-8k-3",
-            "/home/yangruixiong/dataset/splicing-detection/music/music-3s-8k-p1-original",
-            "/home/yangruixiong/dataset/splicing-detection/music/music-3s-8k-p2-original",
-
-            "/home/yangruixiong/dataset/guangda-bank/guangda-bank-3s-8k-original",
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-singing-music-2s-8k",
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-singing-VCTK-2s-8k",
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-VCTK-AISHELL-2s-8k",
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-music-2s-8k",
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-AISHELL-VCTK-2s-8k",
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-VCTK-singing-2s-8k",
-            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-singing-AISHELL-2s-8k",
-        "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-music-2s-8k/",
-        "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-guangda-spg-3s-8k-3/"
-        ],
+        "raw_data":"data/data_path.txt",
+        "@raw_data":"path to data directory file",
+        
         "downsample_data":"/home/yangruixiong/ASL2/ASL10_data",
-        "prepared_train_data_x":"train_data_x_mfcc_lfcc.npy",
-        "prepared_train_data_y":"train_data_y_mfcc_lfcc.npy",
-        "prepared_test_data_x":"test_data_x_mfcc_lfcc.npy",
-        "prepared_test_data_y":"test_data_y_mfcc_lfcc.npy",
+        "@downsample_data":"path to save downsampled data with format npz ",
+        "train_test_split_rate":0.9,
         "sampling_rate":8000,
         "feature_type":["mfcc","lfcc"], 
         "win_length":0.030,
@@ -49,16 +17,15 @@
         "filter_length":39,
         "nfilts":39,
         "nfft":512,
-        "mfcc_block_wide":20,
         "load_data_batch":60
 
     },
     "train":{
         "device":"cuda:0",
-        "data_split_rate":0.95,
+        "data_split_rate":0.9,
         "batch_size":200,
 
-        "learning_rate":0.00005,
+        "learning_rate":0.0001,
         "epoch":800,
         "log_interval":20,
         "ckpt_interval":30,

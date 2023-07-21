@@ -9,10 +9,10 @@ it is a LCNN+LSTM model.
 python utils.py
     --type dividing_resample_spliting_concat \
     --drop_last 1 \
-    --s_path /home/yangruixiong/dataset/new_splicing_detection_dataset/guangda-bank-3s-8k/train \
-    --s_path2 /home/yangruixiong/dataset/new_splicing_detection_dataset/southern-power-grid-3s-8k/train \
-    --t_path /home/yangruixiong/dataset/new_splicing_detection_dataset/concat-gdbank-spg-3s-8k/train \
-    --s_sr 8000 \
+    --s_path path_to_dataset1 \
+    --s_path2 path_to_dataset2 \
+    --t_path path_to_save_produced_dataset \
+    --s_sr 8000 \  
     --s_sr2 8000 \
     --t_sr 8000 \
     --cutting_time 3
