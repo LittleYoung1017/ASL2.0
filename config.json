@@ -39,6 +39,9 @@
     },
     "test":{
         "checkpoint_name":"/home/yangruixiong/ASL2/ASL10/ckpt/epoch60CNNLSTM-mfcc-lfcc.pth",
-        "test_data":"/home/yangruixiong/ASL2/ASL7/data/test_data"
+        "test_data":["/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-AISHELL-VCTK-2s-8k",
+        "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-ESC-3s-8k",
+        "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-singing-music-2s-8k"
+    ]
     }
 }

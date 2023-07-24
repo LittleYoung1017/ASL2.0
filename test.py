@@ -77,49 +77,55 @@ if __name__ == '__main__':
 
     config_path = 'config.json'
     hps = utils.get_hparams_from_file(config_path)
-    test_dir = hps.test.test_data
-    
-    X_data = []
-    y_data = []
-    batch_size = hps.train.batch_size
-    # test_data = utils.MyDataset(X_data)
-    # train_dataloader = DataLoader(data, batch_size=200, shuffle=False, drop_last=True, num_workers=0)
-    files = os.listdir(test_dir)
-    for i in range(len(files)):
-        wav,sr = librosa.load(os.path.join(test_dir,files[i]),sr=8000)
+    test_dirs = hps.test.test_data
+
+    print('data loading ...')
+
+    for test_dir in test_dirs:
+        files = os.listdir(test_dir)
 
 
-        data_feature_mfcc = featureExtracting(wav,sr,hps.data.feature_type[0],
-                    pre_emph=1,
+        X_data = []
+        y_data = []
+        batch_size = hps.train.batch_size
+        # test_data = utils.MyDataset(X_data)
+        # train_dataloader = DataLoader(data, batch_size=200, shuffle=False, drop_last=True, num_workers=0)
+
+        for i in range(len(files)):
+            wav,sr = librosa.load(os.path.join(test_dir,files[i]),sr=8000)
+
+
+            data_feature_mfcc = featureExtracting(wav,sr,hps.data.feature_type[0],
+                        pre_emph=1,
+                        pre_emph_coeff=0.97,
+                        num_ceps= hps.data.n_mel_channels[0],
+                        window=SlidingWindow(hps.data.win_length,hps.data.hop_length , hps.data.window_type),
+                        nfilts=hps.data.nfilts,
+                        nfft=hps.data.nfft,
+                        low_freq=hps.data.mel_fmin,
+                        normalize="mvn")
+            data_feature_lfcc = featureExtracting(wav,sr,hps.data.feature_type[1],
+                        pre_emph=1,
                     pre_emph_coeff=0.97,
-                    num_ceps= hps.data.n_mel_channels[0],
+                    num_ceps= hps.data.n_mel_channels[1],
                     window=SlidingWindow(hps.data.win_length,hps.data.hop_length , hps.data.window_type),
                     nfilts=hps.data.nfilts,
                     nfft=hps.data.nfft,
                     low_freq=hps.data.mel_fmin,
                     normalize="mvn")
-        data_feature_lfcc = featureExtracting(wav,sr,hps.data.feature_type[1],
-                    pre_emph=1,
-                pre_emph_coeff=0.97,
-                num_ceps= hps.data.n_mel_channels[1],
-                window=SlidingWindow(hps.data.win_length,hps.data.hop_length , hps.data.window_type),
-                nfilts=hps.data.nfilts,
-                nfft=hps.data.nfft,
-                low_freq=hps.data.mel_fmin,
-                normalize="mvn")
 
-        #concat mfcc and lfcc
-        data_feature = np.vstack((data_feature_mfcc,data_feature_lfcc))
-        print(data_feature.shape)
-        # w = 300
-        # X = feature_block(data_feature,w)
+            #concat mfcc and lfcc
+            data_feature = np.vstack((data_feature_mfcc,data_feature_lfcc))
+            # print(data_feature.shape)
+            # w = 300
+            # X = feature_block(data_feature,w)
 
-        X_data.append(data_feature)
-        if 'original' in files[i]:
-            y_data.append(0)
-        elif 'tampered' in files[i]:
-            y_data.append(1)
-            
+            X_data.append(data_feature)
+            if 'original' in files[i]:
+                y_data.append(0)
+            elif 'tampered' in files[i]:
+                y_data.append(1)
+                
     device = (
         hps.train.device
         if torch.cuda.is_available()
@@ -127,6 +133,7 @@ if __name__ == '__main__':
         if torch.backends.mps.is_available()
         else "cpu"
     )
+    print('data loading complete...')
     print(f"Using {device} device")
 
     model_name = hps.model.model_name
