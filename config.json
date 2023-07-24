@@ -3,7 +3,7 @@
         "raw_data":"data/data_path.txt",
         "@raw_data":"path to data directory file",
         
-        "downsample_data":"/home/yangruixiong/ASL2/ASL10_data",
+        "downsample_data":"/home/yangruixiong/ASL2/ASL11_data",
         "@downsample_data":"path to save downsampled data with format npz ",
         "train_test_split_rate":0.9,
         "sampling_rate":8000,
@@ -38,7 +38,7 @@
         "model_name":"CNNLSTM"
     },
     "test":{
-        "checkpoint_name":"ckpt/epoch8CNNLSTM-mfcc-lfcc.pth",
+        "checkpoint_name":"/home/yangruixiong/ASL2/ASL10/ckpt/epoch60CNNLSTM-mfcc-lfcc.pth",
         "test_data":"/home/yangruixiong/ASL2/ASL7/data/test_data"
     }
 }

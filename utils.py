@@ -289,21 +289,6 @@ def saving_feature():
                 np.savez(save_name,matrix=X_data,labels=y_data)
     
 
-def load_test_data(hps):
-    test_data_x = np.empty((1,32,300))
-    test_data_y = np.empty((1,))
-    test_path = hps.test.test_data
-    test_list = os.listdir(test_path)
-    
-    for i in range(len(test_list)):
-      wav,sr = librosa.load( os.path.join(test_path,test_list[i]),sr=8000)
-      if len(files[i].split('.')[0].split('_'))==2:
-          cut_point = int(files[i].split('.')[0].split('_')[1])
-      elif len(files[i].split('.')[0].split('_'))==3:
-          cut_point = int(files[i].split('.')[0].split('_')[2])
-      else:
-          cut_point = 'None'
-      cut_points.append((cut_point,len(wav)/sr))
 
 
 def load_data_npz(hps):   #load test data
@@ -346,36 +331,7 @@ def preprocess_data(batch_data):
     train_data_y = train_data_y[1:]
     train_data_y = train_data_y.astype('int64')
     return train_data_x, train_data_y
-  
-def get_train_data_list(hps):
-  train_file_all = []
-  setList = os.listdir(hps.data.downsample_data)
-  for s in setList:
-    setpath = os.path.join(hps.data.downsample_data,s)
-    print(setpath)
-    npyList = os.listdir(setpath)
-    count = sum(1 for item in npyList if 'train' in item)
-    npyName = os.path.join(setpath,'train_data_mfcc_lfcc.npz')
-    for i in tqdm(range(count)):
-        data_name = npyName.split('.')[0]+str(i)+'.npz'
-        train_file_all.append(data_name)
-  return train_file_all
 
-def data_generator(train_file_all,batch_size):   #generate training data
-    num_data = len(train_file_all)
-    indices = np.arange(num_data)
-    np.random.shuffle(indices) #随机打乱数据
-    
-    start_idx = 0
-    while start_idx < num_data:
-        if start_idx + batch_size >= num_data:#保留最后不足batch部分
-            excerpt = indices[ start_idx : num_data]
-        excerpt = indices[ start_idx : start_idx + batch_size]
-        batch_data = [train_file_all[i] for i in excerpt ]
-
-        start_idx = start_idx + batch_size
-        batch_x, batch_y = preprocess_data(batch_data)
-        yield batch_x, batch_y
 
 def load_data_new(hps):
 
@@ -402,24 +358,6 @@ def load_data_new(hps):
             elif 'test' in npyName:
                 test_data_x = np.concatenate((test_data_x,matrix),axis=0)
                 test_data_y = np.concatenate((test_data_y,labels),axis=0)
-        #   count = sum(1 for item in npyList if 'train' in item)
-        #   for i in tqdm(range(int(count))):
-        #       npyName = os.path.join(setpath,'train_data_mfcc_lfcc.npz')
-        #       data = np.load(npyName.split('.')[0]+str(i)+'.npz')
-        #       matrix = data['matrix']
-        #       labels = data['labels']
-        #       train_data_x = np.concatenate((train_data_x,matrix),axis=0)
-        #       train_data_y = np.concatenate((train_data_y,labels),axis=0)
-
-        #   count = sum(1 for item in npyList if 'test' in item)
-        #   for i in tqdm(range(int(count/2-1))):
-        #       npyName = os.path.join(setpath,'test_data_mfcc_lfcc.npz')
-        #       data = np.load(npyName.split('.')[0]+str(i)+'.npz')
-        #       matrix = data['matrix']
-        #       labels = data['labels']
-        #       test_data_x = np.concatenate((test_data_x,matrix),axis=0)
-        #       test_data_y = np.concatenate((test_data_y,labels),axis=0)
-            
 
 
     train_data_x = train_data_x[1:]
@@ -488,7 +426,7 @@ def data_splicing(data_path,save_path,sr,cutting_time,drop_last):
             path = os.path.join(save_path,'original_' + str(count) + '.wav')
             sf.write(path,split,sr)
             count+=1
-        if drop_last == 0:
+        if drop_last == 0:    #save the last part of the audio 
             if len(data)>0:
                 path = os.path.join(save_path,data_list[i].split('.')[0]+ '_'+str(count)+'.wav')
                 print(path)
@@ -619,63 +557,64 @@ def concat(data_path,data_path_2,save_path,sr):
 """
 
 #================================================================================
-def dividing_train_test_resample_spliting(data_path_1,save_path,s_sr,t_sr,cutting_time,split_ratio=0.8,feature_extraction=1):
+def dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_time,split_ratio=0.8,feature_extraction=1):
     #get dataset name
-    dataset_Name1 = data_path_1.split('/')
-    if dataset_Name1[-1] == '':
-        dataset_Name1 = dataset_Name1[-2]
+    dataset_Name = data_path.split('/')
+    if dataset_Name[-1] == '':
+        dataset_Name = dataset_Name[-2]
     else:
-        dataset_Name1 = dataset_Name1[-1]
+        dataset_Name = dataset_Name[-1]
         
     #划分train和test的音频保存位置    
-    dividing_dataset_path1 = os.path.join(save_path,dataset_Name1)
+    dividing_dataset_path = os.path.join(save_path,dataset_Name)
     
-    train_dir1 = os.path.join(dividing_dataset_path1, 'train')
-    val_dir1 = os.path.join(dividing_dataset_path1, 'val')
+    train_dir = os.path.join(dividing_dataset_path, 'train')
+    val_dir = os.path.join(dividing_dataset_path, 'val')
     
-    os.makedirs(train_dir1, exist_ok=True)
-    os.makedirs(val_dir1, exist_ok=True)
+    os.makedirs(train_dir, exist_ok=True)
+    os.makedirs(val_dir, exist_ok=True)
 
      # Get list of all files in the dataset directory
-    file_list1 = os.listdir(data_path_1)
-    random.shuffle(file_list1)
+    file_list = os.listdir(data_path)
+    data_path = [i for i in data_path if '.wav' in i]
+    random.shuffle(file_list)
      # Calculate number of files for training and validation
-    num_files1 = len(file_list1)
-    num_train1 = int(num_files1 * split_ratio)
-    num_val1 = num_files1 - num_train1
+    num_files = len(file_list)
+    num_train = int(num_files * split_ratio)
+    num_val = num_files - num_train
     
     dividing_len = int(cutting_time * t_sr)
 
     count=0
 
      # Move files to training set
-    for file_name in tqdm(file_list1):   #训练集部分    
-        if '.wav' in file_name: 
-            src_path = os.path.join(data_path_1, file_name)   #初始文件路径
-            try:
-                data,rate = librosa.load(src_path,sr=s_sr)
-            except:
-                continue
-            train_dividing_count=0
-            test_dividing_count=0
-            while(len(data)>=dividing_len):
-                cut = dividing_len
-                # cut = int(random.uniform(0.95,1.05) * dividing_len)
-                split = data[0:cut]
-                data = data[cut:]
+    for file_name in tqdm(file_list):   #训练集部分    
+        # if '.wav' in file_name: 
+        src_path = os.path.join(data_path, file_name)   #初始文件路径
+        try:
+            data,rate = librosa.load(src_path,sr=s_sr)
+        except:
+            continue
+        train_dividing_count=0
+        test_dividing_count=0
+        while(len(data)>=dividing_len):
+            cut = dividing_len
+            # cut = int(random.uniform(0.95,1.05) * dividing_len)
+            split = data[0:cut]
+            data = data[cut:]
 
-                if count<num_train1:
-                # path = save_path + data_list[i].split('.')[0]+ '_'+str(count)+'.wav'
-                    path = os.path.join(train_dir1,'original_' + str(train_dividing_count) + '.wav')
-                    train_dividing_count+=1
-                else:
-                    path = os.path.join(val_dir1,'original_' + str(test_dividing_count) + '.wav')
-                    test_dividing_count+=1
-                sf.write(path,split,t_sr)
-            count+=1
+            if count<num_train:
+            # path = save_path + data_list[i].split('.')[0]+ '_'+str(count)+'.wav'
+                path = os.path.join(train_dir,'original_' + str(train_dividing_count) + '.wav')
+                train_dividing_count+=1
+            else:
+                path = os.path.join(val_dir,'original_' + str(test_dividing_count) + '.wav')
+                test_dividing_count+=1
+            sf.write(path,split,t_sr)
+        count+=1
 
-    print(f"Dataset split complete. {num_train1} files moved to training set, {num_val1} files moved to validation set.")
-    return dividing_dataset_path1,dataset_Name1
+    print(f"Dataset split complete. {num_train} files moved to training set, {num_val} files moved to validation set.")
+    return dividing_dataset_path,dataset_Name
 
 """
     usage example:
@@ -707,7 +646,7 @@ def dividing_resample_spliting_concat(data_path_1,data_path_2,save_path,s_sr,s_s
 
     concat(train_dir1,train_dir2,train_save_path,t_sr)
     concat(test_dir1,test_dir2,test_save_path,t_sr)
-    os.makedir('data',exist_ok=True)
+    os.makedirs('data',exist_ok=True)
     #记录生成的分割和拼接数据目录
     with open('data/data_path.txt','w+') as f:
         f.write(target_path1+'\n')
