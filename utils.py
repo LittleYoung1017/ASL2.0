@@ -31,6 +31,18 @@ logging.basicConfig(stream=sys.stdout, level=logging.WARNING)
 logger = logging
 
 
+def read_file(file_path):
+    # Open the file in read mode
+    with open(file_path, 'r') as file:
+        # Read the contents of the file
+        lines = file.readlines()
+    
+    # Remove newline characters and whitespace from each line
+    lines = [line.strip() for line in lines]
+    
+    return lines
+
+
 def get_hparams_from_file(config_path):
   with open(config_path, "r") as f:
     data = f.read()
@@ -169,6 +181,112 @@ def featureExtracting(wav,sr,feature_name,**params):
                                             low_freq=0,
                                             high_freq=sr/2)
         return mel_spec
+ 
+def saving_feature():
+    config_path = 'config.json'
+    hps = get_hparams_from_file(config_path)
+    print('extracting features...')
+    data_paths = read_file(hps.data.raw_data)
+    for data_path in tqdm(data_paths):
+        type_list = os.listdir(data_path)
+
+        datasetName = data_path.split('/')[-1]
+        datasetPath = os.path.join(hps.data.downsample_data,datasetName)
+        if not os.path.exists(datasetPath):
+            os.mkdir(datasetPath)
+        count_train=0
+        count_test=0
+        for t in type_list:
+            if 'train' in t:
+                save_path = os.path.join(hps.data.downsample_data,datasetName,'train_data_mfcc_lfcc.npz')
+            else:
+                save_path = os.path.join(hps.data.downsample_data,datasetName,'test_data_mfcc_lfcc.npz')
+            data_list = os.listdir(os.path.join(data_path,t))
+            X_data = []
+            y_data = []
+            for i in tqdm(range(len(data_list))):
+            # for i in tqdm(range(int(len(data_list)/4))):
+                try:
+                    wav,sr = librosa.load(os.path.join(data_path,t,data_list[i]),sr=8000)
+                except:
+                    continue
+                
+                if 'original' in data_list[i]:
+                    y_data.append(0)
+                else:
+                    y_data.append(1)
+
+    #==================================== 特征提取=====================================
+                #提取mfcc特征,将原语音和纯语音mfcc相减获取本底特征
+                data_feature_mfcc = featureExtracting(wav,sr,hps.data.feature_type[0],
+                            pre_emph=1,
+                            pre_emph_coeff=0.97,
+                            num_ceps= hps.data.n_mel_channels[0],
+                            window=SlidingWindow(hps.data.win_length,hps.data.hop_length , hps.data.window_type),
+                            nfilts=hps.data.nfilts,
+                            nfft=hps.data.nfft,
+                            low_freq=hps.data.mel_fmin,
+                            normalize="mvn")
+                data_feature_lfcc = featureExtracting(wav,sr,hps.data.feature_type[1],
+                            pre_emph=1,
+                        pre_emph_coeff=0.97,
+                        num_ceps= hps.data.n_mel_channels[1],
+                        window=SlidingWindow(hps.data.win_length,hps.data.hop_length , hps.data.window_type),
+                        nfilts=hps.data.nfilts,
+                        nfft=hps.data.nfft,
+                        low_freq=hps.data.mel_fmin,
+                        normalize="mvn")
+
+                #concat mfcc and lfcc
+                data_feature = np.vstack((data_feature_mfcc,data_feature_lfcc))
+                if data_feature.shape[1] < 300:
+                    arr_0 = np.zeros((32,300-data_feature.shape[1]))
+                    data_feature = np.concatenate((data_feature,arr_0),axis=1)
+
+                X_data.append(data_feature)
+
+    #==================================================================================
+                if len(X_data) >= 2000:#每2000个保存一个npz文件
+                    X_data = np.array(X_data)
+                    y_data = np.array(y_data)
+                    
+                    if 'train' in save_path:
+                        save_name = save_path.split('.')[0]+str(count_train)+'.npz'
+                        while os.path.exists(save_name):
+                            count_train+=1
+                            save_name = save_path.split('.')[0]+str(count_train)+'.npz'
+                        print('save train file:',save_name)
+                        count_train+=1
+                    else:
+                        save_name = save_path.split('.')[0]+str(count_test)+'.npz'
+                        while os.path.exists(save_name):
+                            count_test+=1
+                            save_name = save_path.split('.')[0]+str(count_test)+'.npz'
+                        print('save test file:',save_name)
+                        count_test+=1
+                    np.savez(save_name,matrix=X_data,labels=y_data)
+
+                    X_data = []
+                    y_data = []
+            if len(X_data) >=2:
+                X_data = np.array(X_data)
+                y_data = np.array(y_data)
+                
+                if 'train' in save_path:
+                    save_name = save_path.split('.')[0]+str(count_train)+'.npz'
+                    while os.path.exists(save_name):
+                        count_train+=1
+                        save_name = save_path.split('.')[0]+str(count_train)+'.npz'
+                    print('save train file:',save_name)
+                    count_train+=1
+                else:
+                    save_name = save_path.split('.')[0]+str(count_test)+'.npz'
+                    while os.path.exists(save_name):
+                        count_test+=1
+                        save_name = save_path.split('.')[0]+str(count_test)+'.npz'
+                    print('save test file:',save_name)
+                    count_test+=1
+                np.savez(save_name,matrix=X_data,labels=y_data)
     
 
 def load_test_data(hps):
@@ -268,12 +386,14 @@ def load_data_new(hps):
     test_data_y = np.empty((1,))
     setList = os.listdir(hps.data.downsample_data)
     for s in setList:
+        
         setpath = os.path.join(hps.data.downsample_data,s)
         print(setpath)
         npyList = os.listdir(setpath)
+        npyList = [ i for i in npyList if '.npz' in i]
         for item in tqdm(npyList):
-            npyName = os.path.join(setpath,npyList)
-            data = np.load(npyName) 
+            npyName = os.path.join(setpath,item)
+            data = np.load(npyName)
             matrix = data['matrix']
             labels = data['labels']
             if 'train' in npyName:
@@ -282,24 +402,24 @@ def load_data_new(hps):
             elif 'test' in npyName:
                 test_data_x = np.concatenate((test_data_x,matrix),axis=0)
                 test_data_y = np.concatenate((test_data_y,labels),axis=0)
-    #   count = sum(1 for item in npyList if 'train' in item)
-    #   for i in tqdm(range(int(count))):
-    #       npyName = os.path.join(setpath,'train_data_mfcc_lfcc.npz')
-    #       data = np.load(npyName.split('.')[0]+str(i)+'.npz')
-    #       matrix = data['matrix']
-    #       labels = data['labels']
-    #       train_data_x = np.concatenate((train_data_x,matrix),axis=0)
-    #       train_data_y = np.concatenate((train_data_y,labels),axis=0)
+        #   count = sum(1 for item in npyList if 'train' in item)
+        #   for i in tqdm(range(int(count))):
+        #       npyName = os.path.join(setpath,'train_data_mfcc_lfcc.npz')
+        #       data = np.load(npyName.split('.')[0]+str(i)+'.npz')
+        #       matrix = data['matrix']
+        #       labels = data['labels']
+        #       train_data_x = np.concatenate((train_data_x,matrix),axis=0)
+        #       train_data_y = np.concatenate((train_data_y,labels),axis=0)
 
-    #   count = sum(1 for item in npyList if 'test' in item)
-    #   for i in tqdm(range(int(count/2-1))):
-    #       npyName = os.path.join(setpath,'test_data_mfcc_lfcc.npz')
-    #       data = np.load(npyName.split('.')[0]+str(i)+'.npz')
-    #       matrix = data['matrix']
-    #       labels = data['labels']
-    #       test_data_x = np.concatenate((test_data_x,matrix),axis=0)
-    #       test_data_y = np.concatenate((test_data_y,labels),axis=0)
-          
+        #   count = sum(1 for item in npyList if 'test' in item)
+        #   for i in tqdm(range(int(count/2-1))):
+        #       npyName = os.path.join(setpath,'test_data_mfcc_lfcc.npz')
+        #       data = np.load(npyName.split('.')[0]+str(i)+'.npz')
+        #       matrix = data['matrix']
+        #       labels = data['labels']
+        #       test_data_x = np.concatenate((test_data_x,matrix),axis=0)
+        #       test_data_y = np.concatenate((test_data_y,labels),axis=0)
+            
 
 
     train_data_x = train_data_x[1:]
@@ -334,13 +454,13 @@ def resample(file_path,save_path,sr,sr_re=8000):
 
 """
     usage:
-python data_splicing_utils.py \
-    --type resample \
-    --drop_last True \
-    --s_path /home/yangruixiong/dataset/ESC-50/ESC \
-    --t_path /home/yangruixiong/dataset/ESC-50/ESC-8k \
-    --s_sr 44100 \
-    --t_sr 8000
+        python data_splicing_utils.py \
+        --type resample \
+        --drop_last True \
+        --s_path /home/yangruixiong/dataset/ESC-50/ESC \
+        --t_path /home/yangruixiong/dataset/ESC-50/ESC-8k \
+        --s_sr 44100 \
+        --t_sr 8000
 """
 #=================================================================================
 
@@ -422,14 +542,14 @@ def resample_and_splicing(data_path,save_path,sr,sr_re,cutting_time,drop_last):
 
 """
     usage:
-python data_splicing_utils.py \
-    --type resample_splicing \
-    --drop_last False \
-    --s_path /home/yangruixiong/dataset/ESC-50/ESC \
-    --t_path /home/yangruixiong/dataset/ESC-50/ESC-3s-8k \
-    --s_sr 44100 \
-    --t_sr 8000 \
-    --cutting_time 3
+        python data_splicing_utils.py \
+            --type resample_splicing \
+            --drop_last False \
+            --s_path /home/yangruixiong/dataset/ESC-50/ESC \
+            --t_path /home/yangruixiong/dataset/ESC-50/ESC-3s-8k \
+            --s_sr 44100 \
+            --t_sr 8000 \
+            --cutting_time 3
 """
 #==============================================================================
 
@@ -486,20 +606,20 @@ def concat(data_path,data_path_2,save_path,sr):
             count+=1
 
 """
-usage example:
-python data_splicing_utils.py \
-    --type concat \
-    --drop_last 1 \
-    --s_path /home/yangruixiong/dataset/new_splicing_detection_dataset/guangda-bank-3s-8k/train \
-    --s_path2 /home/yangruixiong/dataset/new_splicing_detection_dataset/southern-power-grid-3s-8k/train \
-    --t_path /home/yangruixiong/dataset/new_splicing_detection_dataset/concat-gdbank-spg-3s-8k/train \
-    --s_sr 8000 \
-    --t_sr 8000 \
-    --cutting_time 3
+    usage example:
+        python data_splicing_utils.py \
+            --type concat \
+            --drop_last 1 \
+            --s_path /home/yangruixiong/dataset/new_splicing_detection_dataset/guangda-bank-3s-8k/train \
+            --s_path2 /home/yangruixiong/dataset/new_splicing_detection_dataset/southern-power-grid-3s-8k/train \
+            --t_path /home/yangruixiong/dataset/new_splicing_detection_dataset/concat-gdbank-spg-3s-8k/train \
+            --s_sr 8000 \
+            --t_sr 8000 \
+            --cutting_time 3
 """
 
 #================================================================================
-def dividing_train_test_resample_spliting(data_path_1,save_path,s_sr,t_sr,cutting_time,split_ratio=0.8):
+def dividing_train_test_resample_spliting(data_path_1,save_path,s_sr,t_sr,cutting_time,split_ratio=0.8,feature_extraction=1):
     #get dataset name
     dataset_Name1 = data_path_1.split('/')
     if dataset_Name1[-1] == '':
@@ -527,6 +647,7 @@ def dividing_train_test_resample_spliting(data_path_1,save_path,s_sr,t_sr,cuttin
     dividing_len = int(cutting_time * t_sr)
 
     count=0
+
      # Move files to training set
     for file_name in tqdm(file_list1):   #训练集部分    
         if '.wav' in file_name: 
@@ -542,6 +663,7 @@ def dividing_train_test_resample_spliting(data_path_1,save_path,s_sr,t_sr,cuttin
                 # cut = int(random.uniform(0.95,1.05) * dividing_len)
                 split = data[0:cut]
                 data = data[cut:]
+
                 if count<num_train1:
                 # path = save_path + data_list[i].split('.')[0]+ '_'+str(count)+'.wav'
                     path = os.path.join(train_dir1,'original_' + str(train_dividing_count) + '.wav')
@@ -556,20 +678,101 @@ def dividing_train_test_resample_spliting(data_path_1,save_path,s_sr,t_sr,cuttin
     return dividing_dataset_path1,dataset_Name1
 
 """
-usage example:
+    usage example:
 
-    python utils.py \
-        --type dividing_resample_spliting_concat \
-        --drop_last 1 \
-        --s_path /home/yangruixiong/dataset/splicing-detection/music/music-8k-p11 \
-        --s_path2 /home/yangruixiong/dataset/splicing-detection/music/music-8k-p22 \
-        --t_path /home/yangruixiong/ASL2/ASL10_data \
-        --s_sr 8000 \
-        --t_sr 8000 \
-        --cutting_time 3
+        python utils.py \
+            --type dividing_resample_spliting_concat \
+            --drop_last 1 \
+            --s_path /home/yangruixiong/dataset/splicing-detection/music/music-8k-p11 \
+            --s_path2 /home/yangruixiong/dataset/splicing-detection/music/music-8k-p22 \
+            --t_path /home/yangruixiong/ASL2/ASL10_data \
+            --s_sr 8000 \
+            --t_sr 8000 \
+            --cutting_time 3
 """
 #=================================================================================
-def split_dataset(dataset_path, save_path,split_ratio=0.8):
+def dividing_resample_spliting_concat(data_path_1,data_path_2,save_path,s_sr,s_sr2,t_sr,cutting_time,spliting_ratio=0.8):
+    target_path1,dataset_name1 = dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_time,feature_extraction=1)   
+    target_path2,dataset_name2 = dividing_train_test_resample_spliting(data_path2,save_path,s_sr2,t_sr,cutting_time,feature_extraction=1)
+    print('audio spliting complete.')
+
+    concat_name = dataset_name1 + '-' + dataset_name2
+    save_path = os.path.join(save_path,concat_name)
+    train_dir1 = os.path.join(target_path1,'train')
+    test_dir1 = os.path.join(target_path1,'val')
+    train_dir2 = os.path.join(target_path2,'train')
+    test_dir2 = os.path.join(target_path2,'val')
+    train_save_path = os.path.join(save_path,'train')
+    test_save_path = os.path.join(save_path,'val')
+
+    concat(train_dir1,train_dir2,train_save_path,t_sr)
+    concat(test_dir1,test_dir2,test_save_path,t_sr)
+    os.makedir('data',exist_ok=True)
+    #记录生成的分割和拼接数据目录
+    with open('data/data_path.txt','w+') as f:
+        f.write(target_path1+'\n')
+        f.write(target_path2+'\n')
+        f.write(save_path+'\n')
+    print('audio concating complete.')
+    
+"""
+    usage example:
+
+        python utils.py \
+            --type dividing_resample_spliting_concat \
+            --drop_last 1 \
+            --s_path /home/yangruixiong/dataset/splicing-detection/music/music-8k-p11 \
+            --s_path2 /home/yangruixiong/dataset/splicing-detection/music/music-8k-p22 \
+            --t_path /home/yangruixiong/ASL2/ASL10_data \
+            --s_sr 8000 \
+            --s_sr2 8000 \
+            --t_sr 8000 \
+            --cutting_time 3
+"""
+#=================================================================================
+def audio_preprocessing(data_path_1,data_path_2,save_path,s_sr,s_sr2,t_sr,cutting_time,spliting_ratio=0.8,):
+    target_path1,dataset_name1 = dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_time,feature_extraction=1)   
+    target_path2,dataset_name2 = dividing_train_test_resample_spliting(data_path2,save_path,s_sr2,t_sr,cutting_time,feature_extraction=1)
+    print('audio spliting complete.')
+
+    concat_name = dataset_name1 + '-' + dataset_name2
+    save_path = os.path.join(save_path,concat_name)
+    train_dir1 = os.path.join(target_path1,'train')
+    test_dir1 = os.path.join(target_path1,'val')
+    train_dir2 = os.path.join(target_path2,'train')
+    test_dir2 = os.path.join(target_path2,'val')
+    train_save_path = os.path.join(save_path,'train')
+    test_save_path = os.path.join(save_path,'val')
+
+    concat(train_dir1,train_dir2,train_save_path,t_sr)
+    concat(test_dir1,test_dir2,test_save_path,t_sr)
+    
+    #记录生成的分割和拼接数据目录
+    with open('data/data_path.txt','w+') as f:
+        f.write(target_path1+'\n')
+        f.write(target_path2+'\n')
+        f.write(save_path+'\n')
+    print('audio concating complete.')
+    saving_feature()
+
+    
+
+"""
+    usage example:
+
+        python utils2.py \
+            --type audio_preprocessing \
+            --drop_last 1 \
+            --s_path /home/yangruixiong/dataset/splicing-detection/music/music-8k-p11 \
+            --s_path2 /home/yangruixiong/dataset/splicing-detection/music/music-8k-p22 \
+            --t_path /home/yangruixiong/ASL2/ASL11_data \
+            --s_sr 8000 \
+            --s_sr2 8000 \
+            --t_sr 8000 \
+            --cutting_time 3
+"""
+#====================================================================================
+def split_dataset(dataset_path1, data_path2, save_path1, save_path2, concat_save_path,split_ratio=0.8):
     # Create directories for training and validation sets
     train_dir = os.path.join(save_path, 'train')
     val_dir = os.path.join(save_path, 'val')
@@ -599,14 +802,19 @@ def split_dataset(dataset_path, save_path,split_ratio=0.8):
     print(f"Dataset split complete. {num_train} files moved to training set, {num_val} files moved to validation set.")
 
 """
-usage example:
-python data_splicing_utils.py \
-    --type split_dataset \
-    --s_path /home/yangruixiong/dataset/guangda-bank/original-data \
-    --t_path /home/yangruixiong/dataset/new_splicing_detection_dataset/guangda-bank
+    usage example:
+        python data_splicing_utils.py \
+            --type split_dataset \
+            --s_path /home/yangruixiong/dataset/guangda-bank/original-data \
+            --t_path /home/yangruixiong/dataset/new_splicing_detection_dataset/guangda-bank
 """
 #=====================================================================================
 if __name__ == '__main__':
+
+
+    config_path = 'config.json'
+    hps = get_hparams_from_file(config_path)
+    data_paths = read_file(hps.data.raw_data)
     
     parser = argparse.ArgumentParser()
     parser.add_argument("--type", type=str, help="type of the function")
@@ -642,26 +850,8 @@ if __name__ == '__main__':
     elif args.type == 'split_dataset':
         split_dataset(data_path,save_path)
     elif args.type =='dividing_resample_spliting_concat':
-        target_path1,dataset_name1 = dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_time)   
-        target_path2,dataset_name2 = dividing_train_test_resample_spliting(data_path2,save_path,s_sr2,t_sr,cutting_time)
-        print('audio spliting complete.')
-
-
-        concat_name = dataset_name1 + '-' + dataset_name2
-        save_path = os.path.join(save_path,concat_name)
-        train_dir1 = os.path.join(target_path1,'train')
-        test_dir1 = os.path.join(target_path1,'val')
-        train_dir2 = os.path.join(target_path2,'train')
-        test_dir2 = os.path.join(target_path2,'val')
-        train_save_path = os.path.join(save_path,'train')
-        test_save_path = os.path.join(save_path,'val')
-
-        concat(train_dir1,train_dir2,train_save_path,t_sr)
-        concat(test_dir1,test_dir2,test_save_path,t_sr)
+        dividing_resample_spliting_concat(data_path,data_path2,save_path,s_sr,s_sr2,t_sr,cutting_time,spliting_ratio=0.8)
+    elif args.type =='audio_preprocessing':
+        audio_preprocessing(data_path,data_path2,save_path,s_sr,s_sr2,t_sr,cutting_time,spliting_ratio=0.8)
         
-        #记录生成的分割和拼接数据目录
-        with open('data/data_path.txt','w+') as f:
-            f.write(target_path1+'\n')
-            f.write(target_path2+'\n')
-            f.write(save_path+'\n')
-        print('audio concating complete.')
+        

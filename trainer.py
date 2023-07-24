@@ -128,7 +128,8 @@ class Trainer:
             loss, acc = self.train(train_dataloader, epoch)
             val_loss, val_acc = self.val(test_dataloader, epoch)
 
-            if epoch % self.hps.train.ckpt_interval == 0:
+            if epoch and epoch % self.hps.train.ckpt_interval == 0 :
+                os.mkdir('ckpt',exist_ok=True)
                 ckpt_name = f"epoch{epoch}{self.hps.model.model_name}-mfcc-lfcc.pth"
                 self.logger.info(f"Saving checkpoint: {ckpt_name}")
                 torch.save(self.model.state_dict(), os.path.join(self.hps.train.checkpoint_path, ckpt_name))
