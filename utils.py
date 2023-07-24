@@ -766,6 +766,7 @@ if __name__ == '__main__':
     parser.add_argument("--s_sr2",type=int,default=8000,help="second soure sample rate")
     parser.add_argument("--t_sr",type=int,default=8000, help="target sample rate")
     parser.add_argument("--cutting_time",type=float,default=3,help="data spliting interval")
+    parser.add_argument("--split_ratop",type=float,default=0.8,help="training and validation dataset ratio")
     args = parser.parse_args()
     types= args.type
     data_path = args.s_path

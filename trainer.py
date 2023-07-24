@@ -98,7 +98,6 @@ class Trainer:
                 X, y = X.to(self.device), y.to(self.device)
                 # y = y.reshape(-1,1)
                 X = X.type(torch.cuda.FloatTensor)
-                print(X.shape)
                 pred = self.model(X)
 
                 val_loss = self.loss_fn(pred, y).item()
