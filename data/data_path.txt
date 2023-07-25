@@ -1,3 +1,1 @@
-/home/yangruixiong/ASL2/ASL11_data/music-8k-p11
-/home/yangruixiong/ASL2/ASL11_data/music-8k-p22
-/home/yangruixiong/ASL2/ASL11_data/music-8k-p11-music-8k-p22
+/home/yangruixiong/dataset/new_splicing_detection_dataset/concat-gdbank-spg-3s-8k-2
