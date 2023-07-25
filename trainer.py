@@ -44,9 +44,7 @@ class Trainer:
 
     def load_data(self):
         train_data_x, train_data_y, test_data_x, test_data_y = utils.load_data_new(self.hps)
-        # train_data_x = train_data_x[:,np.newaxis,:,:]  #for LCNN
-        # test_data_x = test_data_x[:,np.newaxis,:,:]  #for LCNN
-        
+
         training_data = MyDataset(train_data_x, train_data_y)
         test_data = MyDataset(test_data_x, test_data_y)
         return training_data, test_data

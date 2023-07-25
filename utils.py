@@ -291,33 +291,6 @@ def saving_feature():
 
 
 
-def load_data_npz(hps):   #load test data
-    print('Loading data...')
-    test_data_x = np.empty((1,32,300))
-    test_data_y = np.empty((1,))
-    setList = os.listdir(hps.data.downsample_data)
-    for s in setList:
-      setpath = os.path.join(hps.data.downsample_data,s)
-      print(setpath)
-      npyList = os.listdir(setpath)
-    
-      count = sum(1 for item in npyList if 'test' in item)
-      for i in tqdm(range(count)):
-          npyName = os.path.join(setpath,'test_data_mfcc_lfcc.npz')
-          data = np.load(npyName.split('.')[0]+str(i)+'.npz')
-          matrix = data['matrix']
-          labels = data['labels']
-          test_data_x = np.concatenate((test_data_x,matrix),axis=0)
-          test_data_y = np.concatenate((test_data_y,labels),axis=0)
-
-
-    test_data_x = test_data_x[1:]
-    test_data_y = test_data_y[1:]
-    test_data_y = test_data_y.astype('int64')
-    
-    return test_data_x, test_data_y
-
-
 def preprocess_data(batch_data):
     train_data_x = np.empty((1,32,300))
     train_data_y = np.empty((1,))
@@ -345,17 +318,17 @@ def load_data_new(hps):
         
         setpath = os.path.join(hps.data.downsample_data,s)
         print(setpath)
-        npyList = os.listdir(setpath)
-        npyList = [ i for i in npyList if '.npz' in i]
-        for item in tqdm(npyList):
-            npyName = os.path.join(setpath,item)
-            data = np.load(npyName)
+        npzList = os.listdir(setpath)
+        npzList = [ i for i in npzList if '.npz' in i]
+        for item in tqdm(npzList):
+            npzName = os.path.join(setpath,item)
+            data = np.load(npzName)
             matrix = data['matrix']
             labels = data['labels']
-            if 'train' in npyName:
+            if 'train' in npzName:
                 train_data_x = np.concatenate((train_data_x,matrix),axis=0)
                 train_data_y = np.concatenate((train_data_y,labels),axis=0)
-            elif 'test' in npyName:
+            elif 'test' in npzName:
                 test_data_x = np.concatenate((test_data_x,matrix),axis=0)
                 test_data_y = np.concatenate((test_data_y,labels),axis=0)
 
@@ -511,7 +484,7 @@ def concat(data_path,data_path_2,save_path,sr):
         time2= librosa.get_duration(y=data2,sr=sr)
         Type = 0
         if Type == 0:  #音频两部分进行两两拼凑
-            cut_pos = random.uniform(0.1,0.9)
+            cut_pos = random.uniform(0.2,0.8)
             #split
             start1 = int(cut_pos * len(data))
             #print(start1)
@@ -529,11 +502,7 @@ def concat(data_path,data_path_2,save_path,sr):
             count+=1
             sf.write(os.path.join(save_path,'tampered_' + str(count) + '.wav'),audio2,sr)
             count+=1
-            #save file with splicing position
-            # sf.write(os.path.join(save_path,str(count) +  '_tampered_' + str(start1) + '.wav'),audio1,sr)
-            # count+=1
-            # sf.write(os.path.join(save_path,str(count) +  '_tampered_' + str(start2) + '.wav'),audio2,sr)
-            # count+=1
+
         elif Type == 1:  #两个音频拼接
             splicing_data1 = np.hstack((data,data2))
             splicing_data2 = np.hstack((data2,data))
@@ -545,12 +514,12 @@ def concat(data_path,data_path_2,save_path,sr):
 
 """
     usage example:
-        python data_splicing_utils.py \
+        python utils.py \
             --type concat \
             --drop_last 1 \
-            --s_path /home/yangruixiong/dataset/new_splicing_detection_dataset/guangda-bank-3s-8k/train \
-            --s_path2 /home/yangruixiong/dataset/new_splicing_detection_dataset/southern-power-grid-3s-8k/train \
-            --t_path /home/yangruixiong/dataset/new_splicing_detection_dataset/concat-gdbank-spg-3s-8k/train \
+            --s_path /home/yangruixiong/dataset/new_splicing_detection_dataset/guangda-bank-3s-8k/val \
+            --s_path2 /home/yangruixiong/dataset/new_splicing_detection_dataset/southern-power-grid-3s-8k/val \
+            --t_path /home/yangruixiong/dataset/new_splicing_detection_dataset/concat-gdbank-spg-3s-8k-2/val \
             --s_sr 8000 \
             --t_sr 8000 \
             --cutting_time 3
@@ -748,6 +717,17 @@ def split_dataset(dataset_path1, data_path2, save_path1, save_path2, concat_save
             --t_path /home/yangruixiong/dataset/new_splicing_detection_dataset/guangda-bank
 """
 #=====================================================================================
+def npy_to_npz(data_path1,data_path2):
+    data1 = np.load(data_path1)
+    data2 = np.load(data_path2)
+    save_name = data_path1.replace('x_','')
+    save_name = save_name.replace('.npy','.npz')
+    np.savez(save_name,matrix=data1,labels=data2)
+    os.remove(data_path1)
+    os.remove(data_path2)
+    print(save_name)
+
+#=======================================================================================
 if __name__ == '__main__':
 
 
