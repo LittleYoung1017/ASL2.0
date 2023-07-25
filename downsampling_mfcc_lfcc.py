@@ -45,8 +45,7 @@ for data_path in tqdm(data_paths):
         data_list = os.listdir(os.path.join(data_path,t))
         X_data = []
         y_data = []
-        # for i in tqdm(range(len(data_list))):
-        for i in tqdm(range(int(len(data_list)/4))):
+        for i in tqdm(range(len(data_list))):
             try:
                 wav,sr = librosa.load(os.path.join(data_path,t,data_list[i]),sr=8000)
             except:
