@@ -13,7 +13,7 @@ from model.LCNN import LCNN
 from model.CNNLSTM import CNNLSTM
 import utils
 import librosa
-from MyTool.featureExtraction import featureExtracting
+from utils import featureExtracting
 from spafe.utils.preprocessing import SlidingWindow
 import math
 def feature_block(H,w):  #最后测试时用与长音频分段

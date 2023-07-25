@@ -5,7 +5,6 @@ import argparse
 import logging
 import librosa
 import json
-import pywt
 import subprocess
 import numpy as np
 import pandas as pd
@@ -111,31 +110,6 @@ class MyDataset(Dataset):
     def __len__(self):
         return self._len
 
-def wavelet(data_path=None,data=None,sr=8000,wt_type='sym8',ts_type='soft',maxlev=5):
-    if data_path:
-        data, sr = librosa.load(data_path, sr=sr)
-    #加载信号
-    index = [i/sr for i in range(len(data))]
-
-    # Create wavelet object and define parameters
-    w = pywt.Wavelet(wt_type)  # 选用sym8小波
-    # maxlev = pywt.dwt_max_level(len(data), w.dec_len)
-    # print("maximum level is " + str(maxlev))
-    threshold = 0.04  #0.04 Threshold for filtering
-
-    # Decompose into wavelet components, to the level selected:
-    coeffs = pywt.wavedec(data, wt_type, level=maxlev)  # 将信号进行小波分解
-
-    #plt.figure()
-    for i in range(1, len(coeffs)):
-        coeffs[i] = pywt.threshold(coeffs[i], threshold*max(coeffs[i]),mode=ts_type)  # 将噪声滤波
-
-    datarec = pywt.waverec(coeffs, wt_type)  # 将信号进行小波重构
-
-    if len(data) % 2 == 1:
-        datarec = datarec[:-1]
-    
-    return datarec
 
 def featureExtracting(wav,sr,feature_name,**params):
     if feature_name=='mfcc':
@@ -288,22 +262,6 @@ def saving_feature():
                     count_test+=1
                 np.savez(save_name,matrix=X_data,labels=y_data)
     
-
-
-
-def preprocess_data(batch_data):
-    train_data_x = np.empty((1,32,300))
-    train_data_y = np.empty((1,))
-    for name in tqdm(batch_data):
-      data = np.load(name)
-      matrix = data['matrix']
-      labels = data['labels']
-      train_data_x = np.concatenate((train_data_x,matrix),axis=0)
-      train_data_y = np.concatenate((train_data_y,labels),axis=0)
-    train_data_x = train_data_x[1:]
-    train_data_y = train_data_y[1:]
-    train_data_y = train_data_y.astype('int64')
-    return train_data_x, train_data_y
 
 
 def load_data_new(hps):

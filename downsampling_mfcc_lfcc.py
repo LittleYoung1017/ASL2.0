@@ -7,7 +7,6 @@ import math
 # import pandas as pd
 import math
 from torch.utils.data import Dataset, DataLoader
-# from MyTool.featureExtraction import featureExtracting
 from utils import featureExtracting
 import utils
 from utils import MyDataset
