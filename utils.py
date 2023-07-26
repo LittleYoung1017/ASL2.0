@@ -41,6 +41,16 @@ def read_file(file_path):
     
     return lines
 
+def modify_config(key, new_value, config_path='config.json'):
+    with open(config_path,'r') as file:
+        config_data = json.load(file)
+    if len(key) == 1:
+        config[key[0]] = new_value
+    elif len(key) == 2:    
+        config_data[key[0]][key[1]] = new_value
+    
+    with open(config_path,'w') as file:
+        json.dump(config_data, file, indent=4)
 
 def get_hparams_from_file(config_path):
   with open(config_path, "r") as f:
@@ -156,30 +166,31 @@ def featureExtracting(wav,sr,feature_name,**params):
                                             high_freq=sr/2)
         return mel_spec
  
-def saving_feature():
+def saving_feature(audioset_dirs):
     config_path = 'config.json'
     hps = get_hparams_from_file(config_path)
     print('extracting features...')
-    data_paths = read_file(hps.data.raw_data)
+    data_paths = audioset_dirs
+    # data_paths = read_file(hps.data.raw_data)
     for data_path in tqdm(data_paths):
         type_list = os.listdir(data_path)
 
-        datasetName = data_path.split('/')[-1]
-        datasetPath = os.path.join(hps.data.downsample_data,datasetName)
+        # datasetName = data_path.split('/')[-2]
+        datasetNamePath = data_path.split('split_data')[0]
+        datasetPath = os.path.join(datasetNamePath,'feature_data')
         if not os.path.exists(datasetPath):
             os.mkdir(datasetPath)
         count_train=0
         count_test=0
         for t in type_list:
             if 'train' in t:
-                save_path = os.path.join(hps.data.downsample_data,datasetName,'train_data_mfcc_lfcc.npz')
+                save_path = os.path.join(datasetPath,'train_data_mfcc_lfcc.npz')
             else:
-                save_path = os.path.join(hps.data.downsample_data,datasetName,'test_data_mfcc_lfcc.npz')
+                save_path = os.path.join(datasetPath,'test_data_mfcc_lfcc.npz')
             data_list = os.listdir(os.path.join(data_path,t))
             X_data = []
             y_data = []
             for i in tqdm(range(len(data_list))):
-            # for i in tqdm(range(int(len(data_list)/4))):
                 try:
                     wav,sr = librosa.load(os.path.join(data_path,t,data_list[i]),sr=8000)
                 except:
@@ -193,8 +204,6 @@ def saving_feature():
     #==================================== 特征提取=====================================
                 #提取mfcc特征,将原语音和纯语音mfcc相减获取本底特征
                 data_feature_mfcc = featureExtracting(wav,sr,hps.data.feature_type[0],
-                            pre_emph=1,
-                            pre_emph_coeff=0.97,
                             num_ceps= hps.data.n_mel_channels[0],
                             window=SlidingWindow(hps.data.win_length,hps.data.hop_length , hps.data.window_type),
                             nfilts=hps.data.nfilts,
@@ -202,8 +211,6 @@ def saving_feature():
                             low_freq=hps.data.mel_fmin,
                             normalize="mvn")
                 data_feature_lfcc = featureExtracting(wav,sr,hps.data.feature_type[1],
-                            pre_emph=1,
-                        pre_emph_coeff=0.97,
                         num_ceps= hps.data.n_mel_channels[1],
                         window=SlidingWindow(hps.data.win_length,hps.data.hop_length , hps.data.window_type),
                         nfilts=hps.data.nfilts,
@@ -274,7 +281,7 @@ def load_data_new(hps):
     setList = os.listdir(hps.data.downsample_data)
     for s in setList:
         
-        setpath = os.path.join(hps.data.downsample_data,s)
+        setpath = os.path.join(hps.data.downsample_data,s,'feature_data')
         print(setpath)
         npzList = os.listdir(setpath)
         npzList = [ i for i in npzList if '.npz' in i]
@@ -401,6 +408,7 @@ def resample_and_splicing(data_path,save_path,sr,sr_re,cutting_time,drop_last):
             path = os.path.join(save_path,'original_' + str(count) + '.wav')
             sf.write(path,split,sr_re)
             count+=1
+
         print(len(data))
         print(drop_last)
         if drop_last == 0:
@@ -493,7 +501,9 @@ def dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_
         dataset_Name = dataset_Name[-1]
         
     #划分train和test的音频保存位置    
-    dividing_dataset_path = os.path.join(save_path,dataset_Name)
+    dataset_name_path = os.path.join(save_path,dataset_Name)
+    dividing_dataset_path = os.path.join(dataset_name_path,'split_data')
+    os.makedirs(dividing_dataset_path,exist_ok=True)
     
     train_dir = os.path.join(dividing_dataset_path, 'train')
     val_dir = os.path.join(dividing_dataset_path, 'val')
@@ -503,7 +513,7 @@ def dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_
 
      # Get list of all files in the dataset directory
     file_list = os.listdir(data_path)
-    data_path = [i for i in data_path if '.wav' in i]
+    file_list = [i for i in file_list if '.wav' in i]
     random.shuffle(file_list)
      # Calculate number of files for training and validation
     num_files = len(file_list)
@@ -515,9 +525,9 @@ def dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_
     count=0
 
      # Move files to training set
-    for file_name in tqdm(file_list):   #训练集部分    
+    for file_name in tqdm(file_list):   
         # if '.wav' in file_name: 
-        src_path = os.path.join(data_path, file_name)   #初始文件路径
+        src_path = os.path.join(data_path, file_name)  
         try:
             data,rate = librosa.load(src_path,sr=s_sr)
         except:
@@ -526,18 +536,25 @@ def dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_
         test_dividing_count=0
         while(len(data)>=dividing_len):
             cut = dividing_len
-            # cut = int(random.uniform(0.95,1.05) * dividing_len)
             split = data[0:cut]
             data = data[cut:]
 
             if count<num_train:
-            # path = save_path + data_list[i].split('.')[0]+ '_'+str(count)+'.wav'
                 path = os.path.join(train_dir,'original_' + str(train_dividing_count) + '.wav')
                 train_dividing_count+=1
             else:
                 path = os.path.join(val_dir,'original_' + str(test_dividing_count) + '.wav')
                 test_dividing_count+=1
             sf.write(path,split,t_sr)
+        if len(data) >= dividing_len*0.7 :
+            if count<num_train:
+                path = os.path.join(train_dir,'original_' + str(train_dividing_count) + '.wav')
+                train_dividing_count+=1
+            else:
+                path = os.path.join(val_dir,'original_' + str(test_dividing_count) + '.wav')
+                test_dividing_count+=1
+            sf.write(path,split,t_sr)
+
         count+=1
 
     print(f"Dataset split complete. {num_train} files moved to training set, {num_val} files moved to validation set.")
@@ -575,7 +592,7 @@ def dividing_resample_spliting_concat(data_path_1,data_path_2,save_path,s_sr,s_s
     concat(test_dir1,test_dir2,test_save_path,t_sr)
     os.makedirs('data',exist_ok=True)
     #记录生成的分割和拼接数据目录
-    with open('data/data_path.txt','w+') as f:
+    with open('data/data_path.txt','w+') as f:   #准备删去
         f.write(target_path1+'\n')
         f.write(target_path2+'\n')
         f.write(save_path+'\n')
@@ -589,7 +606,7 @@ def dividing_resample_spliting_concat(data_path_1,data_path_2,save_path,s_sr,s_s
             --drop_last 1 \
             --s_path /home/yangruixiong/dataset/splicing-detection/music/music-8k-p11 \
             --s_path2 /home/yangruixiong/dataset/splicing-detection/music/music-8k-p22 \
-            --t_path /home/yangruixiong/ASL2/ASL10_data \
+            --t_path /home/yangruixiong/ASL2/data_ASL11 \
             --s_sr 8000 \
             --s_sr2 8000 \
             --t_sr 8000 \
@@ -597,41 +614,44 @@ def dividing_resample_spliting_concat(data_path_1,data_path_2,save_path,s_sr,s_s
 """
 #=================================================================================
 def audio_preprocessing(data_path_1,data_path_2,save_path,s_sr,s_sr2,t_sr,cutting_time,spliting_ratio=0.8,):
+    os.makedirs(save_path,exist_ok = True)
+
     target_path1,dataset_name1 = dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_time,feature_extraction=1)   
     target_path2,dataset_name2 = dividing_train_test_resample_spliting(data_path2,save_path,s_sr2,t_sr,cutting_time,feature_extraction=1)
     print('audio spliting complete.')
 
     concat_name = dataset_name1 + '-' + dataset_name2
-    save_path = os.path.join(save_path,concat_name)
+    concat_save_path = os.path.join(save_path,concat_name,'split_data')
     train_dir1 = os.path.join(target_path1,'train')
     test_dir1 = os.path.join(target_path1,'val')
     train_dir2 = os.path.join(target_path2,'train')
     test_dir2 = os.path.join(target_path2,'val')
-    train_save_path = os.path.join(save_path,'train')
-    test_save_path = os.path.join(save_path,'val')
+    train_save_path = os.path.join(concat_save_path,'train')
+    test_save_path = os.path.join(concat_save_path,'val')
 
     concat(train_dir1,train_dir2,train_save_path,t_sr)
     concat(test_dir1,test_dir2,test_save_path,t_sr)
     
     #记录生成的分割和拼接数据目录
-    with open('data/data_path.txt','w+') as f:
+    with open('data/data_path.txt','w+') as f:   #准备删去，无作用
         f.write(target_path1+'\n')
         f.write(target_path2+'\n')
-        f.write(save_path+'\n')
+        f.write(concat_save_path+'\n')
     print('audio concating complete.')
-    saving_feature()
+    audioset_dirs = [target_path1,target_path2,concat_save_path]
+    saving_feature(audioset_dirs)
 
     
 
 """
     usage example:
 
-        python utils2.py \
+        python utils.py \
             --type audio_preprocessing \
             --drop_last 1 \
             --s_path /home/yangruixiong/dataset/splicing-detection/music/music-8k-p11 \
             --s_path2 /home/yangruixiong/dataset/splicing-detection/music/music-8k-p22 \
-            --t_path /home/yangruixiong/ASL2/ASL11_data \
+            --t_path /home/yangruixiong/ASL2/data_ASL11 \
             --s_sr 8000 \
             --s_sr2 8000 \
             --t_sr 8000 \
@@ -691,7 +711,7 @@ if __name__ == '__main__':
 
     config_path = 'config.json'
     hps = get_hparams_from_file(config_path)
-    data_paths = read_file(hps.data.raw_data)
+    # data_paths = read_file(hps.data.raw_data)
     
     parser = argparse.ArgumentParser()
     parser.add_argument("--type", type=str, help="type of the function")
@@ -730,6 +750,6 @@ if __name__ == '__main__':
     elif args.type =='dividing_resample_spliting_concat':
         dividing_resample_spliting_concat(data_path,data_path2,save_path,s_sr,s_sr2,t_sr,cutting_time,spliting_ratio=0.8)
     elif args.type =='audio_preprocessing':
+        modify_config(['data','downsample_data'],save_path)
         audio_preprocessing(data_path,data_path2,save_path,s_sr,s_sr2,t_sr,cutting_time,spliting_ratio=0.8)
-        
         

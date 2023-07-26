@@ -2,7 +2,7 @@ ASL is a common diagram for audio splicing detection and localization and use a 
 
 
 ## Data preprocessing
-1. 在config中修改预处理数据保存位置：
+1. 在config中修改预处理数据保存路径，此目录为模型加载数据的路径：
 ```
     "data":{
         "downsample_data":"path_to_save_npz_file"
@@ -21,36 +21,31 @@ ASL is a common diagram for audio splicing detection and localization and use a 
         --t_sr 8000 \
         --cutting_time 3
 ```
-生成的目录如下：
+生成的的文件目录形式如下：
 ```
     -dataset1
-      -train
-        -original_1.wav #3s split audio file
-        -original_2.wav
-         ...
-      -val
-        -original_1.wav
-        -original_2.wav
-         ... 
+        -split_data
+            -train
+                -original_1.wav #3s split audio file
+                -original_2.wav
+                 ...
+            -val
+                -original_1.wav
+                -original_2.wav
+                 ...
+        -feature_data 
+            -train_data_mfcc_lfcc0.npz
+            -train_data_mfcc_lfcc1.npz
+             ...
+            -test_data_mfcc_lfcc0.npz
+             ...
     -dataset2
-      -train
-      -val
+        ...
     -concat_dataset1_dataset2
-      -train
-      -val
-
-    -dataset1_mfcc_lfcc
-      -train_data_mfcc_lfcc0.npz
-      -train_data_mfcc_lfcc1.npz
-       ...
-      -test_data_mfcc_lfcc0.npz
-       ...
-    -dataset2_mfcc_lfcc
-    -concat_dataset1_dataset2_mfcc_lfcc
-
+        ...
 ```
 
-单独对数据提取保存MFCC+LFCC特征时使用：
+单独对数据提取保存MFCC+LFCC特征时使用，需要将要提取特征的数据集路径保存在data/data_path.txt中，再执行：
 ```
     python downsampling_mfcc_lfcc_concat2.py
 ```

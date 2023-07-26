@@ -1,48 +1,53 @@
 {
-    "data":{
-        "raw_data":"data/data_path.txt",
-        "@raw_data":"path to data directory file",
-        
-        "downsample_data":"/home/yangruixiong/ASL2/ASL10_data",
-        "@downsample_data":"path to save downsampled data with format npz ",
-        "train_test_split_rate":0.9,
-        "sampling_rate":8000,
-        "feature_type":["mfcc","lfcc"], 
-        "win_length":0.030,
-        "hop_length":0.015,
-        "window_type":"hamming",
-        "n_mel_channels": [12,20],
+    "data": {
+        "raw_data": "data/data_path.txt",
+        "@raw_data": "path to data directory file",
+        "downsample_data": "/home/yangruixiong/ASL2/data_ASL11",
+        "@downsample_data": "path to save downsampled data with format npz ",
+        "train_test_split_rate": 0.9,
+        "sampling_rate": 8000,
+        "feature_type": [
+            "mfcc",
+            "lfcc"
+        ],
+        "win_length": 0.03,
+        "hop_length": 0.015,
+        "window_type": "hamming",
+        "n_mel_channels": [
+            12,
+            20
+        ],
         "mel_fmin": 0.0,
         "mel_fmax": null,
-        "filter_length":39,
-        "nfilts":39,
-        "nfft":512,
-        "load_data_batch":60
-
+        "filter_length": 39,
+        "nfilts": 39,
+        "nfft": 512,
+        "load_data_batch": 60
     },
-    "train":{
-        "device":"cuda:0",
-        "data_split_rate":0.9,
-        "batch_size":50,
-
-        "learning_rate":0.0001,
-        "epoch":800,
-        "log_interval":200,
-        "ckpt_interval":30,
-        "checkpoint_path":"ckpt/",
-        "log_dir":"log/",
-        "log_tsb_path":"log/tsb"
-        
+    "train": {
+        "device": "cuda:0",
+        "data_split_rate": 0.9,
+        "batch_size": 50,
+        "learning_rate": 0.0001,
+        "epoch": 800,
+        "log_interval": 200,
+        "ckpt_interval": 30,
+        "checkpoint_path": "ckpt/",
+        "log_dir": "log/",
+        "log_tsb_path": "log/tsb"
     },
-    "model":{
-        "model_name":"CNNLSTM"
+    "model": {
+        "model_name": "CNNLSTM"
     },
-    "test":{
-        "checkpoint_name":"/home/yangruixiong/ASL2/ASL10/ckpt/epoch60CNNLSTM-mfcc-lfcc.pth",
-        "test_data":["/home/yangruixiong/dataset/new_splicing_detection_dataset/concat-gdbank-spg-3s-8k-2/val"],
-        "@test_data":["/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-AISHELL-VCTK-2s-8k",
-        "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-ESC-3s-8k",
-        "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-singing-music-2s-8k"
-    ]
+    "test": {
+        "checkpoint_name": "/home/yangruixiong/ASL2/ASL10/ckpt/epoch60CNNLSTM-mfcc-lfcc.pth",
+        "test_data": [
+            "/home/yangruixiong/dataset/new_splicing_detection_dataset/concat-gdbank-spg-3s-8k-2/val"
+        ],
+        "@test_data": [
+            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-AISHELL-VCTK-2s-8k",
+            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-ESC-3s-8k",
+            "/home/yangruixiong/dataset/splicing-detection/splicing-dataset/concat-singing-music-2s-8k"
+        ]
     }
 }
