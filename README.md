@@ -2,13 +2,7 @@ ASL is a common diagram for audio splicing detection and localization and use a 
 
 
 ## Data preprocessing
-1. 在config中修改预处理数据保存路径，此目录为模型加载数据的路径：
-```
-    "data":{
-        "downsample_data":"path_to_save_npz_file"
-    }
-```
-2. 对两个audio数据集分别划分训练集和验证集，将音频数据分割成固定长度音频，两两随机拼接，设置分割长度为3s。再对切割好的音频和拼接生成的音频提取MFCC+LFCC特征，两个特征合并在一起，最终保存为npz文件。
+1. 对两个audio数据集分别划分训练集和验证集，将音频数据分割成固定长度音频，两两随机拼接，设置分割长度为3s。再对切割好的音频和拼接生成的音频提取MFCC+LFCC特征，两个特征合并在一起，最终保存为npz文件。
 ```
     python utils.py
         --type audio_preprocessing \
@@ -23,8 +17,8 @@ ASL is a common diagram for audio splicing detection and localization and use a 
 ```
 生成的的文件目录形式如下：
 ```
-    -dataset1
-        -split_data
+    -dataset1              
+        -split_audio
             -train
                 -original_1.wav #3s split audio file
                 -original_2.wav
@@ -40,18 +34,22 @@ ASL is a common diagram for audio splicing detection and localization and use a 
             -test_data_mfcc_lfcc0.npz
              ...
     -dataset2
-        ...
-    -concat_dataset1_dataset2
-        ...
+        -split_audio
+        -feature_data
+    -concat_dataset1_dataset2          /拼接后的数据集
+        -split_audio
+        -feature_data
 ```
 
-单独对数据提取保存MFCC+LFCC特征时使用，需要将要提取特征的数据集路径保存在data/data_path.txt中，再执行：
+直接使用asd_data进行训练时，需要将要提取特征的数据集路径保存在config中：
 ```
-    python downsampling_mfcc_lfcc_concat2.py
+    "data":{
+        "downsample_data":"path_to_data"
+    }
 ```
 
 ## Train
-3. 进行少数据量训练：
+2. 进行少数据量训练：
 ```
     python trainer.py
 ```
@@ -60,14 +58,17 @@ ASL is a common diagram for audio splicing detection and localization and use a 
     python trainer2.py
 ```
 ## Inference
-4. 配置测试文件位置和测试模型:
+3. 配置测试文件位置和测试模型:
 ```
     "test":{
             "checkpoint_name":"/home/yangruixiong/ASL2/ASL10/ckpt/epoch60CNNLSTM-mfcc-lfcc.pth",
-            "test_data":"path_to_test_file"
+            "test_data":[
+                "path_to_test_data1",
+                "path_to_test_data2"       
+            ]
     }
 ```
-5. 运行测试程序：
+4. 运行测试程序：
 ```
     python test.py
 ```

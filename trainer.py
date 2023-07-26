@@ -1,6 +1,7 @@
 import os 
 import numpy as np
 import torch
+import argparse
 from torch import nn
 from torch.utils import data
 from torch.utils.data import DataLoader,Dataset
@@ -138,6 +139,14 @@ class Trainer:
 def main():
     config_path = "config.json"
     hps = utils.get_hparams_from_file(config_path)
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-data_path", type=str, default="",help="type of the function")
+    args = parser.parse_args()
+    
+    if args.data_path != "":
+        utils.modify_config(['data','downsample_data'],args.data_path)  #训练数据路径
+    
     trainer = Trainer(hps)
     trainer.run()
 

@@ -119,13 +119,12 @@ class MyDataset(Dataset):
 
     def __len__(self):
         return self._len
-
+    
+#================================================================
 
 def featureExtracting(wav,sr,feature_name,**params):
     if feature_name=='mfcc':
         mfccs = mfcc(wav,fs=sr,
-                pre_emph=1,
-                pre_emph_coeff=0.97,
                 num_ceps=params['num_ceps'],
                 window=SlidingWindow(0.03, 0.015, "hamming"),
                 nfft=512,
@@ -134,8 +133,6 @@ def featureExtracting(wav,sr,feature_name,**params):
         return mfccs.T
     elif feature_name=='lfcc':
         lfccs= lfcc(wav,fs=sr,
-                pre_emph=1,
-            pre_emph_coeff=0.97,
             num_ceps=params['num_ceps'],
             window=SlidingWindow(0.03, 0.015, "hamming"),
             nfilts=128,
@@ -146,8 +143,6 @@ def featureExtracting(wav,sr,feature_name,**params):
     elif feature_name=='cqcc':
         cqccs = cqcc(wav,
                     fs=sr,
-                    pre_emph=1,
-                    pre_emph_coeff=0.97,
                     window=SlidingWindow(0.03, 0.015, "hamming"),
                     nfft=512,
                     low_freq=0,
@@ -157,8 +152,6 @@ def featureExtracting(wav,sr,feature_name,**params):
     elif feature_name=='mel_spectrogram':
         mel_spec,_ = mel_spectrogram(wav,
                                             fs=sr,
-                                            pre_emph=0,
-                                            pre_emph_coeff=0.97,
                                             window=SlidingWindow(0.03, 0.015, "hamming"),
                                             nfilts=24,
                                             nfft=512,
@@ -176,7 +169,7 @@ def saving_feature(audioset_dirs):
         type_list = os.listdir(data_path)
 
         # datasetName = data_path.split('/')[-2]
-        datasetNamePath = data_path.split('split_data')[0]
+        datasetNamePath = data_path.split('split_audio')[0]
         datasetPath = os.path.join(datasetNamePath,'feature_data')
         if not os.path.exists(datasetPath):
             os.mkdir(datasetPath)
@@ -227,7 +220,7 @@ def saving_feature(audioset_dirs):
                 X_data.append(data_feature)
 
     #==================================================================================
-                if len(X_data) >= 2000:#每2000个保存一个npz文件
+                if len(X_data) >= 1000:#每1000个保存一个npz文件
                     X_data = np.array(X_data)
                     y_data = np.array(y_data)
                     
@@ -249,7 +242,7 @@ def saving_feature(audioset_dirs):
 
                     X_data = []
                     y_data = []
-            if len(X_data) >=2:
+            if len(X_data) >=1:
                 X_data = np.array(X_data)
                 y_data = np.array(y_data)
                 
@@ -381,55 +374,6 @@ def data_splicing(data_path,save_path,sr,cutting_time,drop_last):
 """
 #=================================================================================
 
-def resample_and_splicing(data_path,save_path,sr,sr_re,cutting_time,drop_last):
-
-    sr=sr
-    sr_re = sr_re 
-    if not os.path.exists(save_path):
-        os.mkdir(save_path)
-    dividing_len = int(cutting_time * sr_re)
-    count=0
-    data_list = os.listdir(data_path)
-    for i in tqdm(range(len(data_list))):
-        try:
-            data,rate = librosa.load(os.path.join(data_path,data_list[i]),sr=sr)
-        except:
-            continue
-        data = librosa.resample(y=data, orig_sr=sr, target_sr=sr_re)
-        time = librosa.get_duration(y=data,sr=sr_re)
-        print(time)
-
-        while(len(data)>=dividing_len):
-            cut = dividing_len
-            # cut = int(random.uniform(0.95,1.05) * dividing_len)
-            split = data[0:cut]
-            data = data[cut:]
-            # path = save_path + data_list[i].split('.')[0]+ '_'+str(count)+'.wav'
-            path = os.path.join(save_path,'original_' + str(count) + '.wav')
-            sf.write(path,split,sr_re)
-            count+=1
-
-        print(len(data))
-        print(drop_last)
-        if drop_last == 0:
-            if len(data)>0:
-                path = os.path.join(save_path,data_list[i].split('.')[0]+ '_'+str(count)+'.wav')
-                print(path)
-                sf.write(path,data,sr_re)
-
-"""
-    usage:
-        python data_splicing_utils.py \
-            --type resample_splicing \
-            --drop_last False \
-            --s_path /home/yangruixiong/dataset/ESC-50/ESC \
-            --t_path /home/yangruixiong/dataset/ESC-50/ESC-3s-8k \
-            --s_sr 44100 \
-            --t_sr 8000 \
-            --cutting_time 3
-"""
-#==============================================================================
-
 def concat(data_path,data_path_2,save_path,sr):
     file_path_1 = data_path
     file_path_2 = data_path_2
@@ -502,7 +446,7 @@ def dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_
         
     #划分train和test的音频保存位置    
     dataset_name_path = os.path.join(save_path,dataset_Name)
-    dividing_dataset_path = os.path.join(dataset_name_path,'split_data')
+    dividing_dataset_path = os.path.join(dataset_name_path,'split_audio')
     os.makedirs(dividing_dataset_path,exist_ok=True)
     
     train_dir = os.path.join(dividing_dataset_path, 'train')
@@ -546,7 +490,7 @@ def dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_
                 path = os.path.join(val_dir,'original_' + str(test_dividing_count) + '.wav')
                 test_dividing_count+=1
             sf.write(path,split,t_sr)
-        if len(data) >= dividing_len*0.7 :
+        if len(data) >= dividing_len*0.7 :  #音频末尾不足设定长度的部分
             if count<num_train:
                 path = os.path.join(train_dir,'original_' + str(train_dividing_count) + '.wav')
                 train_dividing_count+=1
@@ -574,54 +518,18 @@ def dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_
             --cutting_time 3
 """
 #=================================================================================
-def dividing_resample_spliting_concat(data_path_1,data_path_2,save_path,s_sr,s_sr2,t_sr,cutting_time,spliting_ratio=0.8):
-    target_path1,dataset_name1 = dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_time,feature_extraction=1)   
-    target_path2,dataset_name2 = dividing_train_test_resample_spliting(data_path2,save_path,s_sr2,t_sr,cutting_time,feature_extraction=1)
-    print('audio spliting complete.')
-
-    concat_name = dataset_name1 + '-' + dataset_name2
-    save_path = os.path.join(save_path,concat_name)
-    train_dir1 = os.path.join(target_path1,'train')
-    test_dir1 = os.path.join(target_path1,'val')
-    train_dir2 = os.path.join(target_path2,'train')
-    test_dir2 = os.path.join(target_path2,'val')
-    train_save_path = os.path.join(save_path,'train')
-    test_save_path = os.path.join(save_path,'val')
-
-    concat(train_dir1,train_dir2,train_save_path,t_sr)
-    concat(test_dir1,test_dir2,test_save_path,t_sr)
-    os.makedirs('data',exist_ok=True)
-    #记录生成的分割和拼接数据目录
-    with open('data/data_path.txt','w+') as f:   #准备删去
-        f.write(target_path1+'\n')
-        f.write(target_path2+'\n')
-        f.write(save_path+'\n')
-    print('audio concating complete.')
-    
-"""
-    usage example:
-
-        python utils.py \
-            --type dividing_resample_spliting_concat \
-            --drop_last 1 \
-            --s_path /home/yangruixiong/dataset/splicing-detection/music/music-8k-p11 \
-            --s_path2 /home/yangruixiong/dataset/splicing-detection/music/music-8k-p22 \
-            --t_path /home/yangruixiong/ASL2/data_ASL11 \
-            --s_sr 8000 \
-            --s_sr2 8000 \
-            --t_sr 8000 \
-            --cutting_time 3
-"""
-#=================================================================================
-def audio_preprocessing(data_path_1,data_path_2,save_path,s_sr,s_sr2,t_sr,cutting_time,spliting_ratio=0.8,):
+def audio_preprocessing(data_path_1,data_path_2,save_path,s_sr,s_sr2,t_sr,
+                        cutting_time,spliting_ratio=0.8,drop_last=1):
     os.makedirs(save_path,exist_ok = True)
 
-    target_path1,dataset_name1 = dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_time,feature_extraction=1)   
-    target_path2,dataset_name2 = dividing_train_test_resample_spliting(data_path2,save_path,s_sr2,t_sr,cutting_time,feature_extraction=1)
+    target_path1,dataset_name1 = dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,
+                                                                       cutting_time,drop_last=drop_last)   
+    target_path2,dataset_name2 = dividing_train_test_resample_spliting(data_path2,save_path,s_sr2,t_sr,
+                                                                       cutting_time,drop_last=drop_last)
     print('audio spliting complete.')
 
     concat_name = dataset_name1 + '-' + dataset_name2
-    concat_save_path = os.path.join(save_path,concat_name,'split_data')
+    concat_save_path = os.path.join(save_path,concat_name,'split_audio')
     train_dir1 = os.path.join(target_path1,'train')
     test_dir1 = os.path.join(target_path1,'val')
     train_dir2 = os.path.join(target_path2,'train')
@@ -641,8 +549,6 @@ def audio_preprocessing(data_path_1,data_path_2,save_path,s_sr,s_sr2,t_sr,cuttin
     audioset_dirs = [target_path1,target_path2,concat_save_path]
     saving_feature(audioset_dirs)
 
-    
-
 """
     usage example:
 
@@ -658,60 +564,12 @@ def audio_preprocessing(data_path_1,data_path_2,save_path,s_sr,s_sr2,t_sr,cuttin
             --cutting_time 3
 """
 #====================================================================================
-def split_dataset(dataset_path1, data_path2, save_path1, save_path2, concat_save_path,split_ratio=0.8):
-    # Create directories for training and validation sets
-    train_dir = os.path.join(save_path, 'train')
-    val_dir = os.path.join(save_path, 'val')
-    os.makedirs(train_dir, exist_ok=True)
-    os.makedirs(val_dir, exist_ok=True)
-     # Get list of all files in the dataset directory
-    file_list = os.listdir(dataset_path)
-    random.shuffle(file_list)
-     # Calculate number of files for training and validation
-    num_files = len(file_list)
-    num_train = int(num_files * split_ratio)
-    num_val = num_files - num_train
-     # Move files to training set
-    for file_name in tqdm(file_list[:num_train]):
-        if '.wav' in file_name: 
-            src_path = os.path.join(dataset_path, file_name)
-            dest_path = os.path.join(train_dir, file_name)
-            print(src_path)
-            print(dest_path)
-            shutil.move(src_path, dest_path)
-     # Move files to validation set
-    for file_name in tqdm(file_list[num_train:]):
-        if '.wav' in file_name: 
-            src_path = os.path.join(dataset_path, file_name)
-            dest_path = os.path.join(val_dir, file_name)
-            shutil.move(src_path, dest_path)
-    print(f"Dataset split complete. {num_train} files moved to training set, {num_val} files moved to validation set.")
-
-"""
-    usage example:
-        python data_splicing_utils.py \
-            --type split_dataset \
-            --s_path /home/yangruixiong/dataset/guangda-bank/original-data \
-            --t_path /home/yangruixiong/dataset/new_splicing_detection_dataset/guangda-bank
-"""
-#=====================================================================================
-def npy_to_npz(data_path1,data_path2):
-    data1 = np.load(data_path1)
-    data2 = np.load(data_path2)
-    save_name = data_path1.replace('x_','')
-    save_name = save_name.replace('.npy','.npz')
-    np.savez(save_name,matrix=data1,labels=data2)
-    os.remove(data_path1)
-    os.remove(data_path2)
-    print(save_name)
 
 #=======================================================================================
 if __name__ == '__main__':
-
-
+    
     config_path = 'config.json'
     hps = get_hparams_from_file(config_path)
-    # data_paths = read_file(hps.data.raw_data)
     
     parser = argparse.ArgumentParser()
     parser.add_argument("--type", type=str, help="type of the function")
