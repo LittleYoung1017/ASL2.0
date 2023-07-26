@@ -53,7 +53,7 @@ ASL is a common diagram for audio splicing detection and localization and use a 
 ```
     python trainer.py
 ```
-大数据集训练执行：
+大数据集训练执行(后续补充)：
 ```
     python trainer2.py
 ```
