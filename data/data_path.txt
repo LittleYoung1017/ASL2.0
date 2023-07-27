@@ -1,3 +1,0 @@
-/home/yangruixiong/ASL2/data_ASL11/music-8k-p11/split_data
-/home/yangruixiong/ASL2/data_ASL11/music-8k-p22/split_data
-/home/yangruixiong/ASL2/data_ASL11/music-8k-p11-music-8k-p22/split_data

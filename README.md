@@ -19,7 +19,7 @@ ASL is a common diagram for audio splicing detection and localization and use a 
 ```
     -dataset1              
         -split_audio
-            -train
+            -train      
                 -original_1.wav #3s split audio file
                 -original_2.wav
                  ...
@@ -28,7 +28,7 @@ ASL is a common diagram for audio splicing detection and localization and use a 
                 -original_2.wav
                  ...
         -feature_data 
-            -train_data_mfcc_lfcc0.npz
+            -train_data_mfcc_lfcc0.npz   
             -train_data_mfcc_lfcc1.npz
              ...
             -test_data_mfcc_lfcc0.npz
@@ -67,6 +67,13 @@ ASL is a common diagram for audio splicing detection and localization and use a 
                 "path_to_test_data2"       
             ]
     }
+```
+测试目录格式格式：
+```
+    -path_to_test_data1
+        test1.wav   /3s音频
+        test2.wav
+        ...
 ```
 4. 运行测试程序：
 ```

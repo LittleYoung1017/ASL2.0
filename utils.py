@@ -126,36 +126,36 @@ def featureExtracting(wav,sr,feature_name,**params):
     if feature_name=='mfcc':
         mfccs = mfcc(wav,fs=sr,
                 num_ceps=params['num_ceps'],
-                window=SlidingWindow(0.03, 0.015, "hamming"),
-                nfft=512,
-                low_freq=0,
-                normalize="mvn")
+                window=params['window'],
+                nfft=params['nfft'],
+                low_freq=params['low_freq'],
+                normalize=params['normalize'])
         return mfccs.T
     elif feature_name=='lfcc':
         lfccs= lfcc(wav,fs=sr,
             num_ceps=params['num_ceps'],
-            window=SlidingWindow(0.03, 0.015, "hamming"),
-            nfilts=128,
-            nfft=512,
-            low_freq=0,
-            normalize="mvn")
+            window=params['window'],
+            nfilts=params['nfilts'],
+            nfft=params['nfft'],
+            low_freq=params['low_freq'],
+            normalize=params['normalize'])
         return lfccs.T
     elif feature_name=='cqcc':
         cqccs = cqcc(wav,
                     fs=sr,
-                    window=SlidingWindow(0.03, 0.015, "hamming"),
-                    nfft=512,
-                    low_freq=0,
+                    window=params['window'],
+                    nfft=params['nfft'],
+                    low_freq=params['low_freq'],
                     high_freq=sr/2,
                     normalize="mvn")
         return cqccs.T
     elif feature_name=='mel_spectrogram':
         mel_spec,_ = mel_spectrogram(wav,
                                             fs=sr,
-                                            window=SlidingWindow(0.03, 0.015, "hamming"),
-                                            nfilts=24,
-                                            nfft=512,
-                                            low_freq=0,
+                                            window=params['window'],
+                                            nfilts=params['nfilts'],
+                                            nfft=params['nfft'],
+                                            low_freq=params['low_freq'],
                                             high_freq=sr/2)
         return mel_spec
  
@@ -164,7 +164,6 @@ def saving_feature(audioset_dirs):
     hps = get_hparams_from_file(config_path)
     print('extracting features...')
     data_paths = audioset_dirs
-    # data_paths = read_file(hps.data.raw_data)
     for data_path in tqdm(data_paths):
         type_list = os.listdir(data_path)
 
@@ -195,7 +194,7 @@ def saving_feature(audioset_dirs):
                     y_data.append(1)
 
     #==================================== 特征提取=====================================
-                #提取mfcc特征,将原语音和纯语音mfcc相减获取本底特征
+                #提取mfcc特征和lfcc特征并合并在一起
                 data_feature_mfcc = featureExtracting(wav,sr,hps.data.feature_type[0],
                             num_ceps= hps.data.n_mel_channels[0],
                             window=SlidingWindow(hps.data.win_length,hps.data.hop_length , hps.data.window_type),
@@ -220,7 +219,7 @@ def saving_feature(audioset_dirs):
                 X_data.append(data_feature)
 
     #==================================================================================
-                if len(X_data) >= 1000:#每1000个保存一个npz文件
+                if len(X_data) >= 1000:#每1000个音频特征保存一个npz文件
                     X_data = np.array(X_data)
                     y_data = np.array(y_data)
                     
@@ -297,10 +296,6 @@ def load_data_new(hps):
     test_data_y = test_data_y[1:]
     train_data_y = train_data_y.astype('int64')
     test_data_y = test_data_y.astype('int64')
-    print("train_data_x:",train_data_x.shape)
-    print("train_data_y:",train_data_y.shape)
-    print("test_data_x:",test_data_x.shape)
-    print("test_data_y:",test_data_y.shape)
 
     return train_data_x, train_data_y, test_data_x, test_data_y  
 
@@ -323,7 +318,7 @@ def resample(file_path,save_path,sr,sr_re=8000):
 
 """
     usage:
-        python data_splicing_utils.py \
+        python utils.py \
         --type resample \
         --drop_last True \
         --s_path /home/yangruixiong/dataset/ESC-50/ESC \
@@ -364,7 +359,7 @@ def data_splicing(data_path,save_path,sr,cutting_time,drop_last):
                 sf.write(path,data,sr)
 """
     usage:
-        python data_splicing_utils.py \
+        python utils.py \
         --type splicing \
         --drop_last 1 \
         --s_path /home/yangruixiong/dataset/new_splicing_detection_dataset/southern-power-grid/val \
@@ -397,10 +392,10 @@ def concat(data_path,data_path_2,save_path,sr):
             cut_pos = random.uniform(0.2,0.8)
             #split
             start1 = int(cut_pos * len(data))
-            #print(start1)
+
             start2 = int(cut_pos* len(data2))
 
-            #stop = start + duration
+
             split_left, split_right = data[:start1],data[start1:]
             split_left2, split_right2 = data2[:start2],data2[start2:]
 
@@ -436,7 +431,7 @@ def concat(data_path,data_path_2,save_path,sr):
 """
 
 #================================================================================
-def dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_time,split_ratio=0.8,feature_extraction=1):
+def dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_time,split_ratio=0.8,drop_last=1):
     #get dataset name
     dataset_Name = data_path.split('/')
     if dataset_Name[-1] == '':
@@ -490,14 +485,15 @@ def dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_
                 path = os.path.join(val_dir,'original_' + str(test_dividing_count) + '.wav')
                 test_dividing_count+=1
             sf.write(path,split,t_sr)
-        if len(data) >= dividing_len*0.7 :  #音频末尾不足设定长度的部分
-            if count<num_train:
-                path = os.path.join(train_dir,'original_' + str(train_dividing_count) + '.wav')
-                train_dividing_count+=1
-            else:
-                path = os.path.join(val_dir,'original_' + str(test_dividing_count) + '.wav')
-                test_dividing_count+=1
-            sf.write(path,split,t_sr)
+        if drop_last ==0:
+            if len(data) >= dividing_len*0.7 :  #音频末尾不足设定长度的部分
+                if count<num_train:
+                    path = os.path.join(train_dir,'original_' + str(train_dividing_count) + '.wav')
+                    train_dividing_count+=1
+                else:
+                    path = os.path.join(val_dir,'original_' + str(test_dividing_count) + '.wav')
+                    test_dividing_count+=1
+                sf.write(path,split,t_sr)
 
         count+=1
 
@@ -541,11 +537,9 @@ def audio_preprocessing(data_path_1,data_path_2,save_path,s_sr,s_sr2,t_sr,
     concat(test_dir1,test_dir2,test_save_path,t_sr)
     
     #记录生成的分割和拼接数据目录
-    with open('data/data_path.txt','w+') as f:   #准备删去，无作用
-        f.write(target_path1+'\n')
-        f.write(target_path2+'\n')
-        f.write(concat_save_path+'\n')
+
     print('audio concating complete.')
+    
     audioset_dirs = [target_path1,target_path2,concat_save_path]
     saving_feature(audioset_dirs)
 
@@ -555,8 +549,8 @@ def audio_preprocessing(data_path_1,data_path_2,save_path,s_sr,s_sr2,t_sr,
         python utils.py \
             --type audio_preprocessing \
             --drop_last 1 \
-            --s_path /home/yangruixiong/dataset/splicing-detection/music/music-8k-p11 \
-            --s_path2 /home/yangruixiong/dataset/splicing-detection/music/music-8k-p22 \
+            --s_path /home/yangruixiong/dataset/splicing-detection/music/music-8k-p1 \
+            --s_path2 /home/yangruixiong/dataset/splicing-detection/music/music-8k-p2 \
             --t_path /home/yangruixiong/ASL2/data_ASL11 \
             --s_sr 8000 \
             --s_sr2 8000 \

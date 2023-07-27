@@ -117,7 +117,7 @@ class Trainer:
         self.logger.info(f"Using {self.device} device")
         self.logger.info(f"Start training with {self.hps.model.model_name} model")
         self.logger.info(self.model)
-        self.logger.info(f"Config: {self.hps}")
+        # self.logger.info(f"Config: {self.hps}")
 
         for epoch in range(self.hps.train.epoch):
             self.logger.info(f"====> Epoch: {epoch + 1}")

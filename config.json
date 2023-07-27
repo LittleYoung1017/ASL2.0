@@ -1,7 +1,5 @@
 {
     "data": {
-        "raw_data": "data/data_path.txt",
-        "@raw_data": "path to data directory file",
         "downsample_data": "/home/yangruixiong/ASL2/data_ASL11",
         "@downsample_data": "path to save downsampled data with format npz ",
         "train_test_split_rate": 0.9,
@@ -22,6 +20,7 @@
         "filter_length": 39,
         "nfilts": 39,
         "nfft": 512,
+        "cutting_time": 3,
         "load_data_batch": 60
     },
     "train": {
