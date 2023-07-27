@@ -1,7 +1,9 @@
 ASL is a common diagram for audio splicing detection and localization and use a LCNN+LSTM model.
 
 
+
 ## Data preprocessing
+
 1. 对两个audio数据集分别划分训练集和验证集，将音频数据分割成固定长度音频，两两随机拼接，设置分割长度为3s。再对切割好的音频和拼接生成的音频提取MFCC+LFCC特征，两个特征合并在一起，最终保存为npz文件。
 ```
     python utils.py
@@ -33,26 +35,23 @@ ASL is a common diagram for audio splicing detection and localization and use a 
              ...
             -test_data_mfcc_lfcc0.npz
              ...
-    -dataset2
-        -split_audio
-        -feature_data
     -concat_dataset1_dataset2          /拼接后的数据集
         -split_audio
         -feature_data
 ```
 
-直接使用asd_data进行训练时，需要将要提取特征的数据集路径保存在config中：
-```
-    "data":{
-        "downsample_data":"path_to_data"
-    }
-```
 
 ## Train
+
 2. 进行少数据量训练：
 ```
     python trainer.py
 ```
+直接使用asd_data进行训练时，只需传入数据集路径：
+```
+    python trainer.py path_to_asd_data
+```
+
 大数据集训练执行(后续补充)：
 ```
     python trainer2.py
