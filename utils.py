@@ -462,7 +462,8 @@ def dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_
     dividing_len = int(cutting_time * t_sr)
 
     count=0
-
+    train_dividing_count=0
+    test_dividing_count=0
      # Move files to training set
     for file_name in tqdm(file_list):   
         # if '.wav' in file_name: 
@@ -470,9 +471,9 @@ def dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_
         try:
             data,rate = librosa.load(src_path,sr=s_sr)
         except:
+            print('Wrong: cant read audio file.')
             continue
-        train_dividing_count=0
-        test_dividing_count=0
+
         while(len(data)>=dividing_len):
             cut = dividing_len
             split = data[0:cut]
