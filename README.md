@@ -47,9 +47,9 @@ ASL is a common diagram for audio splicing detection and localization and use a 
 ```
     python trainer.py
 ```
-直接使用asd_data进行训练时，只需传入数据集路径：
+直接使用asl_data进行训练时，只需传入数据集路径：
 ```
-    python trainer.py path_to_asd_data
+    python trainer.py -data_path path_to_asd_data
 ```
 
 大数据集训练执行(后续补充)：

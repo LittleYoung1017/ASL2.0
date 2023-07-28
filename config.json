@@ -1,6 +1,6 @@
 {
     "data": {
-        "downsample_data": "/home/yangruixiong/ASL2/data_ASL11",
+        "downsample_data": "data_ASL11",
         "@downsample_data": "path to save downsampled data with format npz ",
         "train_test_split_rate": 0.9,
         "sampling_rate": 8000,
