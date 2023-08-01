@@ -1,7 +1,6 @@
 import os 
 import numpy as np
 import torch
-import argparse
 from torch import nn
 from torch.utils import data
 from torch.utils.data import DataLoader,Dataset
@@ -37,18 +36,19 @@ class Trainer:
             model = LCNN().to(self.device)
         elif model_name == 'CNN':
             model = CNN().to(self.device)
-        elif model_name == 'CNNLSTM2':
-            model = CNNLSTM2(32,32,2,3).to(self.device)
+        elif model_name == 'CNNLSTM':
+            model = CNNLSTM(32,32,2,3).to(self.device)
         else:
             raise Exception(f"Error: {model_name}")
         return model
 
-    def load_data(self):
-        train_data_x, train_data_y, test_data_x, test_data_y = utils.load_data_new(self.hps)
+    def load_test_data(self):
+        test_data_x, test_data_y = utils.load_test_data(self.hps)
 
-        training_data = MyDataset(train_data_x, train_data_y)
+        print("test_data_x:",test_data_x.shape)
+        print("test_data_y:",test_data_y.shape)
         test_data = MyDataset(test_data_x, test_data_y)
-        return training_data, test_data
+        return test_data
 
     def train(self, dataloader, epoch):
         self.model.train()
@@ -113,28 +113,27 @@ class Trainer:
         return val_loss,val_acc
 
     def run(self):
-        training_data, test_data = self.load_data()
+        print('Loading data...')
+        train_file_all = utils.get_train_data_list(self.hps)
+        test_data = self.load_test_data()
         self.logger.info(f"Using {self.device} device")
         self.logger.info(f"Start training with {self.hps.model.model_name} model")
         self.logger.info(self.model)
-        
-        from thop import profile
-        x = torch.randn(1,1,32,300).to(self.device)
-        macs, params = profile(self.model, inputs = (x,))
-        self.logger.info('Mults.', macs/1e6,'[M] Params.',params/1e3,'[kB]')
-        
         # self.logger.info(f"Config: {self.hps}")
-        train_dataloader = DataLoader(training_data, batch_size=self.hps.train.batch_size, shuffle=True)
-        test_dataloader = DataLoader(test_data, batch_size=self.hps.train.batch_size, shuffle=True)
+
         for epoch in range(self.hps.train.epoch):
             self.logger.info(f"====> Epoch: {epoch + 1}")
+            train_data_gen = utils.train_data_generator(train_file_all,self.hps.data.load_data_batch)  
 
+            for X,y in train_data_gen: #每个epoch时生成器从总数据中读取数据，数据量为hps.data.load_data_batch
+                training_data = MyDataset(X,y)    
+                train_dataloader = DataLoader(training_data, batch_size=self.hps.train.batch_size, shuffle=True)
+                test_dataloader = DataLoader(test_data, batch_size=self.hps.train.batch_size, shuffle=True)
 
-            loss, acc = self.train(train_dataloader, epoch)
-            val_loss, val_acc = self.val(test_dataloader, epoch)
+                loss, acc = self.train(train_dataloader, epoch)
+                val_loss, val_acc = self.val(test_dataloader, epoch)
 
-            if epoch and epoch % self.hps.train.ckpt_interval == 0 :
-                os.makedirs('ckpt',exist_ok=True)
+            if epoch % self.hps.train.ckpt_interval == 0:
                 ckpt_name = f"epoch{epoch}{self.hps.model.model_name}-mfcc-lfcc.pth"
                 self.logger.info(f"Saving checkpoint: {ckpt_name}")
                 torch.save(self.model.state_dict(), os.path.join(self.hps.train.checkpoint_path, ckpt_name))
@@ -145,14 +144,6 @@ class Trainer:
 def main():
     config_path = "config.json"
     hps = utils.get_hparams_from_file(config_path)
-    
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-data_path", type=str, default="",help="type of the function")
-    args = parser.parse_args()
-    
-    if args.data_path != "":
-        utils.modify_config(['data','downsample_data'],args.data_path)  #训练数据路径
-    
     trainer = Trainer(hps)
     trainer.run()
 

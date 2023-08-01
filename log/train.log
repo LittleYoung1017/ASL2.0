@@ -995,3 +995,2390 @@
 2023-07-27 16:29:02,060	root	INFO	loss: 0.035713  accuracy: 100.000000 [   50/66045]
 2023-07-27 16:29:04,476	root	INFO	loss: 0.073895  accuracy: 96.925373 [10050/66045]
 2023-07-27 16:29:06,706	root	INFO	loss: 0.076557  accuracy: 96.798005 [20050/66045]
+2023-07-31 11:47:00,152	root	INFO	Using cuda:0 device
+2023-07-31 11:47:00,163	root	INFO	Start training with CNNLSTM model
+2023-07-31 11:47:00,163	root	INFO	CNNLSTM(
+  (conv1): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (conv2): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (pool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv3): Conv1d(32, 16, kernel_size=(3,), stride=(1,))
+  (conv4): Conv1d(16, 16, kernel_size=(3,), stride=(1,))
+  (lstm1): LSTM(16, 8, batch_first=True)
+  (attention): Attention(
+    (attention_weights): Linear(in_features=8, out_features=1, bias=True)
+    (softmax): Softmax(dim=1)
+  )
+  (fc1): Linear(in_features=8, out_features=4, bias=True)
+  (fc2): Linear(in_features=4, out_features=2, bias=True)
+  (global_pooling): AdaptiveMaxPool1d(output_size=1)
+  (softmax): Softmax(dim=1)
+  (dropout): Dropout(p=0.5, inplace=False)
+)
+2023-07-31 11:47:00,163	root	INFO	====> Epoch: 1
+2023-07-31 12:11:39,601	root	INFO	Using cuda:0 device
+2023-07-31 12:11:39,621	root	INFO	Start training with LCNN model
+2023-07-31 12:11:39,621	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=640, out_features=32, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-07-31 12:11:39,621	root	INFO	====> Epoch: 1
+2023-07-31 12:26:05,577	root	INFO	Using cuda:0 device
+2023-07-31 12:26:05,594	root	INFO	Start training with LCNN model
+2023-07-31 12:26:05,594	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=640, out_features=32, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-07-31 12:26:05,595	root	INFO	====> Epoch: 1
+2023-07-31 12:31:30,925	root	INFO	Using cuda:0 device
+2023-07-31 12:31:30,944	root	INFO	Start training with LCNN model
+2023-07-31 12:31:30,944	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (linear): Sequential(
+    (0): Linear(in_features=640, out_features=32, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-07-31 12:31:30,944	root	INFO	====> Epoch: 1
+2023-07-31 12:46:25,350	root	INFO	Using cuda:0 device
+2023-07-31 12:46:25,363	root	INFO	Start training with LCNN model
+2023-07-31 12:46:25,363	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=560, out_features=8, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-07-31 12:46:25,364	root	INFO	====> Epoch: 1
+2023-07-31 14:01:32,910	root	INFO	Using cuda:0 device
+2023-07-31 14:01:32,926	root	INFO	Start training with LCNN model
+2023-07-31 14:01:32,926	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=560, out_features=8, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-07-31 14:01:32,926	root	INFO	====> Epoch: 1
+2023-07-31 14:03:37,697	root	INFO	Using cuda:0 device
+2023-07-31 14:03:37,697	root	INFO	Start training with LCNN model
+2023-07-31 14:03:37,697	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=560, out_features=8, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-07-31 14:03:37,698	root	INFO	====> Epoch: 1
+2023-07-31 14:04:32,050	root	INFO	Using cuda:0 device
+2023-07-31 14:04:32,051	root	INFO	Start training with LCNN model
+2023-07-31 14:04:32,051	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=560, out_features=8, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-07-31 14:04:32,051	root	INFO	====> Epoch: 1
+2023-07-31 14:11:21,023	root	INFO	Using cuda:0 device
+2023-07-31 14:11:21,037	root	INFO	Start training with LCNN model
+2023-07-31 14:11:21,037	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 128, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=640, out_features=32, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
+2023-07-31 14:11:21,037	root	INFO	====> Epoch: 1
+2023-07-31 14:16:49,887	root	INFO	Using cuda:0 device
+2023-07-31 14:16:49,902	root	INFO	Start training with LCNN model
+2023-07-31 14:16:49,902	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 128, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=640, out_features=32, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
+2023-07-31 14:16:49,903	root	INFO	====> Epoch: 1
+2023-07-31 14:19:41,404	root	INFO	Using cuda:0 device
+2023-07-31 14:19:41,404	root	INFO	Start training with LCNN model
+2023-07-31 14:19:41,404	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 128, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=9728, out_features=32, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
+2023-07-31 14:19:41,405	root	INFO	====> Epoch: 1
+2023-07-31 14:24:37,396	root	INFO	Using cuda:0 device
+2023-07-31 14:24:37,412	root	INFO	Start training with LCNN model
+2023-07-31 14:24:37,412	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 128, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=9728, out_features=32, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
+2023-07-31 14:24:37,413	root	INFO	====> Epoch: 1
+2023-07-31 14:28:05,472	root	INFO	Using cuda:0 device
+2023-07-31 14:28:05,489	root	INFO	Start training with LCNN model
+2023-07-31 14:28:05,489	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 128, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=640, out_features=32, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
+2023-07-31 14:28:05,489	root	INFO	====> Epoch: 1
+2023-07-31 14:31:36,281	root	INFO	Using cuda:0 device
+2023-07-31 14:31:36,296	root	INFO	Start training with LCNN model
+2023-07-31 14:31:36,296	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=560, out_features=8, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-07-31 14:31:36,297	root	INFO	====> Epoch: 1
+2023-07-31 14:32:15,792	root	INFO	Using cuda:0 device
+2023-07-31 14:32:15,792	root	INFO	Start training with LCNN model
+2023-07-31 14:32:15,792	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=560, out_features=8, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-07-31 14:32:15,793	root	INFO	====> Epoch: 1
+2023-07-31 14:37:21,904	root	INFO	Using cuda:0 device
+2023-07-31 14:37:22,013	root	INFO	Start training with CNNLSTM model
+2023-07-31 14:37:22,013	root	INFO	CNNLSTM(
+  (conv1): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (conv2): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (pool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv3): Conv1d(32, 16, kernel_size=(3,), stride=(1,))
+  (conv4): Conv1d(16, 16, kernel_size=(3,), stride=(1,))
+  (lstm1): LSTM(16, 8, batch_first=True)
+  (attention): Attention(
+    (attention_weights): Linear(in_features=8, out_features=1, bias=True)
+    (softmax): Softmax(dim=1)
+  )
+  (fc1): Linear(in_features=8, out_features=4, bias=True)
+  (fc2): Linear(in_features=4, out_features=2, bias=True)
+  (global_pooling): AdaptiveMaxPool1d(output_size=1)
+  (softmax): Softmax(dim=1)
+  (dropout): Dropout(p=0.5, inplace=False)
+)
+2023-07-31 14:37:22,014	root	INFO	====> Epoch: 1
+2023-07-31 14:37:39,258	root	INFO	loss: 0.637930  accuracy: 70.000000 [   50/18400]
+2023-07-31 14:37:41,116	root	INFO	loss: 0.664711  accuracy: 62.278607 [10050/18400]
+2023-07-31 14:37:42,560	root	INFO	Train  Loss: 0.664819 accuracy: 61.956522% 
+2023-07-31 14:37:43,047	root	INFO	Val loss: 0.598041 Val accuracy: 77.664083%
+2023-07-31 14:37:59,879	root	INFO	loss: 0.699944  accuracy: 52.000000 [   50/18400]
+2023-07-31 14:38:02,054	root	INFO	loss: 0.691728  accuracy: 49.980100 [10050/18400]
+2023-07-31 14:38:03,722	root	INFO	Train  Loss: 0.670144 accuracy: 50.000000% 
+2023-07-31 14:38:04,270	root	INFO	Val loss: 0.586823 Val accuracy: 77.658053%
+2023-07-31 14:38:18,959	root	INFO	loss: 0.687850  accuracy: 24.000000 [   50/16000]
+2023-07-31 14:38:20,749	root	INFO	loss: 0.612527  accuracy: 79.910448 [10050/16000]
+2023-07-31 14:38:21,833	root	INFO	Train  Loss: 0.583494 accuracy: 83.156250% 
+2023-07-31 14:38:22,326	root	INFO	Val loss: 0.613643 Val accuracy: 71.704565%
+2023-07-31 14:38:38,245	root	INFO	loss: 0.520321  accuracy: 88.000000 [   50/17600]
+2023-07-31 14:38:40,013	root	INFO	loss: 0.508318  accuracy: 85.761194 [10050/17600]
+2023-07-31 14:38:41,276	root	INFO	Train  Loss: 0.487929 accuracy: 86.198864% 
+2023-07-31 14:38:41,764	root	INFO	Val loss: 0.539678 Val accuracy: 78.695090%
+2023-07-31 14:38:56,467	root	INFO	loss: 0.473168  accuracy: 84.000000 [   50/16129]
+2023-07-31 14:38:58,148	root	INFO	loss: 0.425575  accuracy: 87.631841 [10050/16129]
+2023-07-31 14:38:59,152	root	INFO	Train  Loss: 0.411635 accuracy: 88.021992% 
+2023-07-31 14:38:59,636	root	INFO	Val loss: 0.527118 Val accuracy: 78.515935%
+2023-07-31 14:39:14,115	root	INFO	loss: 0.412181  accuracy: 90.000000 [   50/18400]
+2023-07-31 14:39:15,829	root	INFO	loss: 0.422113  accuracy: 86.089552 [10050/18400]
+2023-07-31 14:39:17,471	root	INFO	Train  Loss: 0.396414 accuracy: 87.581522% 
+2023-07-31 14:39:18,049	root	INFO	Val loss: 0.512120 Val accuracy: 78.010336%
+2023-07-31 14:39:33,641	root	INFO	loss: 0.311865  accuracy: 94.000000 [   50/16800]
+2023-07-31 14:39:35,358	root	INFO	loss: 0.301397  accuracy: 92.736318 [10050/16800]
+2023-07-31 14:39:36,669	root	INFO	Train  Loss: 0.291966 accuracy: 92.845238% 
+2023-07-31 14:39:37,166	root	INFO	Val loss: 0.528609 Val accuracy: 77.434109%
+2023-07-31 14:40:50,189	root	INFO	Using cuda:0 device
+2023-07-31 14:40:50,205	root	INFO	Start training with CNNLSTM model
+2023-07-31 14:40:50,205	root	INFO	CNNLSTM(
+  (conv1): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (conv2): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (pool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv3): Conv1d(32, 16, kernel_size=(3,), stride=(1,))
+  (conv4): Conv1d(16, 16, kernel_size=(3,), stride=(1,))
+  (lstm1): LSTM(16, 8, batch_first=True)
+  (attention): Attention(
+    (attention_weights): Linear(in_features=8, out_features=1, bias=True)
+    (softmax): Softmax(dim=1)
+  )
+  (fc1): Linear(in_features=8, out_features=4, bias=True)
+  (fc2): Linear(in_features=4, out_features=2, bias=True)
+  (global_pooling): AdaptiveMaxPool1d(output_size=1)
+  (softmax): Softmax(dim=1)
+  (dropout): Dropout(p=0.5, inplace=False)
+)
+2023-07-31 14:40:50,206	root	INFO	====> Epoch: 1
+2023-07-31 14:41:06,176	root	INFO	loss: 0.675143  accuracy: 60.000000 [   50/15200]
+2023-07-31 14:41:08,369	root	INFO	loss: 0.722382  accuracy: 48.348259 [10050/15200]
+2023-07-31 14:41:09,348	root	INFO	Train  Loss: 0.713339 accuracy: 48.684211% 
+2023-07-31 14:47:35,990	root	INFO	Using cuda:0 device
+2023-07-31 14:47:36,000	root	INFO	Start training with CNNLSTM model
+2023-07-31 14:47:36,000	root	INFO	CNNLSTM(
+  (conv1): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (conv2): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (pool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv3): Conv1d(32, 16, kernel_size=(3,), stride=(1,))
+  (conv4): Conv1d(16, 16, kernel_size=(3,), stride=(1,))
+  (lstm1): LSTM(16, 8, batch_first=True)
+  (attention): Attention(
+    (attention_weights): Linear(in_features=8, out_features=1, bias=True)
+    (softmax): Softmax(dim=1)
+  )
+  (fc1): Linear(in_features=8, out_features=4, bias=True)
+  (fc2): Linear(in_features=4, out_features=2, bias=True)
+  (global_pooling): AdaptiveMaxPool1d(output_size=1)
+  (softmax): Softmax(dim=1)
+  (dropout): Dropout(p=0.5, inplace=False)
+)
+2023-07-31 14:47:36,000	root	INFO	====> Epoch: 1
+2023-07-31 14:48:27,431	root	INFO	Using cuda:0 device
+2023-07-31 14:48:27,432	root	INFO	Start training with LCNN model
+2023-07-31 14:48:27,432	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=560, out_features=8, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-07-31 14:48:27,432	root	INFO	====> Epoch: 1
+2023-07-31 14:49:33,081	root	INFO	Using cuda:0 device
+2023-07-31 14:49:33,082	root	INFO	Start training with LCNN model
+2023-07-31 14:49:33,082	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=560, out_features=8, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-07-31 14:49:33,082	root	INFO	====> Epoch: 1
+2023-07-31 15:11:27,931	root	INFO	Using cuda:0 device
+2023-07-31 15:11:27,948	root	INFO	Start training with LCNN model
+2023-07-31 15:11:27,949	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=560, out_features=8, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-07-31 15:11:27,949	root	INFO	====> Epoch: 1
+2023-07-31 15:21:40,696	root	INFO	Using cuda:0 device
+2023-07-31 15:21:40,716	root	INFO	Start training with LCNN model
+2023-07-31 15:21:40,716	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=560, out_features=8, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-07-31 15:21:40,717	root	INFO	====> Epoch: 1
+2023-07-31 15:37:49,655	root	INFO	Using cuda:0 device
+2023-07-31 15:37:49,669	root	INFO	Start training with LCNN model
+2023-07-31 15:37:49,669	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=560, out_features=8, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-07-31 15:37:49,669	root	INFO	====> Epoch: 1
+2023-07-31 15:37:56,106	root	INFO	loss: 0.693340  accuracy: 46.000000 [   50/ 7855]
+2023-07-31 15:37:58,380	root	INFO	Train  Loss: 0.655635 accuracy: 63.088608% 
+2023-07-31 15:37:58,760	root	INFO	Val loss: 0.559098 Val accuracy: 77.700258%
+2023-07-31 15:38:04,775	root	INFO	loss: 0.803380  accuracy: 36.000000 [   50/ 8529]
+2023-07-31 15:38:07,217	root	INFO	Train  Loss: 0.672985 accuracy: 57.972575% 
+2023-07-31 15:38:07,600	root	INFO	Val loss: 0.764213 Val accuracy: 23.273040%
+2023-07-31 15:38:15,556	root	INFO	loss: 0.631635  accuracy: 66.000000 [   50/10000]
+2023-07-31 15:38:18,401	root	INFO	Train  Loss: 0.535219 accuracy: 77.400000% 
+2023-07-31 15:38:18,778	root	INFO	Val loss: 0.338612 Val accuracy: 92.738157%
+2023-07-31 15:38:25,284	root	INFO	loss: 0.794283  accuracy: 58.000000 [   50/ 9200]
+2023-07-31 15:38:27,892	root	INFO	Train  Loss: 0.654760 accuracy: 63.152174% 
+2023-07-31 15:38:28,276	root	INFO	Val loss: 0.398006 Val accuracy: 86.840655%
+2023-07-31 15:38:33,819	root	INFO	loss: 0.565509  accuracy: 74.000000 [   50/ 7600]
+2023-07-31 15:38:35,982	root	INFO	Train  Loss: 0.482345 accuracy: 79.236842% 
+2023-07-31 15:38:36,367	root	INFO	Val loss: 0.205550 Val accuracy: 94.862188%
+2023-07-31 15:38:42,679	root	INFO	loss: 0.565693  accuracy: 74.000000 [   50/ 8400]
+2023-07-31 15:38:45,093	root	INFO	Train  Loss: 0.521980 accuracy: 73.809524% 
+2023-07-31 15:38:45,479	root	INFO	Val loss: 0.270751 Val accuracy: 89.535745%
+2023-07-31 15:38:53,967	root	INFO	loss: 1.029873  accuracy: 48.000000 [   50/ 7600]
+2023-07-31 15:38:56,129	root	INFO	Train  Loss: 0.563787 accuracy: 72.131579% 
+2023-07-31 15:38:56,516	root	INFO	Val loss: 0.234888 Val accuracy: 94.478036%
+2023-07-31 15:39:03,180	root	INFO	loss: 0.499844  accuracy: 76.000000 [   50/ 9200]
+2023-07-31 15:39:05,804	root	INFO	Train  Loss: 0.363253 accuracy: 86.673913% 
+2023-07-31 15:39:06,192	root	INFO	Val loss: 0.332214 Val accuracy: 88.435831%
+2023-07-31 15:39:12,239	root	INFO	loss: 0.759614  accuracy: 68.000000 [   50/ 8400]
+2023-07-31 15:39:14,627	root	INFO	Train  Loss: 0.437693 accuracy: 80.071429% 
+2023-07-31 15:39:15,015	root	INFO	Val loss: 0.306838 Val accuracy: 89.051680%
+2023-07-31 15:39:21,149	root	INFO	loss: 0.412995  accuracy: 84.000000 [   50/ 8400]
+2023-07-31 15:39:23,521	root	INFO	Train  Loss: 0.357509 accuracy: 86.773810% 
+2023-07-31 15:39:23,906	root	INFO	Val loss: 0.253447 Val accuracy: 91.200689%
+2023-07-31 15:39:29,514	root	INFO	loss: 0.696241  accuracy: 86.000000 [   50/ 7600]
+2023-07-31 15:39:31,674	root	INFO	Train  Loss: 0.313786 accuracy: 87.684211% 
+2023-07-31 15:39:32,063	root	INFO	Val loss: 0.257481 Val accuracy: 91.374677%
+2023-07-31 16:29:07,500	root	INFO	Using cuda:0 device
+2023-07-31 16:29:07,520	root	INFO	Start training with LCNN model
+2023-07-31 16:29:07,520	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 128, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=640, out_features=32, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
+2023-07-31 16:29:07,522	root	INFO	====> Epoch: 1
+2023-07-31 16:36:11,726	root	INFO	Using cuda:0 device
+2023-07-31 16:36:11,745	root	INFO	Start training with LCNN model
+2023-07-31 16:36:11,745	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 128, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=640, out_features=32, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
+2023-07-31 16:43:15,613	root	INFO	Using cuda:0 device
+2023-07-31 16:43:15,632	root	INFO	Start training with LCNN model
+2023-07-31 16:43:15,632	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 128, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=640, out_features=32, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
+2023-07-31 16:43:44,130	root	INFO	Using cuda:0 device
+2023-07-31 16:43:44,130	root	INFO	Start training with LCNN model
+2023-07-31 16:43:44,130	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 128, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=640, out_features=32, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
+2023-07-31 16:46:45,345	root	INFO	Using cuda:0 device
+2023-07-31 16:46:45,364	root	INFO	Start training with LCNN model
+2023-07-31 16:46:45,364	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 128, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=640, out_features=32, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
+2023-07-31 16:48:38,037	root	INFO	Using cuda:0 device
+2023-07-31 16:48:38,037	root	INFO	Start training with LCNN model
+2023-07-31 16:48:38,037	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 128, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=640, out_features=32, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
+2023-07-31 16:49:55,910	root	INFO	Using cuda:0 device
+2023-07-31 16:49:55,911	root	INFO	Start training with LCNN model
+2023-07-31 16:49:55,911	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 128, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=640, out_features=32, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
+2023-07-31 16:56:35,612	root	INFO	Using cuda:0 device
+2023-07-31 16:56:35,632	root	INFO	Start training with LCNN model
+2023-07-31 16:56:35,632	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 128, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=640, out_features=32, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
+2023-07-31 16:57:19,088	root	INFO	Using cuda:0 device
+2023-07-31 16:57:19,089	root	INFO	Start training with LCNN model
+2023-07-31 16:57:19,089	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 128, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(3, 3))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=640, out_features=32, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=32, out_features=2, bias=True)
+  )
+)
+2023-07-31 17:07:49,646	root	INFO	Using cuda:0 device
+2023-07-31 17:07:49,697	root	INFO	Start training with CNNLSTM model
+2023-07-31 17:07:49,697	root	INFO	CNNLSTM(
+  (conv1): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (conv2): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (pool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv3): Conv1d(32, 16, kernel_size=(3,), stride=(1,))
+  (conv4): Conv1d(16, 16, kernel_size=(3,), stride=(1,))
+  (lstm1): LSTM(16, 8, batch_first=True)
+  (attention): Attention(
+    (attention_weights): Linear(in_features=8, out_features=1, bias=True)
+    (softmax): Softmax(dim=1)
+  )
+  (fc1): Linear(in_features=8, out_features=4, bias=True)
+  (fc2): Linear(in_features=4, out_features=2, bias=True)
+  (global_pooling): AdaptiveMaxPool1d(output_size=1)
+  (softmax): Softmax(dim=1)
+  (dropout): Dropout(p=0.5, inplace=False)
+)
+2023-07-31 17:08:18,687	root	INFO	Using cuda:0 device
+2023-07-31 17:08:18,687	root	INFO	Start training with CNNLSTM model
+2023-07-31 17:08:18,687	root	INFO	CNNLSTM(
+  (conv1): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (conv2): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (pool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv3): Conv1d(32, 16, kernel_size=(3,), stride=(1,))
+  (conv4): Conv1d(16, 16, kernel_size=(3,), stride=(1,))
+  (lstm1): LSTM(16, 8, batch_first=True)
+  (attention): Attention(
+    (attention_weights): Linear(in_features=8, out_features=1, bias=True)
+    (softmax): Softmax(dim=1)
+  )
+  (fc1): Linear(in_features=8, out_features=4, bias=True)
+  (fc2): Linear(in_features=4, out_features=2, bias=True)
+  (global_pooling): AdaptiveMaxPool1d(output_size=1)
+  (softmax): Softmax(dim=1)
+  (dropout): Dropout(p=0.5, inplace=False)
+)
+2023-07-31 17:22:13,666	root	INFO	Using cuda:0 device
+2023-07-31 17:22:13,683	root	INFO	Start training with CNNLSTM model
+2023-07-31 17:22:13,683	root	INFO	CNNLSTM(
+  (conv1): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (conv2): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (pool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv3): Conv1d(32, 16, kernel_size=(3,), stride=(1,))
+  (conv4): Conv1d(16, 16, kernel_size=(3,), stride=(1,))
+  (lstm1): LSTM(16, 8, batch_first=True)
+  (lstm2): LSTM(8, 8, batch_first=True)
+  (attention): Attention(
+    (attention_weights): Linear(in_features=8, out_features=1, bias=True)
+    (softmax): Softmax(dim=1)
+  )
+  (fc1): Linear(in_features=8, out_features=4, bias=True)
+  (fc2): Linear(in_features=4, out_features=2, bias=True)
+  (global_pooling): AdaptiveMaxPool1d(output_size=1)
+  (softmax): Softmax(dim=1)
+  (dropout): Dropout(p=0.5, inplace=False)
+)
+2023-07-31 17:30:44,166	root	INFO	Using cuda:0 device
+2023-07-31 17:30:44,193	root	INFO	Start training with CNNLSTM model
+2023-07-31 17:30:44,193	root	INFO	CNNLSTM(
+  (conv1): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (conv2): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (pool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv3): Conv1d(32, 16, kernel_size=(3,), stride=(1,))
+  (conv4): Conv1d(16, 16, kernel_size=(3,), stride=(1,))
+  (lstm1): LSTM(16, 8, batch_first=True)
+  (lstm2): LSTM(8, 8, batch_first=True)
+  (attention): Attention(
+    (attention_weights): Linear(in_features=8, out_features=1, bias=True)
+    (softmax): Softmax(dim=1)
+  )
+  (fc1): Linear(in_features=8, out_features=4, bias=True)
+  (fc2): Linear(in_features=4, out_features=2, bias=True)
+  (global_pooling): AdaptiveMaxPool1d(output_size=1)
+  (softmax): Softmax(dim=1)
+  (dropout): Dropout(p=0.5, inplace=False)
+)
+2023-07-31 17:32:25,373	root	INFO	Using cuda:0 device
+2023-07-31 17:32:25,374	root	INFO	Start training with CNNLSTM model
+2023-07-31 17:32:25,374	root	INFO	CNNLSTM(
+  (conv1): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (conv2): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (pool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv3): Conv1d(32, 16, kernel_size=(3,), stride=(1,))
+  (conv4): Conv1d(16, 16, kernel_size=(3,), stride=(1,))
+  (lstm1): LSTM(16, 8, batch_first=True)
+  (attention): Attention(
+    (attention_weights): Linear(in_features=8, out_features=1, bias=True)
+    (softmax): Softmax(dim=1)
+  )
+  (fc1): Linear(in_features=8, out_features=4, bias=True)
+  (fc2): Linear(in_features=4, out_features=2, bias=True)
+  (global_pooling): AdaptiveMaxPool1d(output_size=1)
+  (softmax): Softmax(dim=1)
+  (dropout): Dropout(p=0.5, inplace=False)
+)
+2023-07-31 17:52:23,058	root	INFO	Using cuda:0 device
+2023-07-31 17:52:23,081	root	INFO	Start training with CNNLSTM model
+2023-07-31 17:52:23,082	root	INFO	CNNLSTM(
+  (conv1): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (conv2): Conv1d(32, 32, kernel_size=(3,), stride=(1,))
+  (pool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv3): Conv1d(32, 16, kernel_size=(3,), stride=(1,))
+  (conv4): Conv1d(16, 16, kernel_size=(3,), stride=(1,))
+  (lstm1): LSTM(16, 8, batch_first=True)
+  (attention): Attention(
+    (attention_weights): Linear(in_features=8, out_features=1, bias=True)
+    (softmax): Softmax(dim=1)
+  )
+  (fc1): Linear(in_features=8, out_features=4, bias=True)
+  (fc2): Linear(in_features=4, out_features=2, bias=True)
+  (global_pooling): AdaptiveMaxPool1d(output_size=1)
+  (softmax): Softmax(dim=1)
+  (dropout): Dropout(p=0.5, inplace=False)
+)
+2023-07-31 17:52:23,833	root	INFO	====> Epoch: 1
+2023-07-31 17:52:24,205	root	INFO	loss: 0.692344  accuracy: 52.000000 [   50/206242]
+2023-07-31 17:52:26,458	root	INFO	loss: 0.694197  accuracy: 48.915423 [10050/206242]
+2023-07-31 17:52:28,219	root	INFO	loss: 0.687010  accuracy: 52.413965 [20050/206242]
+2023-07-31 17:52:30,061	root	INFO	loss: 0.664835  accuracy: 57.773710 [30050/206242]
+2023-07-31 17:52:31,822	root	INFO	loss: 0.629452  accuracy: 64.044944 [40050/206242]
+2023-07-31 17:52:33,614	root	INFO	loss: 0.599803  accuracy: 68.287712 [50050/206242]
+2023-07-31 17:52:35,452	root	INFO	loss: 0.575605  accuracy: 71.362198 [60050/206242]
+2023-07-31 17:52:37,497	root	INFO	loss: 0.553840  accuracy: 73.848680 [70050/206242]
+2023-07-31 17:52:39,396	root	INFO	loss: 0.535940  accuracy: 75.720175 [80050/206242]
+2023-07-31 17:52:41,311	root	INFO	loss: 0.520869  accuracy: 77.197113 [90050/206242]
+2023-07-31 17:52:43,305	root	INFO	loss: 0.506696  accuracy: 78.495752 [100050/206242]
+2023-07-31 17:52:45,469	root	INFO	loss: 0.494024  accuracy: 79.529305 [110050/206242]
+2023-07-31 17:52:47,319	root	INFO	loss: 0.482863  accuracy: 80.428988 [120050/206242]
+2023-07-31 17:52:49,619	root	INFO	loss: 0.472428  accuracy: 81.202614 [130050/206242]
+2023-07-31 17:52:51,652	root	INFO	loss: 0.463295  accuracy: 81.885755 [140050/206242]
+2023-07-31 17:52:53,709	root	INFO	loss: 0.454643  accuracy: 82.484505 [150050/206242]
+2023-07-31 17:52:55,714	root	INFO	loss: 0.447183  accuracy: 82.994689 [160050/206242]
+2023-07-31 17:52:57,619	root	INFO	loss: 0.439802  accuracy: 83.467804 [170050/206242]
+2023-07-31 17:52:59,491	root	INFO	loss: 0.432959  accuracy: 83.884477 [180050/206242]
+2023-07-31 17:53:01,478	root	INFO	loss: 0.426761  accuracy: 84.269403 [190050/206242]
+2023-07-31 17:53:03,513	root	INFO	loss: 0.420586  accuracy: 84.614846 [200050/206242]
+2023-07-31 17:53:04,806	root	INFO	Train  Loss: 0.416952 accuracy: 84.820964% 
+2023-07-31 17:53:07,079	root	INFO	Val loss: 0.315107 Val accuracy: 90.745234%
+2023-07-31 17:53:07,079	root	INFO	====> Epoch: 2
+2023-07-31 17:53:07,105	root	INFO	loss: 0.286728  accuracy: 90.000000 [   50/206242]
+2023-07-31 17:53:09,118	root	INFO	loss: 0.291596  accuracy: 91.880597 [10050/206242]
+2023-07-31 17:53:10,967	root	INFO	loss: 0.289772  accuracy: 92.029925 [20050/206242]
+2023-07-31 17:53:12,708	root	INFO	loss: 0.288401  accuracy: 92.059900 [30050/206242]
+2023-07-31 17:53:14,577	root	INFO	loss: 0.286910  accuracy: 92.062422 [40050/206242]
+2023-07-31 17:53:16,500	root	INFO	loss: 0.285847  accuracy: 92.061938 [50050/206242]
+2023-07-31 17:53:18,299	root	INFO	loss: 0.283829  accuracy: 92.091590 [60050/206242]
+2023-07-31 17:53:20,468	root	INFO	loss: 0.282072  accuracy: 92.097074 [70050/206242]
+2023-07-31 17:53:22,357	root	INFO	loss: 0.279651  accuracy: 92.196127 [80050/206242]
+2023-07-31 17:53:24,271	root	INFO	loss: 0.276999  accuracy: 92.279845 [90050/206242]
+2023-07-31 17:53:26,263	root	INFO	loss: 0.274872  accuracy: 92.322839 [100050/206242]
+2023-07-31 17:53:28,058	root	INFO	loss: 0.272395  accuracy: 92.403453 [110050/206242]
+2023-07-31 17:53:29,937	root	INFO	loss: 0.269934  accuracy: 92.456476 [120050/206242]
+2023-07-31 17:53:31,912	root	INFO	loss: 0.267994  accuracy: 92.487505 [130050/206242]
+2023-07-31 17:53:33,916	root	INFO	loss: 0.265857  accuracy: 92.539807 [140050/206242]
+2023-07-31 17:53:35,833	root	INFO	loss: 0.263820  accuracy: 92.584472 [150050/206242]
+2023-07-31 17:53:37,834	root	INFO	loss: 0.261916  accuracy: 92.623555 [160050/206242]
+2023-07-31 17:53:39,896	root	INFO	loss: 0.260390  accuracy: 92.646869 [170050/206242]
+2023-07-31 17:53:41,788	root	INFO	loss: 0.258943  accuracy: 92.669814 [180050/206242]
+2023-07-31 17:53:43,748	root	INFO	loss: 0.257287  accuracy: 92.701394 [190050/206242]
+2023-07-31 17:53:45,698	root	INFO	loss: 0.255737  accuracy: 92.735816 [200050/206242]
+2023-07-31 17:53:46,939	root	INFO	Train  Loss: 0.254914 accuracy: 92.749483% 
+2023-07-31 17:53:49,333	root	INFO	Val loss: 0.275574 Val accuracy: 90.325823%
+2023-07-31 17:53:49,333	root	INFO	====> Epoch: 3
+2023-07-31 17:53:49,364	root	INFO	loss: 0.263550  accuracy: 92.000000 [   50/206242]
+2023-07-31 17:53:51,322	root	INFO	loss: 0.225137  accuracy: 93.383085 [10050/206242]
+2023-07-31 17:53:53,142	root	INFO	loss: 0.223098  accuracy: 93.291771 [20050/206242]
+2023-07-31 17:53:54,892	root	INFO	loss: 0.222032  accuracy: 93.334443 [30050/206242]
+2023-07-31 17:53:56,942	root	INFO	loss: 0.219869  accuracy: 93.395755 [40050/206242]
+2023-07-31 17:53:58,970	root	INFO	loss: 0.218195  accuracy: 93.416583 [50050/206242]
+2023-07-31 17:54:00,852	root	INFO	loss: 0.217193  accuracy: 93.442132 [60050/206242]
+2023-07-31 17:54:02,856	root	INFO	loss: 0.216901  accuracy: 93.404711 [70050/206242]
+2023-07-31 17:54:05,191	root	INFO	loss: 0.214960  accuracy: 93.470331 [80050/206242]
+2023-07-31 17:54:07,402	root	INFO	loss: 0.214568  accuracy: 93.451416 [90050/206242]
+2023-07-31 17:54:09,290	root	INFO	loss: 0.213955  accuracy: 93.466267 [100050/206242]
+2023-07-31 17:54:11,225	root	INFO	loss: 0.212564  accuracy: 93.513857 [110050/206242]
+2023-07-31 17:54:13,172	root	INFO	loss: 0.212219  accuracy: 93.496043 [120050/206242]
+2023-07-31 17:54:15,303	root	INFO	loss: 0.211412  accuracy: 93.517109 [130050/206242]
+2023-07-31 17:54:17,160	root	INFO	loss: 0.210186  accuracy: 93.562299 [140050/206242]
+2023-07-31 17:54:19,207	root	INFO	loss: 0.209431  accuracy: 93.574808 [150050/206242]
+2023-07-31 17:54:21,309	root	INFO	loss: 0.208411  accuracy: 93.593877 [160050/206242]
+2023-07-31 17:54:23,323	root	INFO	loss: 0.207794  accuracy: 93.616583 [170050/206242]
+2023-07-31 17:54:25,225	root	INFO	loss: 0.206670  accuracy: 93.660650 [180050/206242]
+2023-07-31 17:54:27,057	root	INFO	loss: 0.205913  accuracy: 93.677979 [190050/206242]
+2023-07-31 17:54:28,847	root	INFO	loss: 0.205230  accuracy: 93.702574 [200050/206242]
+2023-07-31 17:54:29,989	root	INFO	Train  Loss: 0.204756 accuracy: 93.713478% 
+2023-07-31 17:54:32,356	root	INFO	Val loss: 0.218338 Val accuracy: 92.641248%
+2023-07-31 17:54:32,356	root	INFO	====> Epoch: 4
+2023-07-31 17:54:32,384	root	INFO	loss: 0.130533  accuracy: 98.000000 [   50/206242]
+2023-07-31 17:54:34,340	root	INFO	loss: 0.184424  accuracy: 94.258706 [10050/206242]
+2023-07-31 17:54:36,216	root	INFO	loss: 0.186019  accuracy: 94.239401 [20050/206242]
+2023-07-31 17:54:38,231	root	INFO	loss: 0.187936  accuracy: 94.153078 [30050/206242]
+2023-07-31 17:54:40,082	root	INFO	loss: 0.189003  accuracy: 94.077403 [40050/206242]
+2023-07-31 17:54:41,982	root	INFO	loss: 0.187815  accuracy: 94.121878 [50050/206242]
+2023-07-31 17:54:43,737	root	INFO	loss: 0.187661  accuracy: 94.119900 [60050/206242]
+2023-07-31 17:54:45,753	root	INFO	loss: 0.187112  accuracy: 94.141328 [70050/206242]
+2023-07-31 17:54:47,689	root	INFO	loss: 0.187020  accuracy: 94.148657 [80050/206242]
+2023-07-31 17:54:49,646	root	INFO	loss: 0.185582  accuracy: 94.198778 [90050/206242]
+2023-07-31 17:54:51,868	root	INFO	loss: 0.184331  accuracy: 94.261869 [100050/206242]
+2023-07-31 17:54:53,807	root	INFO	loss: 0.183443  accuracy: 94.269877 [110050/206242]
+2023-07-31 17:54:55,676	root	INFO	loss: 0.182956  accuracy: 94.282382 [120050/206242]
+2023-07-31 17:54:57,478	root	INFO	loss: 0.182103  accuracy: 94.302960 [130050/206242]
+2023-07-31 17:54:59,415	root	INFO	loss: 0.181879  accuracy: 94.319172 [140050/206242]
+2023-07-31 17:55:01,378	root	INFO	loss: 0.182201  accuracy: 94.295235 [150050/206242]
+2023-07-31 17:55:03,470	root	INFO	loss: 0.182285  accuracy: 94.288660 [160050/206242]
+2023-07-31 17:55:05,596	root	INFO	loss: 0.182120  accuracy: 94.287562 [170050/206242]
+2023-07-31 17:55:07,786	root	INFO	loss: 0.181752  accuracy: 94.296029 [180050/206242]
+2023-07-31 17:55:09,915	root	INFO	loss: 0.181467  accuracy: 94.315180 [190050/206242]
+2023-07-31 17:55:11,903	root	INFO	loss: 0.180814  accuracy: 94.334416 [200050/206242]
+2023-07-31 17:55:13,251	root	INFO	Train  Loss: 0.180644 accuracy: 94.343573% 
+2023-07-31 17:55:15,753	root	INFO	Val loss: 0.206584 Val accuracy: 93.032929%
+2023-07-31 17:55:15,754	root	INFO	====> Epoch: 5
+2023-07-31 17:55:15,781	root	INFO	loss: 0.105221  accuracy: 98.000000 [   50/206242]
+2023-07-31 17:55:18,061	root	INFO	loss: 0.175837  accuracy: 94.417910 [10050/206242]
+2023-07-31 17:55:19,955	root	INFO	loss: 0.171308  accuracy: 94.598504 [20050/206242]
+2023-07-31 17:55:21,949	root	INFO	loss: 0.171703  accuracy: 94.618968 [30050/206242]
+2023-07-31 17:55:23,999	root	INFO	loss: 0.171524  accuracy: 94.651685 [40050/206242]
+2023-07-31 17:55:26,003	root	INFO	loss: 0.171997  accuracy: 94.645355 [50050/206242]
+2023-07-31 17:55:27,939	root	INFO	loss: 0.171197  accuracy: 94.651124 [60050/206242]
+2023-07-31 17:55:29,851	root	INFO	loss: 0.171111  accuracy: 94.630978 [70050/206242]
+2023-07-31 17:55:31,817	root	INFO	loss: 0.170237  accuracy: 94.647096 [80050/206242]
+2023-07-31 17:55:33,705	root	INFO	loss: 0.169504  accuracy: 94.681843 [90050/206242]
+2023-07-31 17:55:35,529	root	INFO	loss: 0.168713  accuracy: 94.707646 [100050/206242]
+2023-07-31 17:55:37,455	root	INFO	loss: 0.169249  accuracy: 94.699682 [110050/206242]
+2023-07-31 17:55:39,398	root	INFO	loss: 0.168510  accuracy: 94.719700 [120050/206242]
+2023-07-31 17:55:41,346	root	INFO	loss: 0.168354  accuracy: 94.721261 [130050/206242]
+2023-07-31 17:55:43,316	root	INFO	loss: 0.168010  accuracy: 94.732596 [140050/206242]
+2023-07-31 17:55:45,181	root	INFO	loss: 0.167151  accuracy: 94.762413 [150050/206242]
+2023-07-31 17:55:46,975	root	INFO	loss: 0.167345  accuracy: 94.737270 [160050/206242]
+2023-07-31 17:55:48,723	root	INFO	loss: 0.167123  accuracy: 94.744487 [170050/206242]
+2023-07-31 17:55:50,541	root	INFO	loss: 0.166894  accuracy: 94.755901 [180050/206242]
+2023-07-31 17:55:52,451	root	INFO	loss: 0.166564  accuracy: 94.774007 [190050/206242]
+2023-07-31 17:55:54,398	root	INFO	loss: 0.166755  accuracy: 94.771807 [200050/206242]
+2023-07-31 17:55:55,681	root	INFO	Train  Loss: 0.166432 accuracy: 94.785362% 
+2023-07-31 17:55:58,133	root	INFO	Val loss: 0.200636 Val accuracy: 93.383016%
+2023-07-31 17:55:58,133	root	INFO	====> Epoch: 6
+2023-07-31 17:55:58,161	root	INFO	loss: 0.081414  accuracy: 98.000000 [   50/206242]
+2023-07-31 17:56:00,155	root	INFO	loss: 0.169259  accuracy: 94.696517 [10050/206242]
+2023-07-31 17:56:02,106	root	INFO	loss: 0.164526  accuracy: 94.822943 [20050/206242]
+2023-07-31 17:56:04,019	root	INFO	loss: 0.162645  accuracy: 94.935108 [30050/206242]
+2023-07-31 17:56:05,867	root	INFO	loss: 0.163354  accuracy: 94.963795 [40050/206242]
+2023-07-31 17:56:07,650	root	INFO	loss: 0.162989  accuracy: 94.953047 [50050/206242]
+2023-07-31 17:56:09,767	root	INFO	loss: 0.161216  accuracy: 95.005828 [60050/206242]
+2023-07-31 17:56:11,749	root	INFO	loss: 0.161899  accuracy: 94.987866 [70050/206242]
+2023-07-31 17:56:13,624	root	INFO	loss: 0.159907  accuracy: 95.065584 [80050/206242]
+2023-07-31 17:56:15,627	root	INFO	loss: 0.159861  accuracy: 95.063853 [90050/206242]
+2023-07-31 17:56:17,675	root	INFO	loss: 0.159783  accuracy: 95.067466 [100050/206242]
+2023-07-31 17:56:19,850	root	INFO	loss: 0.159492  accuracy: 95.065879 [110050/206242]
+2023-07-31 17:56:22,079	root	INFO	loss: 0.158799  accuracy: 95.088713 [120050/206242]
+2023-07-31 17:56:24,263	root	INFO	loss: 0.159027  accuracy: 95.067282 [130050/206242]
+2023-07-31 17:56:26,352	root	INFO	loss: 0.158825  accuracy: 95.072474 [140050/206242]
+2023-07-31 17:56:28,334	root	INFO	loss: 0.158377  accuracy: 95.091636 [150050/206242]
+2023-07-31 17:56:30,527	root	INFO	loss: 0.157614  accuracy: 95.119025 [160050/206242]
+2023-07-31 17:56:32,480	root	INFO	loss: 0.157236  accuracy: 95.129668 [170050/206242]
+2023-07-31 17:56:34,478	root	INFO	loss: 0.157498  accuracy: 95.113580 [180050/206242]
+2023-07-31 17:56:36,567	root	INFO	loss: 0.157086  accuracy: 95.124967 [190050/206242]
+2023-07-31 17:56:38,590	root	INFO	loss: 0.156930  accuracy: 95.129218 [200050/206242]
+2023-07-31 17:56:39,801	root	INFO	Train  Loss: 0.157097 accuracy: 95.120208% 
+2023-07-31 17:56:42,308	root	INFO	Val loss: 0.194216 Val accuracy: 93.570191%
+2023-07-31 17:56:42,308	root	INFO	====> Epoch: 7
+2023-07-31 17:56:42,337	root	INFO	loss: 0.176860  accuracy: 94.000000 [   50/206242]
+2023-07-31 17:56:44,313	root	INFO	loss: 0.156462  accuracy: 95.044776 [10050/206242]
+2023-07-31 17:56:46,272	root	INFO	loss: 0.151437  accuracy: 95.291771 [20050/206242]
+2023-07-31 17:56:48,317	root	INFO	loss: 0.152350  accuracy: 95.234609 [30050/206242]
+2023-07-31 17:56:50,274	root	INFO	loss: 0.151826  accuracy: 95.233458 [40050/206242]
+2023-07-31 17:56:52,571	root	INFO	loss: 0.152546  accuracy: 95.162837 [50050/206242]
+2023-07-31 17:56:54,637	root	INFO	loss: 0.153370  accuracy: 95.129059 [60050/206242]
+2023-07-31 17:56:56,501	root	INFO	loss: 0.153811  accuracy: 95.129193 [70050/206242]
+2023-07-31 17:56:58,418	root	INFO	loss: 0.154588  accuracy: 95.106808 [80050/206242]
+2023-07-31 17:57:00,664	root	INFO	loss: 0.154559  accuracy: 95.111605 [90050/206242]
+2023-07-31 17:57:02,679	root	INFO	loss: 0.154299  accuracy: 95.128436 [100050/206242]
+2023-07-31 17:57:04,586	root	INFO	loss: 0.153631  accuracy: 95.136756 [110050/206242]
+2023-07-31 17:57:06,481	root	INFO	loss: 0.153465  accuracy: 95.139525 [120050/206242]
+2023-07-31 17:57:08,420	root	INFO	loss: 0.152444  accuracy: 95.184160 [130050/206242]
+2023-07-31 17:57:10,580	root	INFO	loss: 0.151556  accuracy: 95.225277 [140050/206242]
+2023-07-31 17:57:12,620	root	INFO	loss: 0.151126  accuracy: 95.244918 [150050/206242]
+2023-07-31 17:57:14,723	root	INFO	loss: 0.150469  accuracy: 95.273352 [160050/206242]
+2023-07-31 17:57:16,594	root	INFO	loss: 0.149756  accuracy: 95.300794 [170050/206242]
+2023-07-31 17:57:18,823	root	INFO	loss: 0.149306  accuracy: 95.319633 [180050/206242]
+2023-07-31 17:57:20,757	root	INFO	loss: 0.149259  accuracy: 95.324914 [190050/206242]
+2023-07-31 17:57:22,999	root	INFO	loss: 0.148579  accuracy: 95.341165 [200050/206242]
+2023-07-31 17:57:24,252	root	INFO	Train  Loss: 0.148566 accuracy: 95.336635% 
+2023-07-31 17:57:26,738	root	INFO	Val loss: 0.180064 Val accuracy: 93.882149%
+2023-07-31 17:57:26,738	root	INFO	====> Epoch: 8
+2023-07-31 17:57:26,763	root	INFO	loss: 0.130813  accuracy: 96.000000 [   50/206242]
+2023-07-31 17:57:28,730	root	INFO	loss: 0.145356  accuracy: 95.432836 [10050/206242]
+2023-07-31 17:57:30,856	root	INFO	loss: 0.143377  accuracy: 95.416459 [20050/206242]
+2023-07-31 17:57:32,907	root	INFO	loss: 0.146156  accuracy: 95.357737 [30050/206242]
+2023-07-31 17:57:34,927	root	INFO	loss: 0.145437  accuracy: 95.395755 [40050/206242]
+2023-07-31 17:57:37,081	root	INFO	loss: 0.143742  accuracy: 95.472527 [50050/206242]
+2023-07-31 17:57:39,151	root	INFO	loss: 0.144319  accuracy: 95.460450 [60050/206242]
+2023-07-31 17:57:41,271	root	INFO	loss: 0.144577  accuracy: 95.423269 [70050/206242]
+2023-07-31 17:57:43,455	root	INFO	loss: 0.144525  accuracy: 95.424110 [80050/206242]
+2023-07-31 17:57:45,610	root	INFO	loss: 0.143820  accuracy: 95.451416 [90050/206242]
+2023-07-31 17:57:47,659	root	INFO	loss: 0.143050  accuracy: 95.497251 [100050/206242]
+2023-07-31 17:57:49,707	root	INFO	loss: 0.143060  accuracy: 95.477510 [110050/206242]
+2023-07-31 17:57:51,706	root	INFO	loss: 0.142915  accuracy: 95.477718 [120050/206242]
+2023-07-31 17:57:53,945	root	INFO	loss: 0.142583  accuracy: 95.481738 [130050/206242]
+2023-07-31 17:57:56,042	root	INFO	loss: 0.141782  accuracy: 95.503749 [140050/206242]
+2023-07-31 17:57:57,874	root	INFO	loss: 0.141014  accuracy: 95.538820 [150050/206242]
+2023-07-31 17:57:59,889	root	INFO	loss: 0.140949  accuracy: 95.533896 [160050/206242]
+2023-07-31 17:58:01,949	root	INFO	loss: 0.140755  accuracy: 95.544840 [170050/206242]
+2023-07-31 17:58:04,072	root	INFO	loss: 0.140584  accuracy: 95.551791 [180050/206242]
+2023-07-31 17:58:05,945	root	INFO	loss: 0.140306  accuracy: 95.565378 [190050/206242]
+2023-07-31 17:58:07,910	root	INFO	loss: 0.140102  accuracy: 95.561610 [200050/206242]
+2023-07-31 17:58:09,231	root	INFO	Train  Loss: 0.140327 accuracy: 95.551330% 
+2023-07-31 17:58:11,706	root	INFO	Val loss: 0.184355 Val accuracy: 93.386482%
+2023-07-31 17:58:11,706	root	INFO	====> Epoch: 9
+2023-07-31 17:58:11,732	root	INFO	loss: 0.152965  accuracy: 96.000000 [   50/206242]
+2023-07-31 17:58:14,073	root	INFO	loss: 0.133447  accuracy: 95.681592 [10050/206242]
+2023-07-31 17:58:15,979	root	INFO	loss: 0.130863  accuracy: 95.735661 [20050/206242]
+2023-07-31 17:58:17,828	root	INFO	loss: 0.134471  accuracy: 95.627288 [30050/206242]
+2023-07-31 17:58:19,697	root	INFO	loss: 0.134099  accuracy: 95.640449 [40050/206242]
+2023-07-31 17:58:21,665	root	INFO	loss: 0.133372  accuracy: 95.678322 [50050/206242]
+2023-07-31 17:58:23,675	root	INFO	loss: 0.133343  accuracy: 95.665279 [60050/206242]
+2023-07-31 17:58:25,545	root	INFO	loss: 0.133976  accuracy: 95.673091 [70050/206242]
+2023-07-31 17:58:27,516	root	INFO	loss: 0.133160  accuracy: 95.696440 [80050/206242]
+2023-07-31 17:58:29,665	root	INFO	loss: 0.132765  accuracy: 95.704609 [90050/206242]
+2023-07-31 17:58:32,054	root	INFO	loss: 0.132842  accuracy: 95.698151 [100050/206242]
+2023-07-31 17:58:34,087	root	INFO	loss: 0.132228  accuracy: 95.724671 [110050/206242]
+2023-07-31 17:58:35,885	root	INFO	loss: 0.132785  accuracy: 95.694294 [120050/206242]
+2023-07-31 17:58:37,687	root	INFO	loss: 0.132588  accuracy: 95.687812 [130050/206242]
+2023-07-31 17:58:39,554	root	INFO	loss: 0.132870  accuracy: 95.669404 [140050/206242]
+2023-07-31 17:58:41,470	root	INFO	loss: 0.132793  accuracy: 95.658114 [150050/206242]
+2023-07-31 17:58:43,549	root	INFO	loss: 0.132701  accuracy: 95.658232 [160050/206242]
+2023-07-31 17:58:45,790	root	INFO	loss: 0.132972  accuracy: 95.657748 [170050/206242]
+2023-07-31 17:58:47,862	root	INFO	loss: 0.132898  accuracy: 95.663427 [180050/206242]
+2023-07-31 17:58:49,859	root	INFO	loss: 0.132752  accuracy: 95.675349 [190050/206242]
+2023-07-31 17:58:51,845	root	INFO	loss: 0.132739  accuracy: 95.671082 [200050/206242]
+2023-07-31 17:58:53,105	root	INFO	Train  Loss: 0.132803 accuracy: 95.653934% 
+2023-07-31 17:58:55,596	root	INFO	Val loss: 0.166254 Val accuracy: 94.142114%
+2023-07-31 17:58:55,597	root	INFO	====> Epoch: 10
+2023-07-31 17:58:55,624	root	INFO	loss: 0.107514  accuracy: 96.000000 [   50/206242]
+2023-07-31 17:58:57,986	root	INFO	loss: 0.131879  accuracy: 95.601990 [10050/206242]
+2023-07-31 17:58:59,807	root	INFO	loss: 0.128750  accuracy: 95.735661 [20050/206242]
+2023-07-31 17:59:01,727	root	INFO	loss: 0.129755  accuracy: 95.700499 [30050/206242]
+2023-07-31 17:59:03,590	root	INFO	loss: 0.128090  accuracy: 95.792759 [40050/206242]
+2023-07-31 17:59:05,595	root	INFO	loss: 0.126813  accuracy: 95.812188 [50050/206242]
+2023-07-31 17:59:07,796	root	INFO	loss: 0.126458  accuracy: 95.841799 [60050/206242]
+2023-07-31 17:59:09,989	root	INFO	loss: 0.125289  accuracy: 95.880086 [70050/206242]
+2023-07-31 17:59:11,954	root	INFO	loss: 0.125609  accuracy: 95.878826 [80050/206242]
+2023-07-31 17:59:13,935	root	INFO	loss: 0.125149  accuracy: 95.886730 [90050/206242]
+2023-07-31 17:59:16,024	root	INFO	loss: 0.124627  accuracy: 95.898051 [100050/206242]
+2023-07-31 17:59:18,097	root	INFO	loss: 0.124848  accuracy: 95.881872 [110050/206242]
+2023-07-31 17:59:19,980	root	INFO	loss: 0.125336  accuracy: 95.850895 [120050/206242]
+2023-07-31 17:59:21,905	root	INFO	loss: 0.125596  accuracy: 95.841599 [130050/206242]
+2023-07-31 17:59:23,884	root	INFO	loss: 0.125633  accuracy: 95.838629 [140050/206242]
+2023-07-31 17:59:25,813	root	INFO	loss: 0.125552  accuracy: 95.842719 [150050/206242]
+2023-07-31 17:59:27,786	root	INFO	loss: 0.125568  accuracy: 95.851921 [160050/206242]
+2023-07-31 17:59:29,814	root	INFO	loss: 0.125179  accuracy: 95.865334 [170050/206242]
+2023-07-31 17:59:31,806	root	INFO	loss: 0.125248  accuracy: 95.864482 [180050/206242]
+2023-07-31 17:59:33,794	root	INFO	loss: 0.125098  accuracy: 95.867403 [190050/206242]
+2023-07-31 17:59:35,771	root	INFO	loss: 0.124682  accuracy: 95.881530 [200050/206242]
+2023-07-31 17:59:36,946	root	INFO	Train  Loss: 0.124652 accuracy: 95.880635% 
+2023-07-31 17:59:39,445	root	INFO	Val loss: 0.152808 Val accuracy: 94.696707%
+2023-07-31 17:59:39,445	root	INFO	====> Epoch: 11
+2023-07-31 17:59:39,469	root	INFO	loss: 0.061489  accuracy: 98.000000 [   50/206242]
+2023-07-31 17:59:41,519	root	INFO	loss: 0.123408  accuracy: 95.800995 [10050/206242]
+2023-07-31 17:59:43,506	root	INFO	loss: 0.119819  accuracy: 95.960100 [20050/206242]
+2023-07-31 17:59:45,362	root	INFO	loss: 0.121969  accuracy: 95.916805 [30050/206242]
+2023-07-31 17:59:47,215	root	INFO	loss: 0.119741  accuracy: 96.042447 [40050/206242]
+2023-07-31 17:59:49,221	root	INFO	loss: 0.120474  accuracy: 95.984016 [50050/206242]
+2023-07-31 17:59:51,221	root	INFO	loss: 0.119976  accuracy: 95.993339 [60050/206242]
+2023-07-31 17:59:53,275	root	INFO	loss: 0.119762  accuracy: 95.988580 [70050/206242]
+2023-07-31 17:59:55,364	root	INFO	loss: 0.118419  accuracy: 96.049969 [80050/206242]
+2023-07-31 17:59:57,332	root	INFO	loss: 0.119089  accuracy: 96.031094 [90050/206242]
+2023-07-31 17:59:59,310	root	INFO	loss: 0.118625  accuracy: 96.034983 [100050/206242]
+2023-07-31 18:00:01,272	root	INFO	loss: 0.118556  accuracy: 96.026352 [110050/206242]
+2023-07-31 18:00:03,098	root	INFO	loss: 0.118652  accuracy: 96.019992 [120050/206242]
+2023-07-31 18:00:05,157	root	INFO	loss: 0.118801  accuracy: 96.013841 [130050/206242]
+2023-07-31 18:00:07,253	root	INFO	loss: 0.118885  accuracy: 96.007854 [140050/206242]
+2023-07-31 18:00:09,385	root	INFO	loss: 0.118873  accuracy: 96.011996 [150050/206242]
+2023-07-31 18:00:11,294	root	INFO	loss: 0.118325  accuracy: 96.014995 [160050/206242]
+2023-07-31 18:00:13,101	root	INFO	loss: 0.118118  accuracy: 96.018818 [170050/206242]
+2023-07-31 18:00:15,198	root	INFO	loss: 0.118024  accuracy: 96.016662 [180050/206242]
+2023-07-31 18:00:17,109	root	INFO	loss: 0.118277  accuracy: 96.013154 [190050/206242]
+2023-07-31 18:00:18,921	root	INFO	loss: 0.117867  accuracy: 96.025994 [200050/206242]
+2023-07-31 18:00:20,770	root	INFO	Train  Loss: 0.117537 accuracy: 96.036756% 
+2023-07-31 18:00:23,236	root	INFO	Val loss: 0.140759 Val accuracy: 94.967071%
+2023-07-31 18:00:23,237	root	INFO	====> Epoch: 12
+2023-07-31 18:00:23,264	root	INFO	loss: 0.121734  accuracy: 98.000000 [   50/206242]
+2023-07-31 18:00:25,376	root	INFO	loss: 0.113470  accuracy: 96.139303 [10050/206242]
+2023-07-31 18:00:27,203	root	INFO	loss: 0.113020  accuracy: 96.079800 [20050/206242]
+2023-07-31 18:00:29,102	root	INFO	loss: 0.113094  accuracy: 96.029950 [30050/206242]
+2023-07-31 18:00:31,131	root	INFO	loss: 0.112671  accuracy: 96.054931 [40050/206242]
+2023-07-31 18:00:33,165	root	INFO	loss: 0.111974  accuracy: 96.057942 [50050/206242]
+2023-07-31 18:00:35,311	root	INFO	loss: 0.111718  accuracy: 96.068276 [60050/206242]
+2023-07-31 18:00:37,455	root	INFO	loss: 0.111286  accuracy: 96.079943 [70050/206242]
+2023-07-31 18:00:39,564	root	INFO	loss: 0.111665  accuracy: 96.073704 [80050/206242]
+2023-07-31 18:00:41,549	root	INFO	loss: 0.112229  accuracy: 96.069961 [90050/206242]
+2023-07-31 18:00:43,555	root	INFO	loss: 0.112080  accuracy: 96.076962 [100050/206242]
+2023-07-31 18:00:45,469	root	INFO	loss: 0.111561  accuracy: 96.101772 [110050/206242]
+2023-07-31 18:00:47,504	root	INFO	loss: 0.111839  accuracy: 96.094960 [120050/206242]
+2023-07-31 18:00:49,504	root	INFO	loss: 0.112112  accuracy: 96.079969 [130050/206242]
+2023-07-31 18:00:51,434	root	INFO	loss: 0.111680  accuracy: 96.099250 [140050/206242]
+2023-07-31 18:00:53,507	root	INFO	loss: 0.111562  accuracy: 96.107964 [150050/206242]
+2023-07-31 18:00:55,505	root	INFO	loss: 0.111377  accuracy: 96.114339 [160050/206242]
+2023-07-31 18:00:57,616	root	INFO	loss: 0.111227  accuracy: 96.121141 [170050/206242]
+2023-07-31 18:00:59,696	root	INFO	loss: 0.111229  accuracy: 96.123854 [180050/206242]
+2023-07-31 18:01:01,992	root	INFO	loss: 0.110993  accuracy: 96.133649 [190050/206242]
+2023-07-31 18:01:04,366	root	INFO	loss: 0.110652  accuracy: 96.140965 [200050/206242]
+2023-07-31 18:01:05,520	root	INFO	Train  Loss: 0.110430 accuracy: 96.144300% 
+2023-07-31 18:01:07,977	root	INFO	Val loss: 0.129676 Val accuracy: 95.046794%
+2023-07-31 18:01:07,977	root	INFO	====> Epoch: 13
+2023-07-31 18:01:08,001	root	INFO	loss: 0.158406  accuracy: 94.000000 [   50/206242]
+2023-07-31 18:01:10,073	root	INFO	loss: 0.115832  accuracy: 95.990050 [10050/206242]
+2023-07-31 18:01:12,152	root	INFO	loss: 0.111794  accuracy: 96.159601 [20050/206242]
+2023-07-31 18:01:14,072	root	INFO	loss: 0.112417  accuracy: 96.093178 [30050/206242]
+2023-07-31 18:01:15,937	root	INFO	loss: 0.108572  accuracy: 96.242197 [40050/206242]
+2023-07-31 18:01:17,952	root	INFO	loss: 0.107234  accuracy: 96.295704 [50050/206242]
+2023-07-31 18:01:20,212	root	INFO	loss: 0.105052  accuracy: 96.396336 [60050/206242]
+2023-07-31 18:01:22,245	root	INFO	loss: 0.103903  accuracy: 96.428266 [70050/206242]
+2023-07-31 18:01:24,554	root	INFO	loss: 0.103479  accuracy: 96.450968 [80050/206242]
+2023-07-31 18:01:26,546	root	INFO	loss: 0.103677  accuracy: 96.430872 [90050/206242]
+2023-07-31 18:01:28,406	root	INFO	loss: 0.104034  accuracy: 96.384808 [100050/206242]
+2023-07-31 18:01:30,395	root	INFO	loss: 0.103906  accuracy: 96.386188 [110050/206242]
+2023-07-31 18:01:32,447	root	INFO	loss: 0.103702  accuracy: 96.393170 [120050/206242]
+2023-07-31 18:01:34,668	root	INFO	loss: 0.103494  accuracy: 96.405998 [130050/206242]
+2023-07-31 18:01:36,617	root	INFO	loss: 0.103592  accuracy: 96.397715 [140050/206242]
+2023-07-31 18:01:38,614	root	INFO	loss: 0.103218  accuracy: 96.417194 [150050/206242]
+2023-07-31 18:01:40,601	root	INFO	loss: 0.102889  accuracy: 96.427366 [160050/206242]
+2023-07-31 18:01:42,927	root	INFO	loss: 0.103007  accuracy: 96.421053 [170050/206242]
+2023-07-31 18:01:44,999	root	INFO	loss: 0.103013  accuracy: 96.418217 [180050/206242]
+2023-07-31 18:01:46,826	root	INFO	loss: 0.103222  accuracy: 96.403052 [190050/206242]
+2023-07-31 18:01:48,838	root	INFO	loss: 0.103469  accuracy: 96.387903 [200050/206242]
+2023-07-31 18:01:50,116	root	INFO	Train  Loss: 0.103457 accuracy: 96.383723% 
+2023-07-31 18:01:52,538	root	INFO	Val loss: 0.123164 Val accuracy: 95.227036%
+2023-07-31 18:01:52,538	root	INFO	====> Epoch: 14
+2023-07-31 18:01:52,563	root	INFO	loss: 0.131726  accuracy: 96.000000 [   50/206242]
+2023-07-31 18:01:54,621	root	INFO	loss: 0.110928  accuracy: 96.119403 [10050/206242]
+2023-07-31 18:01:56,751	root	INFO	loss: 0.103770  accuracy: 96.249377 [20050/206242]
+2023-07-31 18:01:58,689	root	INFO	loss: 0.101334  accuracy: 96.359401 [30050/206242]
+2023-07-31 18:02:00,523	root	INFO	loss: 0.099145  accuracy: 96.469413 [40050/206242]
+2023-07-31 18:02:02,371	root	INFO	loss: 0.098468  accuracy: 96.495504 [50050/206242]
+2023-07-31 18:02:04,282	root	INFO	loss: 0.097819  accuracy: 96.534555 [60050/206242]
+2023-07-31 18:02:06,312	root	INFO	loss: 0.098788  accuracy: 96.528194 [70050/206242]
+2023-07-31 18:02:08,368	root	INFO	loss: 0.098635  accuracy: 96.537164 [80050/206242]
+2023-07-31 18:02:10,343	root	INFO	loss: 0.098606  accuracy: 96.536369 [90050/206242]
+2023-07-31 18:02:12,119	root	INFO	loss: 0.098798  accuracy: 96.529735 [100050/206242]
+2023-07-31 18:02:14,053	root	INFO	loss: 0.098357  accuracy: 96.529759 [110050/206242]
+2023-07-31 18:02:15,893	root	INFO	loss: 0.098325  accuracy: 96.527280 [120050/206242]
+2023-07-31 18:02:17,878	root	INFO	loss: 0.098113  accuracy: 96.526720 [130050/206242]
+2023-07-31 18:02:19,880	root	INFO	loss: 0.098518  accuracy: 96.516244 [140050/206242]
+2023-07-31 18:02:21,835	root	INFO	loss: 0.097727  accuracy: 96.549150 [150050/206242]
+2023-07-31 18:02:23,834	root	INFO	loss: 0.097520  accuracy: 96.549828 [160050/206242]
+2023-07-31 18:02:25,810	root	INFO	loss: 0.097513  accuracy: 96.546898 [170050/206242]
+2023-07-31 18:02:27,691	root	INFO	loss: 0.097457  accuracy: 96.543182 [180050/206242]
+2023-07-31 18:02:29,707	root	INFO	loss: 0.097413  accuracy: 96.542489 [190050/206242]
+2023-07-31 18:02:31,679	root	INFO	loss: 0.097342  accuracy: 96.545364 [200050/206242]
+2023-07-31 18:02:33,039	root	INFO	Train  Loss: 0.097330 accuracy: 96.546817% 
+2023-07-31 18:02:35,471	root	INFO	Val loss: 0.115382 Val accuracy: 95.563258%
+2023-07-31 18:02:35,471	root	INFO	====> Epoch: 15
+2023-07-31 18:02:35,495	root	INFO	loss: 0.077050  accuracy: 96.000000 [   50/206242]
+2023-07-31 18:02:37,438	root	INFO	loss: 0.093640  accuracy: 96.766169 [10050/206242]
+2023-07-31 18:02:39,395	root	INFO	loss: 0.091619  accuracy: 96.832918 [20050/206242]
+2023-07-31 18:02:41,522	root	INFO	loss: 0.092503  accuracy: 96.712146 [30050/206242]
+2023-07-31 18:02:43,770	root	INFO	loss: 0.093465  accuracy: 96.661673 [40050/206242]
+2023-07-31 18:02:45,759	root	INFO	loss: 0.093493  accuracy: 96.689311 [50050/206242]
+2023-07-31 18:02:47,873	root	INFO	loss: 0.093814  accuracy: 96.677769 [60050/206242]
+2023-07-31 18:02:49,993	root	INFO	loss: 0.093703  accuracy: 96.676660 [70050/206242]
+2023-07-31 18:02:52,209	root	INFO	loss: 0.092957  accuracy: 96.690818 [80050/206242]
+2023-07-31 18:02:54,104	root	INFO	loss: 0.092375  accuracy: 96.714048 [90050/206242]
+2023-07-31 18:02:56,139	root	INFO	loss: 0.092872  accuracy: 96.714643 [100050/206242]
+2023-07-31 18:02:58,117	root	INFO	loss: 0.092429  accuracy: 96.732394 [110050/206242]
+2023-07-31 18:03:00,159	root	INFO	loss: 0.092759  accuracy: 96.719700 [120050/206242]
+2023-07-31 18:03:02,124	root	INFO	loss: 0.092609  accuracy: 96.708189 [130050/206242]
+2023-07-31 18:03:03,965	root	INFO	loss: 0.092206  accuracy: 96.715459 [140050/206242]
+2023-07-31 18:03:05,783	root	INFO	loss: 0.092631  accuracy: 96.703765 [150050/206242]
+2023-07-31 18:03:07,581	root	INFO	loss: 0.092243  accuracy: 96.721025 [160050/206242]
+2023-07-31 18:03:09,536	root	INFO	loss: 0.091945  accuracy: 96.731550 [170050/206242]
+2023-07-31 18:03:11,449	root	INFO	loss: 0.092083  accuracy: 96.715912 [180050/206242]
+2023-07-31 18:03:13,443	root	INFO	loss: 0.091764  accuracy: 96.728229 [190050/206242]
+2023-07-31 18:03:15,712	root	INFO	loss: 0.091508  accuracy: 96.738315 [200050/206242]
+2023-07-31 18:03:17,095	root	INFO	Train  Loss: 0.091587 accuracy: 96.732514% 
+2023-07-31 18:03:19,583	root	INFO	Val loss: 0.116175 Val accuracy: 95.331023%
+2023-07-31 18:03:19,583	root	INFO	====> Epoch: 16
+2023-07-31 18:03:19,608	root	INFO	loss: 0.052294  accuracy: 98.000000 [   50/206242]
+2023-07-31 18:03:21,784	root	INFO	loss: 0.085612  accuracy: 96.815920 [10050/206242]
+2023-07-31 18:03:23,753	root	INFO	loss: 0.087705  accuracy: 96.788030 [20050/206242]
+2023-07-31 18:03:25,747	root	INFO	loss: 0.085709  accuracy: 96.828619 [30050/206242]
+2023-07-31 18:03:27,667	root	INFO	loss: 0.088322  accuracy: 96.771536 [40050/206242]
+2023-07-31 18:03:29,679	root	INFO	loss: 0.088091  accuracy: 96.801199 [50050/206242]
+2023-07-31 18:03:31,845	root	INFO	loss: 0.088959  accuracy: 96.784346 [60050/206242]
+2023-07-31 18:03:33,859	root	INFO	loss: 0.088188  accuracy: 96.836545 [70050/206242]
+2023-07-31 18:03:35,687	root	INFO	loss: 0.088268  accuracy: 96.839475 [80050/206242]
+2023-07-31 18:03:37,938	root	INFO	loss: 0.088192  accuracy: 96.845086 [90050/206242]
+2023-07-31 18:03:40,145	root	INFO	loss: 0.088081  accuracy: 96.853573 [100050/206242]
+2023-07-31 18:03:42,048	root	INFO	loss: 0.087902  accuracy: 96.851431 [110050/206242]
+2023-07-31 18:03:44,211	root	INFO	loss: 0.087736  accuracy: 96.861308 [120050/206242]
+2023-07-31 18:03:46,220	root	INFO	loss: 0.088122  accuracy: 96.850442 [130050/206242]
+2023-07-31 18:03:48,301	root	INFO	loss: 0.087835  accuracy: 96.862549 [140050/206242]
+2023-07-31 18:03:50,303	root	INFO	loss: 0.087494  accuracy: 96.871709 [150050/206242]
+2023-07-31 18:03:52,428	root	INFO	loss: 0.087205  accuracy: 96.886598 [160050/206242]
+2023-07-31 18:03:54,529	root	INFO	loss: 0.087335  accuracy: 96.880917 [170050/206242]
+2023-07-31 18:03:56,547	root	INFO	loss: 0.087352  accuracy: 96.876423 [180050/206242]
+2023-07-31 18:03:58,598	root	INFO	loss: 0.087075  accuracy: 96.889766 [190050/206242]
+2023-07-31 18:04:00,644	root	INFO	loss: 0.086746  accuracy: 96.905274 [200050/206242]
+2023-07-31 18:04:01,962	root	INFO	Train  Loss: 0.086644 accuracy: 96.912970% 
+2023-07-31 18:04:04,412	root	INFO	Val loss: 0.112171 Val accuracy: 95.656846%
+2023-07-31 18:04:04,412	root	INFO	====> Epoch: 17
+2023-07-31 18:04:04,437	root	INFO	loss: 0.156284  accuracy: 94.000000 [   50/206242]
+2023-07-31 18:04:06,641	root	INFO	loss: 0.078055  accuracy: 97.213930 [10050/206242]
+2023-07-31 18:04:08,988	root	INFO	loss: 0.079908  accuracy: 97.216958 [20050/206242]
+2023-07-31 18:04:10,985	root	INFO	loss: 0.080868  accuracy: 97.094842 [30050/206242]
+2023-07-31 18:04:12,950	root	INFO	loss: 0.081265  accuracy: 97.088639 [40050/206242]
+2023-07-31 18:04:15,003	root	INFO	loss: 0.081182  accuracy: 97.090909 [50050/206242]
+2023-07-31 18:04:17,055	root	INFO	loss: 0.082241  accuracy: 97.057452 [60050/206242]
+2023-07-31 18:04:18,961	root	INFO	loss: 0.082872  accuracy: 97.027837 [70050/206242]
+2023-07-31 18:04:21,018	root	INFO	loss: 0.083082  accuracy: 97.035603 [80050/206242]
+2023-07-31 18:04:23,121	root	INFO	loss: 0.083397  accuracy: 97.029428 [90050/206242]
+2023-07-31 18:04:25,326	root	INFO	loss: 0.083173  accuracy: 97.045477 [100050/206242]
+2023-07-31 18:04:27,351	root	INFO	loss: 0.082869  accuracy: 97.059518 [110050/206242]
+2023-07-31 18:04:29,754	root	INFO	loss: 0.082868  accuracy: 97.057060 [120050/206242]
+2023-07-31 18:04:31,923	root	INFO	loss: 0.082942  accuracy: 97.048827 [130050/206242]
+2023-07-31 18:04:33,909	root	INFO	loss: 0.083119  accuracy: 97.031060 [140050/206242]
+2023-07-31 18:04:35,908	root	INFO	loss: 0.082958  accuracy: 97.039653 [150050/206242]
+2023-07-31 18:04:38,013	root	INFO	loss: 0.082868  accuracy: 97.037176 [160050/206242]
+2023-07-31 18:04:40,000	root	INFO	loss: 0.082903  accuracy: 97.038518 [170050/206242]
+2023-07-31 18:04:41,967	root	INFO	loss: 0.082943  accuracy: 97.029714 [180050/206242]
+2023-07-31 18:04:43,928	root	INFO	loss: 0.082891  accuracy: 97.021836 [190050/206242]
+2023-07-31 18:04:45,828	root	INFO	loss: 0.082543  accuracy: 97.039240 [200050/206242]
+2023-07-31 18:04:47,111	root	INFO	Train  Loss: 0.082522 accuracy: 97.040877% 
+2023-07-31 18:04:49,567	root	INFO	Val loss: 0.098692 Val accuracy: 96.155979%
+2023-07-31 18:04:49,567	root	INFO	====> Epoch: 18
+2023-07-31 18:04:49,591	root	INFO	loss: 0.193274  accuracy: 98.000000 [   50/206242]
+2023-07-31 18:04:51,708	root	INFO	loss: 0.083093  accuracy: 97.293532 [10050/206242]
+2023-07-31 18:04:53,958	root	INFO	loss: 0.080131  accuracy: 97.256858 [20050/206242]
+2023-07-31 18:04:56,121	root	INFO	loss: 0.079372  accuracy: 97.234609 [30050/206242]
+2023-07-31 18:04:58,335	root	INFO	loss: 0.079309  accuracy: 97.253433 [40050/206242]
+2023-07-31 18:05:00,484	root	INFO	loss: 0.079011  accuracy: 97.238761 [50050/206242]
+2023-07-31 18:05:02,543	root	INFO	loss: 0.079574  accuracy: 97.212323 [60050/206242]
+2023-07-31 18:05:04,913	root	INFO	loss: 0.079995  accuracy: 97.200571 [70050/206242]
+2023-07-31 18:05:06,852	root	INFO	loss: 0.079786  accuracy: 97.196752 [80050/206242]
+2023-07-31 18:05:08,828	root	INFO	loss: 0.079635  accuracy: 97.184897 [90050/206242]
+2023-07-31 18:05:10,931	root	INFO	loss: 0.079597  accuracy: 97.182409 [100050/206242]
+2023-07-31 18:05:13,096	root	INFO	loss: 0.079697  accuracy: 97.166742 [110050/206242]
+2023-07-31 18:05:14,995	root	INFO	loss: 0.079779  accuracy: 97.160350 [120050/206242]
+2023-07-31 18:05:17,025	root	INFO	loss: 0.079694  accuracy: 97.168012 [130050/206242]
+2023-07-31 18:05:19,358	root	INFO	loss: 0.079576  accuracy: 97.154588 [140050/206242]
+2023-07-31 18:05:21,413	root	INFO	loss: 0.079201  accuracy: 97.176275 [150050/206242]
+2023-07-31 18:05:23,736	root	INFO	loss: 0.079425  accuracy: 97.174008 [160050/206242]
+2023-07-31 18:05:25,832	root	INFO	loss: 0.079504  accuracy: 97.160247 [170050/206242]
+2023-07-31 18:05:28,198	root	INFO	loss: 0.079307  accuracy: 97.168564 [180050/206242]
+2023-07-31 18:05:30,144	root	INFO	loss: 0.078951  accuracy: 97.184425 [190050/206242]
+2023-07-31 18:05:32,121	root	INFO	loss: 0.078994  accuracy: 97.193702 [200050/206242]
+2023-07-31 18:05:33,481	root	INFO	Train  Loss: 0.078932 accuracy: 97.193420% 
+2023-07-31 18:05:36,068	root	INFO	Val loss: 0.094227 Val accuracy: 96.239168%
+2023-07-31 18:05:36,069	root	INFO	====> Epoch: 19
+2023-07-31 18:05:36,095	root	INFO	loss: 0.029746  accuracy: 100.000000 [   50/206242]
+2023-07-31 18:05:38,133	root	INFO	loss: 0.074937  accuracy: 97.194030 [10050/206242]
+2023-07-31 18:05:40,121	root	INFO	loss: 0.072801  accuracy: 97.316708 [20050/206242]
+2023-07-31 18:05:41,970	root	INFO	loss: 0.073945  accuracy: 97.237937 [30050/206242]
+2023-07-31 18:05:44,009	root	INFO	loss: 0.074043  accuracy: 97.243446 [40050/206242]
+2023-07-31 18:05:46,122	root	INFO	loss: 0.074241  accuracy: 97.252747 [50050/206242]
+2023-07-31 18:05:48,024	root	INFO	loss: 0.075113  accuracy: 97.213988 [60050/206242]
+2023-07-31 18:05:49,995	root	INFO	loss: 0.075997  accuracy: 97.217702 [70050/206242]
+2023-07-31 18:05:51,934	root	INFO	loss: 0.076579  accuracy: 97.215490 [80050/206242]
+2023-07-31 18:05:54,036	root	INFO	loss: 0.076440  accuracy: 97.234870 [90050/206242]
+2023-07-31 18:05:56,117	root	INFO	loss: 0.076192  accuracy: 97.243378 [100050/206242]
+2023-07-31 18:05:57,917	root	INFO	loss: 0.075967  accuracy: 97.249432 [110050/206242]
+2023-07-31 18:05:59,914	root	INFO	loss: 0.075818  accuracy: 97.261141 [120050/206242]
+2023-07-31 18:06:01,890	root	INFO	loss: 0.075795  accuracy: 97.252595 [130050/206242]
+2023-07-31 18:06:03,696	root	INFO	loss: 0.075805  accuracy: 97.258122 [140050/206242]
+2023-07-31 18:06:05,575	root	INFO	loss: 0.076082  accuracy: 97.246918 [150050/206242]
+2023-07-31 18:06:07,664	root	INFO	loss: 0.076257  accuracy: 97.242112 [160050/206242]
+2023-07-31 18:06:09,695	root	INFO	loss: 0.076003  accuracy: 97.250221 [170050/206242]
+2023-07-31 18:06:11,655	root	INFO	loss: 0.075859  accuracy: 97.254096 [180050/206242]
+2023-07-31 18:06:13,527	root	INFO	loss: 0.075532  accuracy: 97.267561 [190050/206242]
+2023-07-31 18:06:15,500	root	INFO	loss: 0.075662  accuracy: 97.258685 [200050/206242]
+2023-07-31 18:06:16,742	root	INFO	Train  Loss: 0.075379 accuracy: 97.269333% 
+2023-07-31 18:06:19,232	root	INFO	Val loss: 0.091289 Val accuracy: 96.284229%
+2023-07-31 18:06:19,232	root	INFO	====> Epoch: 20
+2023-07-31 18:06:19,257	root	INFO	loss: 0.017697  accuracy: 100.000000 [   50/206242]
+2023-07-31 18:06:21,386	root	INFO	loss: 0.077685  accuracy: 97.293532 [10050/206242]
+2023-07-31 18:06:23,550	root	INFO	loss: 0.071254  accuracy: 97.536160 [20050/206242]
+2023-07-31 18:06:25,446	root	INFO	loss: 0.072595  accuracy: 97.457571 [30050/206242]
+2023-07-31 18:06:27,371	root	INFO	loss: 0.072524  accuracy: 97.430712 [40050/206242]
+2023-07-31 18:06:29,437	root	INFO	loss: 0.072321  accuracy: 97.388611 [50050/206242]
+2023-07-31 18:06:31,668	root	INFO	loss: 0.072222  accuracy: 97.405495 [60050/206242]
+2023-07-31 18:06:33,954	root	INFO	loss: 0.072926  accuracy: 97.370450 [70050/206242]
+2023-07-31 18:06:35,934	root	INFO	loss: 0.072674  accuracy: 97.380387 [80050/206242]
+2023-07-31 18:06:38,295	root	INFO	loss: 0.073379  accuracy: 97.361466 [90050/206242]
+2023-07-31 18:06:40,452	root	INFO	loss: 0.073223  accuracy: 97.354323 [100050/206242]
+2023-07-31 18:06:42,551	root	INFO	loss: 0.073348  accuracy: 97.344843 [110050/206242]
+2023-07-31 18:06:44,524	root	INFO	loss: 0.073689  accuracy: 97.335277 [120050/206242]
+2023-07-31 18:06:46,717	root	INFO	loss: 0.073472  accuracy: 97.341023 [130050/206242]
+2023-07-31 18:06:48,658	root	INFO	loss: 0.073194  accuracy: 97.348804 [140050/206242]
+2023-07-31 18:06:50,636	root	INFO	loss: 0.073315  accuracy: 97.352216 [150050/206242]
+2023-07-31 18:06:52,748	root	INFO	loss: 0.073090  accuracy: 97.355826 [160050/206242]
+2023-07-31 18:06:54,956	root	INFO	loss: 0.073042  accuracy: 97.351367 [170050/206242]
+2023-07-31 18:06:56,999	root	INFO	loss: 0.072971  accuracy: 97.359067 [180050/206242]
+2023-07-31 18:06:58,979	root	INFO	loss: 0.072744  accuracy: 97.364378 [190050/206242]
+2023-07-31 18:07:00,918	root	INFO	loss: 0.072729  accuracy: 97.372657 [200050/206242]
+2023-07-31 18:07:02,170	root	INFO	Train  Loss: 0.072922 accuracy: 97.367180% 
+2023-07-31 18:07:04,590	root	INFO	Val loss: 0.090200 Val accuracy: 96.315425%
+2023-07-31 18:07:04,591	root	INFO	====> Epoch: 21
+2023-07-31 18:07:04,614	root	INFO	loss: 0.133490  accuracy: 96.000000 [   50/206242]
+2023-07-31 18:07:06,562	root	INFO	loss: 0.074612  accuracy: 97.412935 [10050/206242]
+2023-07-31 18:07:08,571	root	INFO	loss: 0.073627  accuracy: 97.411471 [20050/206242]
+2023-07-31 18:07:10,413	root	INFO	loss: 0.074157  accuracy: 97.400998 [30050/206242]
+2023-07-31 18:07:12,420	root	INFO	loss: 0.072098  accuracy: 97.483146 [40050/206242]
+2023-07-31 18:07:14,410	root	INFO	loss: 0.072857  accuracy: 97.404595 [50050/206242]
+2023-07-31 18:07:16,387	root	INFO	loss: 0.072743  accuracy: 97.383847 [60050/206242]
+2023-07-31 18:07:18,197	root	INFO	loss: 0.072100  accuracy: 97.401856 [70050/206242]
+2023-07-31 18:07:20,028	root	INFO	loss: 0.072099  accuracy: 97.386633 [80050/206242]
+2023-07-31 18:07:22,003	root	INFO	loss: 0.071655  accuracy: 97.402554 [90050/206242]
+2023-07-31 18:07:24,008	root	INFO	loss: 0.071604  accuracy: 97.409295 [100050/206242]
+2023-07-31 18:07:26,115	root	INFO	loss: 0.071681  accuracy: 97.412994 [110050/206242]
+2023-07-31 18:07:28,102	root	INFO	loss: 0.071775  accuracy: 97.406081 [120050/206242]
+2023-07-31 18:07:30,008	root	INFO	loss: 0.071344  accuracy: 97.416378 [130050/206242]
+2023-07-31 18:07:32,018	root	INFO	loss: 0.071033  accuracy: 97.436630 [140050/206242]
+2023-07-31 18:07:33,960	root	INFO	loss: 0.071170  accuracy: 97.422859 [150050/206242]
+2023-07-31 18:07:35,968	root	INFO	loss: 0.070859  accuracy: 97.443299 [160050/206242]
+2023-07-31 18:07:38,002	root	INFO	loss: 0.070731  accuracy: 97.446633 [170050/206242]
+2023-07-31 18:07:40,164	root	INFO	loss: 0.070609  accuracy: 97.450708 [180050/206242]
+2023-07-31 18:07:42,066	root	INFO	loss: 0.070400  accuracy: 97.454880 [190050/206242]
+2023-07-31 18:07:44,221	root	INFO	loss: 0.070386  accuracy: 97.455636 [200050/206242]
+2023-07-31 18:07:45,601	root	INFO	Train  Loss: 0.070231 accuracy: 97.456785% 
+2023-07-31 18:07:48,045	root	INFO	Val loss: 0.087586 Val accuracy: 96.478336%
+2023-07-31 18:07:48,046	root	INFO	====> Epoch: 22
+2023-07-31 18:07:48,071	root	INFO	loss: 0.060966  accuracy: 96.000000 [   50/206242]
+2023-07-31 18:07:50,170	root	INFO	loss: 0.064872  accuracy: 97.472637 [10050/206242]
+2023-07-31 18:07:52,152	root	INFO	loss: 0.067511  accuracy: 97.356608 [20050/206242]
+2023-07-31 18:07:54,127	root	INFO	loss: 0.068378  accuracy: 97.374376 [30050/206242]
+2023-07-31 18:07:56,059	root	INFO	loss: 0.068506  accuracy: 97.425718 [40050/206242]
+2023-07-31 18:07:58,184	root	INFO	loss: 0.069192  accuracy: 97.466533 [50050/206242]
+2023-07-31 18:08:00,281	root	INFO	loss: 0.068863  accuracy: 97.463780 [60050/206242]
+2023-07-31 18:08:02,472	root	INFO	loss: 0.068703  accuracy: 97.447537 [70050/206242]
+2023-07-31 18:08:04,495	root	INFO	loss: 0.068466  accuracy: 97.476577 [80050/206242]
+2023-07-31 18:08:06,579	root	INFO	loss: 0.068240  accuracy: 97.465852 [90050/206242]
+2023-07-31 18:08:08,582	root	INFO	loss: 0.068343  accuracy: 97.471264 [100050/206242]
+2023-07-31 18:08:10,454	root	INFO	loss: 0.068762  accuracy: 97.457519 [110050/206242]
+2023-07-31 18:08:12,242	root	INFO	loss: 0.068945  accuracy: 97.462724 [120050/206242]
+2023-07-31 18:08:14,028	root	INFO	loss: 0.068562  accuracy: 97.472511 [130050/206242]
+2023-07-31 18:08:15,893	root	INFO	loss: 0.068821  accuracy: 97.470903 [140050/206242]
+2023-07-31 18:08:17,750	root	INFO	loss: 0.068802  accuracy: 97.464845 [150050/206242]
+2023-07-31 18:08:19,648	root	INFO	loss: 0.068504  accuracy: 97.484536 [160050/206242]
+2023-07-31 18:08:21,554	root	INFO	loss: 0.068228  accuracy: 97.488386 [170050/206242]
+2023-07-31 18:08:23,709	root	INFO	loss: 0.068356  accuracy: 97.479034 [180050/206242]
+2023-07-31 18:08:25,916	root	INFO	loss: 0.068421  accuracy: 97.475401 [190050/206242]
+2023-07-31 18:08:28,172	root	INFO	loss: 0.068026  accuracy: 97.490627 [200050/206242]
+2023-07-31 18:08:29,326	root	INFO	Train  Loss: 0.067982 accuracy: 97.495665% 
+2023-07-31 18:08:31,791	root	INFO	Val loss: 0.086552 Val accuracy: 96.485269%
+2023-07-31 18:08:31,791	root	INFO	====> Epoch: 23
+2023-07-31 18:08:31,815	root	INFO	loss: 0.063535  accuracy: 96.000000 [   50/206242]
+2023-07-31 18:08:33,728	root	INFO	loss: 0.067510  accuracy: 97.442786 [10050/206242]
+2023-07-31 18:08:35,720	root	INFO	loss: 0.067425  accuracy: 97.511222 [20050/206242]
+2023-07-31 18:08:37,587	root	INFO	loss: 0.066178  accuracy: 97.530782 [30050/206242]
+2023-07-31 18:08:39,754	root	INFO	loss: 0.065951  accuracy: 97.610487 [40050/206242]
+2023-07-31 18:08:41,849	root	INFO	loss: 0.066501  accuracy: 97.586414 [50050/206242]
+2023-07-31 18:08:43,921	root	INFO	loss: 0.066088  accuracy: 97.616986 [60050/206242]
+2023-07-31 18:08:46,139	root	INFO	loss: 0.066071  accuracy: 97.621699 [70050/206242]
+2023-07-31 18:08:47,998	root	INFO	loss: 0.066660  accuracy: 97.605247 [80050/206242]
+2023-07-31 18:08:49,969	root	INFO	loss: 0.066933  accuracy: 97.582454 [90050/206242]
+2023-07-31 18:08:52,022	root	INFO	loss: 0.066707  accuracy: 97.588206 [100050/206242]
+2023-07-31 18:08:54,027	root	INFO	loss: 0.066714  accuracy: 97.589278 [110050/206242]
+2023-07-31 18:08:56,095	root	INFO	loss: 0.066591  accuracy: 97.589338 [120050/206242]
+2023-07-31 18:08:58,151	root	INFO	loss: 0.066747  accuracy: 97.578624 [130050/206242]
+2023-07-31 18:09:00,339	root	INFO	loss: 0.066886  accuracy: 97.570154 [140050/206242]
+2023-07-31 18:09:02,326	root	INFO	loss: 0.066636  accuracy: 97.572143 [150050/206242]
+2023-07-31 18:09:04,168	root	INFO	loss: 0.066432  accuracy: 97.578882 [160050/206242]
+2023-07-31 18:09:05,991	root	INFO	loss: 0.066571  accuracy: 97.572479 [170050/206242]
+2023-07-31 18:09:07,931	root	INFO	loss: 0.066715  accuracy: 97.566232 [180050/206242]
+2023-07-31 18:09:10,015	root	INFO	loss: 0.066575  accuracy: 97.572218 [190050/206242]
+2023-07-31 18:09:11,958	root	INFO	loss: 0.066221  accuracy: 97.588603 [200050/206242]
+2023-07-31 18:09:13,080	root	INFO	Train  Loss: 0.065989 accuracy: 97.592727% 
+2023-07-31 18:09:15,643	root	INFO	Val loss: 0.111604 Val accuracy: 95.310225%
+2023-07-31 18:09:15,643	root	INFO	====> Epoch: 24
+2023-07-31 18:09:15,667	root	INFO	loss: 0.041880  accuracy: 98.000000 [   50/206242]
+2023-07-31 18:09:17,709	root	INFO	loss: 0.068569  accuracy: 97.562189 [10050/206242]
+2023-07-31 18:09:19,581	root	INFO	loss: 0.067634  accuracy: 97.536160 [20050/206242]
+2023-07-31 18:09:21,353	root	INFO	loss: 0.069157  accuracy: 97.477537 [30050/206242]
+2023-07-31 18:09:23,183	root	INFO	loss: 0.068088  accuracy: 97.525593 [40050/206242]
+2023-07-31 18:09:25,187	root	INFO	loss: 0.067905  accuracy: 97.564436 [50050/206242]
+2023-07-31 18:09:27,187	root	INFO	loss: 0.067847  accuracy: 97.523730 [60050/206242]
+2023-07-31 18:09:29,064	root	INFO	loss: 0.067009  accuracy: 97.528908 [70050/206242]
+2023-07-31 18:09:30,900	root	INFO	loss: 0.066474  accuracy: 97.559026 [80050/206242]
+2023-07-31 18:09:32,787	root	INFO	loss: 0.066404  accuracy: 97.545808 [90050/206242]
+2023-07-31 18:09:34,726	root	INFO	loss: 0.066674  accuracy: 97.520240 [100050/206242]
+2023-07-31 18:09:36,712	root	INFO	loss: 0.066699  accuracy: 97.531122 [110050/206242]
+2023-07-31 18:09:38,660	root	INFO	loss: 0.066506  accuracy: 97.548521 [120050/206242]
+2023-07-31 18:09:40,705	root	INFO	loss: 0.065758  accuracy: 97.572472 [130050/206242]
+2023-07-31 18:09:42,655	root	INFO	loss: 0.065438  accuracy: 97.578008 [140050/206242]
+2023-07-31 18:09:44,763	root	INFO	loss: 0.065185  accuracy: 97.597468 [150050/206242]
+2023-07-31 18:09:46,760	root	INFO	loss: 0.064998  accuracy: 97.610747 [160050/206242]
+2023-07-31 18:09:48,635	root	INFO	loss: 0.064838  accuracy: 97.613055 [170050/206242]
+2023-07-31 18:09:50,585	root	INFO	loss: 0.064558  accuracy: 97.627326 [180050/206242]
+2023-07-31 18:09:52,486	root	INFO	loss: 0.064444  accuracy: 97.635359 [190050/206242]
+2023-07-31 18:09:54,372	root	INFO	loss: 0.064516  accuracy: 97.629093 [200050/206242]
+2023-07-31 18:09:55,623	root	INFO	Train  Loss: 0.064548 accuracy: 97.628121% 
+2023-07-31 18:09:58,068	root	INFO	Val loss: 0.083221 Val accuracy: 96.668977%
+2023-07-31 18:09:58,068	root	INFO	====> Epoch: 25
+2023-07-31 18:09:58,094	root	INFO	loss: 0.039544  accuracy: 98.000000 [   50/206242]
+2023-07-31 18:09:59,965	root	INFO	loss: 0.058228  accuracy: 97.930348 [10050/206242]
+2023-07-31 18:10:01,741	root	INFO	loss: 0.059725  accuracy: 97.875312 [20050/206242]
+2023-07-31 18:10:03,601	root	INFO	loss: 0.060002  accuracy: 97.810316 [30050/206242]
+2023-07-31 18:10:05,709	root	INFO	loss: 0.062138  accuracy: 97.685393 [40050/206242]
+2023-07-31 18:10:07,785	root	INFO	loss: 0.062200  accuracy: 97.704296 [50050/206242]
+2023-07-31 18:10:09,793	root	INFO	loss: 0.062942  accuracy: 97.686928 [60050/206242]
+2023-07-31 18:10:11,739	root	INFO	loss: 0.062643  accuracy: 97.707352 [70050/206242]
+2023-07-31 18:10:13,759	root	INFO	loss: 0.063074  accuracy: 97.693941 [80050/206242]
+2023-07-31 18:10:15,861	root	INFO	loss: 0.063145  accuracy: 97.709051 [90050/206242]
+2023-07-31 18:10:17,831	root	INFO	loss: 0.063703  accuracy: 97.685157 [100050/206242]
+2023-07-31 18:10:19,752	root	INFO	loss: 0.063125  accuracy: 97.697410 [110050/206242]
+2023-07-31 18:10:21,611	root	INFO	loss: 0.063320  accuracy: 97.680966 [120050/206242]
+2023-07-31 18:10:23,501	root	INFO	loss: 0.063170  accuracy: 97.681661 [130050/206242]
+2023-07-31 18:10:25,590	root	INFO	loss: 0.062937  accuracy: 97.693681 [140050/206242]
+2023-07-31 18:10:27,386	root	INFO	loss: 0.063025  accuracy: 97.672776 [150050/206242]
+2023-07-31 18:10:29,328	root	INFO	loss: 0.063128  accuracy: 97.675726 [160050/206242]
+2023-07-31 18:10:31,319	root	INFO	loss: 0.062919  accuracy: 97.685387 [170050/206242]
+2023-07-31 18:10:33,344	root	INFO	loss: 0.063000  accuracy: 97.687864 [180050/206242]
+2023-07-31 18:10:35,438	root	INFO	loss: 0.062931  accuracy: 97.686924 [190050/206242]
+2023-07-31 18:10:37,406	root	INFO	loss: 0.063003  accuracy: 97.688078 [200050/206242]
+2023-07-31 18:10:38,677	root	INFO	Train  Loss: 0.063000 accuracy: 97.689697% 
+2023-07-31 18:10:41,310	root	INFO	Val loss: 0.120006 Val accuracy: 94.991334%
+2023-07-31 18:10:41,310	root	INFO	====> Epoch: 26
+2023-07-31 18:10:41,335	root	INFO	loss: 0.206484  accuracy: 94.000000 [   50/206242]
+2023-07-31 18:10:43,251	root	INFO	loss: 0.063549  accuracy: 97.741294 [10050/206242]
+2023-07-31 18:10:45,153	root	INFO	loss: 0.061590  accuracy: 97.790524 [20050/206242]
+2023-07-31 18:10:47,286	root	INFO	loss: 0.060163  accuracy: 97.773710 [30050/206242]
+2023-07-31 18:10:49,068	root	INFO	loss: 0.060015  accuracy: 97.782772 [40050/206242]
+2023-07-31 18:10:51,125	root	INFO	loss: 0.060402  accuracy: 97.794206 [50050/206242]
+2023-07-31 18:10:53,309	root	INFO	loss: 0.060710  accuracy: 97.770192 [60050/206242]
+2023-07-31 18:10:55,559	root	INFO	loss: 0.061257  accuracy: 97.717345 [70050/206242]
+2023-07-31 18:10:57,576	root	INFO	loss: 0.060756  accuracy: 97.735166 [80050/206242]
+2023-07-31 18:10:59,642	root	INFO	loss: 0.060546  accuracy: 97.763465 [90050/206242]
+2023-07-31 18:11:01,608	root	INFO	loss: 0.060551  accuracy: 97.769115 [100050/206242]
+2023-07-31 18:11:03,595	root	INFO	loss: 0.060992  accuracy: 97.768287 [110050/206242]
+2023-07-31 18:11:05,587	root	INFO	loss: 0.061181  accuracy: 97.745939 [120050/206242]
+2023-07-31 18:11:07,437	root	INFO	loss: 0.061301  accuracy: 97.738562 [130050/206242]
+2023-07-31 18:11:09,383	root	INFO	loss: 0.060875  accuracy: 97.752945 [140050/206242]
+2023-07-31 18:11:11,221	root	INFO	loss: 0.060752  accuracy: 97.762746 [150050/206242]
+2023-07-31 18:11:13,183	root	INFO	loss: 0.060778  accuracy: 97.758825 [160050/206242]
+2023-07-31 18:11:15,150	root	INFO	loss: 0.061113  accuracy: 97.733608 [170050/206242]
+2023-07-31 18:11:17,045	root	INFO	loss: 0.061107  accuracy: 97.730075 [180050/206242]
+2023-07-31 18:11:19,058	root	INFO	loss: 0.061435  accuracy: 97.717969 [190050/206242]
+2023-07-31 18:11:21,030	root	INFO	loss: 0.061570  accuracy: 97.715071 [200050/206242]
+2023-07-31 18:11:22,303	root	INFO	Train  Loss: 0.061476 accuracy: 97.717149% 
+2023-07-31 18:11:24,845	root	INFO	Val loss: 0.080343 Val accuracy: 96.627383%
+2023-07-31 18:11:24,846	root	INFO	====> Epoch: 27
+2023-07-31 18:11:24,869	root	INFO	loss: 0.067144  accuracy: 98.000000 [   50/206242]
+2023-07-31 18:11:26,773	root	INFO	loss: 0.062508  accuracy: 97.552239 [10050/206242]
+2023-07-31 18:11:29,005	root	INFO	loss: 0.060620  accuracy: 97.640898 [20050/206242]
+2023-07-31 18:11:31,081	root	INFO	loss: 0.060529  accuracy: 97.687188 [30050/206242]
+2023-07-31 18:11:33,051	root	INFO	loss: 0.060915  accuracy: 97.657928 [40050/206242]
+2023-07-31 18:11:35,021	root	INFO	loss: 0.060573  accuracy: 97.672328 [50050/206242]
+2023-07-31 18:11:37,012	root	INFO	loss: 0.060755  accuracy: 97.670275 [60050/206242]
+2023-07-31 18:11:38,976	root	INFO	loss: 0.060008  accuracy: 97.715917 [70050/206242]
+2023-07-31 18:11:40,851	root	INFO	loss: 0.059550  accuracy: 97.747658 [80050/206242]
+2023-07-31 18:11:42,994	root	INFO	loss: 0.059831  accuracy: 97.737923 [90050/206242]
+2023-07-31 18:11:44,940	root	INFO	loss: 0.060180  accuracy: 97.720140 [100050/206242]
+2023-07-31 18:11:46,923	root	INFO	loss: 0.059746  accuracy: 97.754657 [110050/206242]
+2023-07-31 18:11:48,796	root	INFO	loss: 0.059718  accuracy: 97.745939 [120050/206242]
+2023-07-31 18:11:50,690	root	INFO	loss: 0.059525  accuracy: 97.754710 [130050/206242]
+2023-07-31 18:11:52,756	root	INFO	loss: 0.060114  accuracy: 97.740093 [140050/206242]
+2023-07-31 18:11:54,864	root	INFO	loss: 0.060165  accuracy: 97.736754 [150050/206242]
+2023-07-31 18:11:57,001	root	INFO	loss: 0.060261  accuracy: 97.735083 [160050/206242]
+2023-07-31 18:11:58,996	root	INFO	loss: 0.059964  accuracy: 97.749485 [170050/206242]
+2023-07-31 18:12:00,896	root	INFO	loss: 0.060157  accuracy: 97.746182 [180050/206242]
+2023-07-31 18:12:02,776	root	INFO	loss: 0.060167  accuracy: 97.753223 [190050/206242]
+2023-07-31 18:12:04,549	root	INFO	loss: 0.060106  accuracy: 97.757061 [200050/206242]
+2023-07-31 18:12:05,827	root	INFO	Train  Loss: 0.060029 accuracy: 97.757483% 
+2023-07-31 18:12:08,365	root	INFO	Val loss: 0.083410 Val accuracy: 96.523397%
+2023-07-31 18:12:08,365	root	INFO	====> Epoch: 28
+2023-07-31 18:12:08,391	root	INFO	loss: 0.080032  accuracy: 96.000000 [   50/206242]
+2023-07-31 18:12:10,372	root	INFO	loss: 0.056611  accuracy: 97.810945 [10050/206242]
+2023-07-31 18:12:12,362	root	INFO	loss: 0.057796  accuracy: 97.760599 [20050/206242]
+2023-07-31 18:12:14,268	root	INFO	loss: 0.057678  accuracy: 97.797005 [30050/206242]
+2023-07-31 18:12:16,202	root	INFO	loss: 0.056830  accuracy: 97.835206 [40050/206242]
+2023-07-31 18:12:18,152	root	INFO	loss: 0.056999  accuracy: 97.830170 [50050/206242]
+2023-07-31 18:12:20,185	root	INFO	loss: 0.057317  accuracy: 97.831807 [60050/206242]
+2023-07-31 18:12:22,143	root	INFO	loss: 0.057013  accuracy: 97.851535 [70050/206242]
+2023-07-31 18:12:23,995	root	INFO	loss: 0.057573  accuracy: 97.832605 [80050/206242]
+2023-07-31 18:12:25,834	root	INFO	loss: 0.057838  accuracy: 97.810105 [90050/206242]
+2023-07-31 18:12:27,672	root	INFO	loss: 0.058541  accuracy: 97.786107 [100050/206242]
+2023-07-31 18:12:29,511	root	INFO	loss: 0.058591  accuracy: 97.782826 [110050/206242]
+2023-07-31 18:12:31,555	root	INFO	loss: 0.058677  accuracy: 97.781758 [120050/206242]
+2023-07-31 18:12:33,836	root	INFO	loss: 0.058729  accuracy: 97.769319 [130050/206242]
+2023-07-31 18:12:36,019	root	INFO	loss: 0.058149  accuracy: 97.800785 [140050/206242]
+2023-07-31 18:12:38,337	root	INFO	loss: 0.058209  accuracy: 97.798067 [150050/206242]
+2023-07-31 18:12:40,317	root	INFO	loss: 0.058289  accuracy: 97.787566 [160050/206242]
+2023-07-31 18:12:42,215	root	INFO	loss: 0.058484  accuracy: 97.772420 [170050/206242]
+2023-07-31 18:12:44,084	root	INFO	loss: 0.058469  accuracy: 97.776729 [180050/206242]
+2023-07-31 18:12:46,055	root	INFO	loss: 0.058610  accuracy: 97.778479 [190050/206242]
+2023-07-31 18:12:48,171	root	INFO	loss: 0.058448  accuracy: 97.789553 [200050/206242]
+2023-07-31 18:12:49,569	root	INFO	Train  Loss: 0.058797 accuracy: 97.776600% 
+2023-07-31 18:12:51,988	root	INFO	Val loss: 0.082950 Val accuracy: 96.571924%
+2023-07-31 18:12:51,988	root	INFO	====> Epoch: 29
+2023-07-31 18:12:52,012	root	INFO	loss: 0.058981  accuracy: 98.000000 [   50/206242]
+2023-07-31 18:12:53,862	root	INFO	loss: 0.054360  accuracy: 97.930348 [10050/206242]
+2023-07-31 18:12:55,663	root	INFO	loss: 0.052061  accuracy: 98.000000 [20050/206242]
+2023-07-31 18:12:57,430	root	INFO	loss: 0.053186  accuracy: 97.983361 [30050/206242]
+2023-07-31 18:12:59,344	root	INFO	loss: 0.054000  accuracy: 97.965044 [40050/206242]
+2023-07-31 18:13:01,414	root	INFO	loss: 0.055393  accuracy: 97.908092 [50050/206242]
+2023-07-31 18:13:03,576	root	INFO	loss: 0.055815  accuracy: 97.898418 [60050/206242]
+2023-07-31 18:13:05,802	root	INFO	loss: 0.055552  accuracy: 97.891506 [70050/206242]
+2023-07-31 18:13:08,036	root	INFO	loss: 0.055823  accuracy: 97.882573 [80050/206242]
+2023-07-31 18:13:10,029	root	INFO	loss: 0.056467  accuracy: 97.863409 [90050/206242]
+2023-07-31 18:13:12,022	root	INFO	loss: 0.056355  accuracy: 97.882059 [100050/206242]
+2023-07-31 18:13:13,887	root	INFO	loss: 0.056945  accuracy: 97.860064 [110050/206242]
+2023-07-31 18:13:15,698	root	INFO	loss: 0.057164  accuracy: 97.842566 [120050/206242]
+2023-07-31 18:13:17,634	root	INFO	loss: 0.057248  accuracy: 97.846982 [130050/206242]
+2023-07-31 18:13:19,564	root	INFO	loss: 0.057495  accuracy: 97.833631 [140050/206242]
+2023-07-31 18:13:21,568	root	INFO	loss: 0.057544  accuracy: 97.832722 [150050/206242]
+2023-07-31 18:13:23,522	root	INFO	loss: 0.057792  accuracy: 97.816307 [160050/206242]
+2023-07-31 18:13:25,421	root	INFO	loss: 0.057832  accuracy: 97.807704 [170050/206242]
+2023-07-31 18:13:27,602	root	INFO	loss: 0.057559  accuracy: 97.817828 [180050/206242]
+2023-07-31 18:13:29,782	root	INFO	loss: 0.057363  accuracy: 97.820574 [190050/206242]
+2023-07-31 18:13:31,584	root	INFO	loss: 0.057361  accuracy: 97.818045 [200050/206242]
+2023-07-31 18:13:32,756	root	INFO	Train  Loss: 0.057483 accuracy: 97.809755% 
+2023-07-31 18:13:35,216	root	INFO	Val loss: 0.090204 Val accuracy: 96.166378%
+2023-07-31 18:13:35,216	root	INFO	====> Epoch: 30
+2023-07-31 18:13:35,243	root	INFO	loss: 0.019962  accuracy: 100.000000 [   50/206242]
+2023-07-31 18:13:37,161	root	INFO	loss: 0.050330  accuracy: 98.089552 [10050/206242]
+2023-07-31 18:13:39,143	root	INFO	loss: 0.049891  accuracy: 98.089776 [20050/206242]
+2023-07-31 18:13:41,302	root	INFO	loss: 0.051701  accuracy: 98.016639 [30050/206242]
+2023-07-31 18:13:43,176	root	INFO	loss: 0.050989  accuracy: 98.044944 [40050/206242]
+2023-07-31 18:13:45,061	root	INFO	loss: 0.052652  accuracy: 97.990010 [50050/206242]
+2023-07-31 18:13:46,969	root	INFO	loss: 0.053683  accuracy: 97.951707 [60050/206242]
+2023-07-31 18:13:48,973	root	INFO	loss: 0.054533  accuracy: 97.922912 [70050/206242]
+2023-07-31 18:13:50,840	root	INFO	loss: 0.055692  accuracy: 97.883823 [80050/206242]
+2023-07-31 18:13:52,721	root	INFO	loss: 0.055526  accuracy: 97.897835 [90050/206242]
+2023-07-31 18:13:54,745	root	INFO	loss: 0.055901  accuracy: 97.873063 [100050/206242]
+2023-07-31 18:13:56,637	root	INFO	loss: 0.055977  accuracy: 97.867333 [110050/206242]
+2023-07-31 18:13:58,635	root	INFO	loss: 0.055671  accuracy: 97.882549 [120050/206242]
+2023-07-31 18:14:00,674	root	INFO	loss: 0.055438  accuracy: 97.895425 [130050/206242]
+2023-07-31 18:14:02,720	root	INFO	loss: 0.055460  accuracy: 97.897894 [140050/206242]
+2023-07-31 18:14:04,801	root	INFO	loss: 0.055804  accuracy: 97.892036 [150050/206242]
+2023-07-31 18:14:06,814	root	INFO	loss: 0.056083  accuracy: 97.880662 [160050/206242]
+2023-07-31 18:14:08,761	root	INFO	loss: 0.056068  accuracy: 97.887680 [170050/206242]
+2023-07-31 18:14:10,877	root	INFO	loss: 0.056110  accuracy: 97.881144 [180050/206242]
+2023-07-31 18:14:12,914	root	INFO	loss: 0.056227  accuracy: 97.876348 [190050/206242]
+2023-07-31 18:14:14,802	root	INFO	loss: 0.056084  accuracy: 97.886028 [200050/206242]
+2023-07-31 18:14:16,068	root	INFO	Train  Loss: 0.056154 accuracy: 97.886453% 
+2023-07-31 18:14:18,614	root	INFO	Val loss: 0.079110 Val accuracy: 96.610052%
+2023-07-31 18:14:18,615	root	INFO	====> Epoch: 31
+2023-07-31 18:14:18,640	root	INFO	loss: 0.022218  accuracy: 100.000000 [   50/206242]
+2023-07-31 18:14:20,700	root	INFO	loss: 0.052099  accuracy: 97.900498 [10050/206242]
+2023-07-31 18:14:22,657	root	INFO	loss: 0.052621  accuracy: 97.895262 [20050/206242]
+2023-07-31 18:14:24,707	root	INFO	loss: 0.053768  accuracy: 97.933444 [30050/206242]
+2023-07-31 18:14:26,688	root	INFO	loss: 0.054363  accuracy: 97.907615 [40050/206242]
+2023-07-31 18:14:28,644	root	INFO	loss: 0.054705  accuracy: 97.898102 [50050/206242]
+2023-07-31 18:14:30,611	root	INFO	loss: 0.054557  accuracy: 97.891757 [60050/206242]
+2023-07-31 18:14:32,619	root	INFO	loss: 0.054677  accuracy: 97.904354 [70050/206242]
+2023-07-31 18:14:34,549	root	INFO	loss: 0.054632  accuracy: 97.916302 [80050/206242]
+2023-07-31 18:14:36,444	root	INFO	loss: 0.054705  accuracy: 97.916713 [90050/206242]
+2023-07-31 18:14:38,311	root	INFO	loss: 0.054862  accuracy: 97.903048 [100050/206242]
+2023-07-31 18:14:40,189	root	INFO	loss: 0.054497  accuracy: 97.930940 [110050/206242]
+2023-07-31 18:14:41,940	root	INFO	loss: 0.054617  accuracy: 97.933361 [120050/206242]
+2023-07-31 18:14:43,970	root	INFO	loss: 0.055229  accuracy: 97.899270 [130050/206242]
+2023-07-31 18:14:46,018	root	INFO	loss: 0.055080  accuracy: 97.912174 [140050/206242]
+2023-07-31 18:14:47,807	root	INFO	loss: 0.054946  accuracy: 97.920693 [150050/206242]
+2023-07-31 18:14:49,690	root	INFO	loss: 0.054978  accuracy: 97.908154 [160050/206242]
+2023-07-31 18:14:51,606	root	INFO	loss: 0.055033  accuracy: 97.903558 [170050/206242]
+2023-07-31 18:14:53,598	root	INFO	loss: 0.055022  accuracy: 97.912802 [180050/206242]
+2023-07-31 18:14:55,604	root	INFO	loss: 0.055292  accuracy: 97.891607 [190050/206242]
+2023-07-31 18:14:57,594	root	INFO	loss: 0.055176  accuracy: 97.899525 [200050/206242]
+2023-07-31 18:14:58,825	root	INFO	Train  Loss: 0.055150 accuracy: 97.896727% 
+2023-07-31 18:15:01,302	root	INFO	Val loss: 0.074615 Val accuracy: 96.793761%
+2023-07-31 18:15:01,594	root	INFO	Saving checkpoint: epoch30CNNLSTM-mfcc-lfcc.pth
+2023-07-31 18:15:01,996	root	INFO	====> Epoch: 32
+2023-07-31 18:15:02,033	root	INFO	loss: 0.035883  accuracy: 98.000000 [   50/206242]
+2023-07-31 18:15:04,023	root	INFO	loss: 0.050843  accuracy: 97.990050 [10050/206242]
+2023-07-31 18:15:05,913	root	INFO	loss: 0.049243  accuracy: 98.079800 [20050/206242]
+2023-07-31 18:15:07,721	root	INFO	loss: 0.054552  accuracy: 97.883527 [30050/206242]
+2023-07-31 18:15:09,588	root	INFO	loss: 0.053126  accuracy: 97.975031 [40050/206242]
+2023-07-31 18:15:11,583	root	INFO	loss: 0.053791  accuracy: 97.954046 [50050/206242]
+2023-07-31 18:15:13,577	root	INFO	loss: 0.053180  accuracy: 97.953372 [60050/206242]
+2023-07-31 18:15:16,472	root	INFO	loss: 0.054358  accuracy: 97.905782 [70050/206242]
+2023-07-31 18:15:18,446	root	INFO	loss: 0.054135  accuracy: 97.908807 [80050/206242]
+2023-07-31 18:15:20,399	root	INFO	loss: 0.054233  accuracy: 97.900056 [90050/206242]
+2023-07-31 18:15:22,345	root	INFO	loss: 0.054249  accuracy: 97.900050 [100050/206242]
+2023-07-31 18:15:24,305	root	INFO	loss: 0.054211  accuracy: 97.910041 [110050/206242]
+2023-07-31 18:15:26,597	root	INFO	loss: 0.054112  accuracy: 97.902541 [120050/206242]
+2023-07-31 18:15:28,615	root	INFO	loss: 0.054023  accuracy: 97.909266 [130050/206242]
+2023-07-31 18:15:30,640	root	INFO	loss: 0.054017  accuracy: 97.914316 [140050/206242]
+2023-07-31 18:15:32,860	root	INFO	loss: 0.053995  accuracy: 97.913362 [150050/206242]
+2023-07-31 18:15:34,920	root	INFO	loss: 0.053926  accuracy: 97.909403 [160050/206242]
+2023-07-31 18:15:36,881	root	INFO	loss: 0.053861  accuracy: 97.911791 [170050/206242]
+2023-07-31 18:15:38,924	root	INFO	loss: 0.054039  accuracy: 97.906137 [180050/206242]
+2023-07-31 18:15:41,094	root	INFO	loss: 0.054147  accuracy: 97.915812 [190050/206242]
+2023-07-31 18:15:43,215	root	INFO	loss: 0.054402  accuracy: 97.914021 [200050/206242]
+2023-07-31 18:15:44,384	root	INFO	Train  Loss: 0.054392 accuracy: 97.919515% 
+2023-07-31 18:15:46,900	root	INFO	Val loss: 0.070458 Val accuracy: 97.046794%
+2023-07-31 18:15:46,900	root	INFO	====> Epoch: 33
+2023-07-31 18:15:46,924	root	INFO	loss: 0.123776  accuracy: 96.000000 [   50/206242]
+2023-07-31 18:15:48,883	root	INFO	loss: 0.052408  accuracy: 98.000000 [10050/206242]
+2023-07-31 18:15:50,845	root	INFO	loss: 0.052495  accuracy: 98.024938 [20050/206242]
+2023-07-31 18:15:52,848	root	INFO	loss: 0.051510  accuracy: 98.053245 [30050/206242]
+2023-07-31 18:15:54,764	root	INFO	loss: 0.051815  accuracy: 98.049938 [40050/206242]
+2023-07-31 18:15:56,898	root	INFO	loss: 0.052742  accuracy: 97.994006 [50050/206242]
+2023-07-31 18:15:58,794	root	INFO	loss: 0.052512  accuracy: 97.981682 [60050/206242]
+2023-07-31 18:16:00,668	root	INFO	loss: 0.052703  accuracy: 97.988580 [70050/206242]
+2023-07-31 18:16:02,604	root	INFO	loss: 0.053157  accuracy: 97.965022 [80050/206242]
+2023-07-31 18:16:04,496	root	INFO	loss: 0.053262  accuracy: 97.953359 [90050/206242]
+2023-07-31 18:16:06,284	root	INFO	loss: 0.053763  accuracy: 97.929035 [100050/206242]
+2023-07-31 18:16:08,087	root	INFO	loss: 0.054253  accuracy: 97.906406 [110050/206242]
+2023-07-31 18:16:09,910	root	INFO	loss: 0.054244  accuracy: 97.904207 [120050/206242]
+2023-07-31 18:16:11,735	root	INFO	loss: 0.054551  accuracy: 97.893118 [130050/206242]
+2023-07-31 18:16:13,533	root	INFO	loss: 0.054533  accuracy: 97.890753 [140050/206242]
+2023-07-31 18:16:15,470	root	INFO	loss: 0.054311  accuracy: 97.906031 [150050/206242]
+2023-07-31 18:16:17,507	root	INFO	loss: 0.054260  accuracy: 97.896907 [160050/206242]
+2023-07-31 18:16:19,440	root	INFO	loss: 0.054034  accuracy: 97.902382 [170050/206242]
+2023-07-31 18:16:21,364	root	INFO	loss: 0.053585  accuracy: 97.921133 [180050/206242]
+2023-07-31 18:16:23,167	root	INFO	loss: 0.053568  accuracy: 97.930545 [190050/206242]
+2023-07-31 18:16:25,042	root	INFO	loss: 0.053402  accuracy: 97.940015 [200050/206242]
+2023-07-31 18:16:26,299	root	INFO	Train  Loss: 0.053526 accuracy: 97.939879% 
+2023-07-31 18:16:28,842	root	INFO	Val loss: 0.075785 Val accuracy: 96.741768%
+2023-07-31 18:16:28,842	root	INFO	====> Epoch: 34
+2023-07-31 18:16:28,868	root	INFO	loss: 0.026108  accuracy: 98.000000 [   50/206242]
+2023-07-31 18:16:30,675	root	INFO	loss: 0.055075  accuracy: 97.950249 [10050/206242]
+2023-07-31 18:16:32,433	root	INFO	loss: 0.054125  accuracy: 97.995012 [20050/206242]
+2023-07-31 18:16:34,226	root	INFO	loss: 0.053874  accuracy: 97.993344 [30050/206242]
+2023-07-31 18:16:36,153	root	INFO	loss: 0.052302  accuracy: 98.044944 [40050/206242]
+2023-07-31 18:16:38,045	root	INFO	loss: 0.052338  accuracy: 98.027972 [50050/206242]
+2023-07-31 18:16:40,008	root	INFO	loss: 0.051842  accuracy: 98.049958 [60050/206242]
+2023-07-31 18:16:41,908	root	INFO	loss: 0.051693  accuracy: 98.038544 [70050/206242]
+2023-07-31 18:16:43,753	root	INFO	loss: 0.051215  accuracy: 98.043723 [80050/206242]
+2023-07-31 18:16:45,642	root	INFO	loss: 0.051376  accuracy: 98.041088 [90050/206242]
+2023-07-31 18:16:47,518	root	INFO	loss: 0.051519  accuracy: 98.040980 [100050/206242]
+2023-07-31 18:16:49,439	root	INFO	loss: 0.051971  accuracy: 98.023626 [110050/206242]
+2023-07-31 18:16:51,380	root	INFO	loss: 0.052199  accuracy: 98.005831 [120050/206242]
+2023-07-31 18:16:53,237	root	INFO	loss: 0.052083  accuracy: 98.000769 [130050/206242]
+2023-07-31 18:16:55,229	root	INFO	loss: 0.051892  accuracy: 98.006426 [140050/206242]
+2023-07-31 18:16:57,148	root	INFO	loss: 0.051631  accuracy: 98.023326 [150050/206242]
+2023-07-31 18:16:59,037	root	INFO	loss: 0.052014  accuracy: 98.007498 [160050/206242]
+2023-07-31 18:17:00,960	root	INFO	loss: 0.052082  accuracy: 98.005293 [170050/206242]
+2023-07-31 18:17:03,001	root	INFO	loss: 0.052183  accuracy: 97.989447 [180050/206242]
+2023-07-31 18:17:05,161	root	INFO	loss: 0.051917  accuracy: 98.004209 [190050/206242]
+2023-07-31 18:17:07,140	root	INFO	loss: 0.052119  accuracy: 97.998000 [200050/206242]
+2023-07-31 18:17:08,498	root	INFO	Train  Loss: 0.052251 accuracy: 97.994874% 
+2023-07-31 18:17:11,052	root	INFO	Val loss: 0.075607 Val accuracy: 96.682842%
+2023-07-31 18:17:11,052	root	INFO	====> Epoch: 35
+2023-07-31 18:17:11,079	root	INFO	loss: 0.011896  accuracy: 100.000000 [   50/206242]
+2023-07-31 18:17:13,190	root	INFO	loss: 0.045717  accuracy: 98.298507 [10050/206242]
+2023-07-31 18:17:15,092	root	INFO	loss: 0.048910  accuracy: 98.174564 [20050/206242]
+2023-07-31 18:17:17,073	root	INFO	loss: 0.049676  accuracy: 98.136439 [30050/206242]
+2023-07-31 18:17:18,970	root	INFO	loss: 0.050116  accuracy: 98.092385 [40050/206242]
+2023-07-31 18:17:21,010	root	INFO	loss: 0.050407  accuracy: 98.087912 [50050/206242]
+2023-07-31 18:17:23,041	root	INFO	loss: 0.050685  accuracy: 98.073272 [60050/206242]
+2023-07-31 18:17:25,091	root	INFO	loss: 0.051596  accuracy: 98.019986 [70050/206242]
+2023-07-31 18:17:26,919	root	INFO	loss: 0.051669  accuracy: 97.985009 [80050/206242]
+2023-07-31 18:17:28,816	root	INFO	loss: 0.051790  accuracy: 97.981122 [90050/206242]
+2023-07-31 18:17:30,627	root	INFO	loss: 0.051759  accuracy: 97.977011 [100050/206242]
+2023-07-31 18:17:32,826	root	INFO	loss: 0.051876  accuracy: 97.973648 [110050/206242]
+2023-07-31 18:17:34,643	root	INFO	loss: 0.052389  accuracy: 97.955852 [120050/206242]
+2023-07-31 18:17:36,570	root	INFO	loss: 0.052582  accuracy: 97.953864 [130050/206242]
+2023-07-31 18:17:38,512	root	INFO	loss: 0.052351  accuracy: 97.968583 [140050/206242]
+2023-07-31 18:17:40,467	root	INFO	loss: 0.051990  accuracy: 97.988670 [150050/206242]
+2023-07-31 18:17:42,311	root	INFO	loss: 0.051942  accuracy: 97.996876 [160050/206242]
+2023-07-31 18:17:44,370	root	INFO	loss: 0.051705  accuracy: 98.004116 [170050/206242]
+2023-07-31 18:17:46,512	root	INFO	loss: 0.051684  accuracy: 97.997223 [180050/206242]
+2023-07-31 18:17:48,338	root	INFO	loss: 0.051612  accuracy: 97.997895 [190050/206242]
+2023-07-31 18:17:50,202	root	INFO	loss: 0.051483  accuracy: 98.000500 [200050/206242]
+2023-07-31 18:17:51,399	root	INFO	Train  Loss: 0.051329 accuracy: 98.008727% 
+2023-07-31 18:17:54,000	root	INFO	Val loss: 0.070533 Val accuracy: 96.970537%
+2023-07-31 18:17:54,000	root	INFO	====> Epoch: 36
+2023-07-31 18:17:54,026	root	INFO	loss: 0.098279  accuracy: 98.000000 [   50/206242]
+2023-07-31 18:17:56,157	root	INFO	loss: 0.047679  accuracy: 98.139303 [10050/206242]
+2023-07-31 18:17:57,986	root	INFO	loss: 0.048922  accuracy: 98.054863 [20050/206242]
+2023-07-31 18:18:00,046	root	INFO	loss: 0.050827  accuracy: 97.983361 [30050/206242]
+2023-07-31 18:18:02,166	root	INFO	loss: 0.050399  accuracy: 98.027466 [40050/206242]
+2023-07-31 18:18:04,014	root	INFO	loss: 0.050868  accuracy: 97.992008 [50050/206242]
+2023-07-31 18:18:06,188	root	INFO	loss: 0.050200  accuracy: 98.009992 [60050/206242]
+2023-07-31 18:18:08,198	root	INFO	loss: 0.050175  accuracy: 98.028551 [70050/206242]
+2023-07-31 18:18:10,137	root	INFO	loss: 0.050971  accuracy: 98.006246 [80050/206242]
+2023-07-31 18:18:12,092	root	INFO	loss: 0.050453  accuracy: 98.012215 [90050/206242]
+2023-07-31 18:18:13,900	root	INFO	loss: 0.050534  accuracy: 98.009995 [100050/206242]
+2023-07-31 18:18:16,028	root	INFO	loss: 0.050505  accuracy: 98.014539 [110050/206242]
+2023-07-31 18:18:18,249	root	INFO	loss: 0.050658  accuracy: 98.017493 [120050/206242]
+2023-07-31 18:18:20,318	root	INFO	loss: 0.051114  accuracy: 97.998462 [130050/206242]
+2023-07-31 18:18:22,384	root	INFO	loss: 0.051429  accuracy: 97.981435 [140050/206242]
+2023-07-31 18:18:24,426	root	INFO	loss: 0.051261  accuracy: 97.984672 [150050/206242]
+2023-08-01 11:59:28,053	root	INFO	Using cuda:0 device
+2023-08-01 11:59:28,077	root	INFO	Start training with LCNN model
+2023-08-01 11:59:28,078	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=560, out_features=8, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-01 12:01:54,478	root	INFO	Using cuda:0 device
+2023-08-01 12:01:54,504	root	INFO	Start training with LCNN model
+2023-08-01 12:01:54,504	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=560, out_features=8, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-01 12:02:44,974	root	INFO	Using cuda:0 device
+2023-08-01 12:02:44,974	root	INFO	Start training with LCNN model
+2023-08-01 12:02:44,974	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=560, out_features=8, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-01 12:12:33,874	root	INFO	Using cuda:0 device
+2023-08-01 12:12:33,900	root	INFO	Start training with LCNN model
+2023-08-01 12:12:33,900	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=560, out_features=8, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-01 13:59:47,080	root	INFO	Using cuda:0 device
+2023-08-01 13:59:47,111	root	INFO	Start training with LCNN model
+2023-08-01 13:59:47,111	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=560, out_features=8, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-01 14:07:23,662	root	INFO	Using cuda:0 device
+2023-08-01 14:07:23,698	root	INFO	Start training with LCNN model
+2023-08-01 14:07:23,698	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=560, out_features=8, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-01 14:07:23,699	root	INFO	====> Epoch: 1
+2023-08-01 14:07:57,827	root	INFO	loss: 0.776495  accuracy: 28.000000 [   50/ 8400]
+2023-08-01 14:08:00,233	root	INFO	Train  Loss: 0.650977 accuracy: 55.976190% 
+2023-08-01 14:08:00,642	root	INFO	Val loss: 0.555391 Val accuracy: 77.664083%
+2023-08-01 14:13:36,576	root	INFO	Using cuda:0 device
+2023-08-01 14:13:36,613	root	INFO	Start training with LCNN model
+2023-08-01 14:13:36,613	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=560, out_features=8, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-01 14:18:46,577	root	INFO	Using cuda:0 device
+2023-08-01 14:18:46,608	root	INFO	Start training with LCNN model
+2023-08-01 14:18:46,608	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=560, out_features=8, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-01 14:18:47,132	root	INFO	====> Epoch: 1
+2023-08-01 14:18:47,484	root	INFO	loss: 0.624238  accuracy: 78.000000 [   50/10129]
+2023-08-01 14:18:50,441	root	INFO	loss: 0.486738  accuracy: 79.393035 [10050/10129]
+2023-08-01 14:18:50,479	root	INFO	Train  Loss: 0.484727 accuracy: 79.452013% 
+2023-08-01 14:18:50,647	root	INFO	Val loss: 0.300115 Val accuracy: 82.566038%
+2023-08-01 14:18:50,647	root	INFO	====> Epoch: 2
+2023-08-01 14:18:50,664	root	INFO	loss: 0.324657  accuracy: 80.000000 [   50/10129]
+2023-08-01 14:18:53,516	root	INFO	loss: 0.171171  accuracy: 93.402985 [10050/10129]
+2023-08-01 14:18:53,541	root	INFO	Train  Loss: 0.171400 accuracy: 93.377612% 
+2023-08-01 14:18:53,701	root	INFO	Val loss: 0.090334 Val accuracy: 97.471698%
+2023-08-01 14:18:53,701	root	INFO	====> Epoch: 3
+2023-08-01 14:18:53,718	root	INFO	loss: 0.128982  accuracy: 98.000000 [   50/10129]
+2023-08-01 14:18:56,595	root	INFO	loss: 0.113210  accuracy: 95.950249 [10050/10129]
+2023-08-01 14:18:56,622	root	INFO	Train  Loss: 0.112942 accuracy: 95.946322% 
+2023-08-01 14:18:56,802	root	INFO	Val loss: 0.067327 Val accuracy: 98.075472%
+2023-08-01 14:18:56,802	root	INFO	====> Epoch: 4
+2023-08-01 14:18:56,820	root	INFO	loss: 0.073121  accuracy: 96.000000 [   50/10129]
+2023-08-01 14:18:59,684	root	INFO	loss: 0.091111  accuracy: 96.835821 [10050/10129]
+2023-08-01 14:18:59,711	root	INFO	Train  Loss: 0.091048 accuracy: 96.840156% 
+2023-08-01 14:18:59,874	root	INFO	Val loss: 0.054584 Val accuracy: 98.566038%
+2023-08-01 14:18:59,874	root	INFO	====> Epoch: 5
+2023-08-01 14:18:59,891	root	INFO	loss: 0.030696  accuracy: 100.000000 [   50/10129]
+2023-08-01 14:19:02,771	root	INFO	loss: 0.076644  accuracy: 97.442786 [10050/10129]
+2023-08-01 14:19:02,797	root	INFO	Train  Loss: 0.076846 accuracy: 97.450994% 
+2023-08-01 14:19:02,953	root	INFO	Val loss: 0.044370 Val accuracy: 98.792453%
+2023-08-01 14:19:02,953	root	INFO	====> Epoch: 6
+2023-08-01 14:19:02,970	root	INFO	loss: 0.013560  accuracy: 100.000000 [   50/10129]
+2023-08-01 14:19:05,826	root	INFO	loss: 0.063341  accuracy: 97.910448 [10050/10129]
+2023-08-01 14:19:05,851	root	INFO	Train  Loss: 0.063099 accuracy: 97.921182% 
+2023-08-01 14:19:06,011	root	INFO	Val loss: 0.039046 Val accuracy: 98.981132%
+2023-08-01 14:19:06,011	root	INFO	====> Epoch: 7
+2023-08-01 14:19:06,027	root	INFO	loss: 0.047739  accuracy: 98.000000 [   50/10129]
+2023-08-01 14:30:41,938	root	INFO	Using cuda:0 device
+2023-08-01 14:30:41,971	root	INFO	Start training with LCNN model
+2023-08-01 14:30:41,971	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+  )
+  (lin): Sequential(
+    (0): Linear(in_features=560, out_features=8, bias=True)
+    (1): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-01 14:30:42,636	root	INFO	====> Epoch: 1
+2023-08-01 14:30:43,261	root	INFO	loss: 0.669736  accuracy: 64.000000 [   50/161242]
+2023-08-01 14:30:46,172	root	INFO	loss: 0.665648  accuracy: 59.731343 [10050/161242]
+2023-08-01 14:30:49,040	root	INFO	loss: 0.601389  accuracy: 67.501247 [20050/161242]
+2023-08-01 14:30:51,870	root	INFO	loss: 0.567251  accuracy: 70.189684 [30050/161242]
+2023-08-01 14:30:54,720	root	INFO	loss: 0.540098  accuracy: 72.102372 [40050/161242]
+2023-08-01 14:30:57,565	root	INFO	loss: 0.514141  accuracy: 73.976024 [50050/161242]
+2023-08-01 14:31:00,415	root	INFO	loss: 0.491594  accuracy: 75.640300 [60050/161242]
+2023-08-01 14:31:03,252	root	INFO	loss: 0.469801  accuracy: 77.177730 [70050/161242]
+2023-08-01 14:31:06,115	root	INFO	loss: 0.452903  accuracy: 78.398501 [80050/161242]
+2023-08-01 14:31:08,953	root	INFO	loss: 0.437525  accuracy: 79.534703 [90050/161242]
+2023-08-01 14:31:11,736	root	INFO	loss: 0.422764  accuracy: 80.543728 [100050/161242]
+2023-08-01 14:31:14,517	root	INFO	loss: 0.408163  accuracy: 81.448433 [110050/161242]
+2023-08-01 14:31:17,305	root	INFO	loss: 0.395491  accuracy: 82.224906 [120050/161242]
+2023-08-01 14:31:20,092	root	INFO	loss: 0.383667  accuracy: 82.955786 [130050/161242]
+2023-08-01 14:31:22,880	root	INFO	loss: 0.373162  accuracy: 83.598715 [140050/161242]
+2023-08-01 14:31:25,675	root	INFO	loss: 0.363542  accuracy: 84.185272 [150050/161242]
+2023-08-01 14:31:28,475	root	INFO	loss: 0.355033  accuracy: 84.691659 [160050/161242]
+2023-08-01 14:31:28,841	root	INFO	Train  Loss: 0.353982 accuracy: 84.751155% 
+2023-08-01 14:31:29,476	root	INFO	Val loss: 0.276337 Val accuracy: 89.170507%
+2023-08-01 14:31:29,476	root	INFO	====> Epoch: 2
+2023-08-01 14:31:29,502	root	INFO	loss: 0.244489  accuracy: 94.000000 [   50/161242]
+2023-08-01 14:31:32,358	root	INFO	loss: 0.214769  accuracy: 92.726368 [10050/161242]
+2023-08-01 14:31:35,201	root	INFO	loss: 0.214984  accuracy: 92.618454 [20050/161242]
+2023-08-01 14:31:38,019	root	INFO	loss: 0.208323  accuracy: 92.871880 [30050/161242]
+2023-08-01 14:31:40,884	root	INFO	loss: 0.207394  accuracy: 92.943820 [40050/161242]
+2023-08-01 14:31:43,763	root	INFO	loss: 0.207280  accuracy: 92.969031 [50050/161242]
+2023-08-01 14:31:46,643	root	INFO	loss: 0.206308  accuracy: 93.017485 [60050/161242]
+2023-08-01 14:31:49,528	root	INFO	loss: 0.205085  accuracy: 93.067809 [70050/161242]
+2023-08-01 14:31:52,417	root	INFO	loss: 0.204189  accuracy: 93.081824 [80050/161242]
+2023-08-01 14:31:55,314	root	INFO	loss: 0.203387  accuracy: 93.092726 [90050/161242]
+2023-08-01 14:31:58,226	root	INFO	loss: 0.202085  accuracy: 93.130435 [100050/161242]
+2023-08-01 14:32:01,138	root	INFO	loss: 0.200590  accuracy: 93.183099 [110050/161242]
+2023-08-01 14:32:04,060	root	INFO	loss: 0.199398  accuracy: 93.230321 [120050/161242]
+2023-08-01 14:32:06,978	root	INFO	loss: 0.198307  accuracy: 93.256440 [130050/161242]
+2023-08-01 14:32:09,904	root	INFO	loss: 0.197577  accuracy: 93.284541 [140050/161242]
+2023-08-01 14:32:12,833	root	INFO	loss: 0.196227  accuracy: 93.319560 [150050/161242]
+2023-08-01 14:32:15,766	root	INFO	loss: 0.194794  accuracy: 93.371446 [160050/161242]
+2023-08-01 14:32:16,138	root	INFO	Train  Loss: 0.194806 accuracy: 93.372905% 
+2023-08-01 14:32:16,836	root	INFO	Val loss: 0.253263 Val accuracy: 89.714286%
+2023-08-01 14:32:16,836	root	INFO	====> Epoch: 3
+2023-08-01 14:32:16,869	root	INFO	loss: 0.136373  accuracy: 94.000000 [   50/161242]
+2023-08-01 14:32:19,768	root	INFO	loss: 0.170366  accuracy: 94.278607 [10050/161242]
+2023-08-01 14:32:22,678	root	INFO	loss: 0.169733  accuracy: 94.274314 [20050/161242]
+2023-08-01 14:32:25,604	root	INFO	loss: 0.175214  accuracy: 94.073211 [30050/161242]
+2023-08-01 14:32:28,531	root	INFO	loss: 0.174403  accuracy: 94.079900 [40050/161242]
+2023-08-01 14:32:31,460	root	INFO	loss: 0.172806  accuracy: 94.171828 [50050/161242]
+2023-08-01 14:32:34,393	root	INFO	loss: 0.171829  accuracy: 94.213156 [60050/161242]
+2023-08-01 14:32:37,329	root	INFO	loss: 0.171613  accuracy: 94.179872 [70050/161242]
+2023-08-01 14:32:40,260	root	INFO	loss: 0.171401  accuracy: 94.187383 [80050/161242]
+2023-08-01 14:32:43,192	root	INFO	loss: 0.170557  accuracy: 94.176569 [90050/161242]
+2023-08-01 14:32:46,139	root	INFO	loss: 0.169236  accuracy: 94.219890 [100050/161242]
+2023-08-01 14:32:49,087	root	INFO	loss: 0.169033  accuracy: 94.210813 [110050/161242]
+2023-08-01 14:32:52,039	root	INFO	loss: 0.167935  accuracy: 94.239900 [120050/161242]
+2023-08-01 14:32:55,004	root	INFO	loss: 0.167012  accuracy: 94.269896 [130050/161242]
+2023-08-01 14:32:57,959	root	INFO	loss: 0.166813  accuracy: 94.267047 [140050/161242]
+2023-08-01 14:33:00,925	root	INFO	loss: 0.165538  accuracy: 94.297234 [150050/161242]
+2023-08-01 14:33:03,889	root	INFO	loss: 0.165617  accuracy: 94.281162 [160050/161242]
+2023-08-01 14:33:04,262	root	INFO	Train  Loss: 0.165501 accuracy: 94.288756% 
+2023-08-01 14:33:04,959	root	INFO	Val loss: 0.240582 Val accuracy: 89.760369%
+2023-08-01 14:33:04,959	root	INFO	====> Epoch: 4
+2023-08-01 14:33:04,985	root	INFO	loss: 0.224632  accuracy: 92.000000 [   50/161242]
+2023-08-01 14:33:07,916	root	INFO	loss: 0.166420  accuracy: 94.288557 [10050/161242]
+2023-08-01 14:33:10,853	root	INFO	loss: 0.160785  accuracy: 94.349127 [20050/161242]
+2023-08-01 14:33:13,800	root	INFO	loss: 0.155265  accuracy: 94.562396 [30050/161242]
+2023-08-01 14:33:16,750	root	INFO	loss: 0.154454  accuracy: 94.516854 [40050/161242]
+2023-08-01 14:33:19,701	root	INFO	loss: 0.154171  accuracy: 94.493506 [50050/161242]
+2023-08-01 14:33:22,655	root	INFO	loss: 0.152353  accuracy: 94.534555 [60050/161242]
+2023-08-01 14:33:25,609	root	INFO	loss: 0.150577  accuracy: 94.620985 [70050/161242]
+2023-08-01 14:33:28,571	root	INFO	loss: 0.150744  accuracy: 94.610868 [80050/161242]
+2023-08-01 14:33:31,537	root	INFO	loss: 0.150214  accuracy: 94.608551 [90050/161242]
+2023-08-01 14:33:34,495	root	INFO	loss: 0.150002  accuracy: 94.622689 [100050/161242]
+2023-08-01 14:33:37,454	root	INFO	loss: 0.149421  accuracy: 94.632440 [110050/161242]
+2023-08-01 14:33:40,383	root	INFO	loss: 0.149368  accuracy: 94.633903 [120050/161242]
+2023-08-01 14:33:43,263	root	INFO	loss: 0.149388  accuracy: 94.624375 [130050/161242]
+2023-08-01 14:33:46,151	root	INFO	loss: 0.149157  accuracy: 94.637629 [140050/161242]
+2023-08-01 14:33:49,044	root	INFO	loss: 0.148663  accuracy: 94.649783 [150050/161242]
+2023-08-01 14:33:51,965	root	INFO	loss: 0.148642  accuracy: 94.633552 [160050/161242]
+2023-08-01 14:33:52,339	root	INFO	Train  Loss: 0.148444 accuracy: 94.634803% 
+2023-08-01 14:33:53,076	root	INFO	Val loss: 0.220271 Val accuracy: 90.073733%
+2023-08-01 14:33:53,077	root	INFO	====> Epoch: 5
+2023-08-01 14:33:53,103	root	INFO	loss: 0.212473  accuracy: 90.000000 [   50/161242]
+2023-08-01 14:33:56,051	root	INFO	loss: 0.139765  accuracy: 94.965174 [10050/161242]
+2023-08-01 14:33:59,004	root	INFO	loss: 0.140474  accuracy: 94.832918 [20050/161242]
+2023-08-01 14:34:01,959	root	INFO	loss: 0.139939  accuracy: 94.898502 [30050/161242]
+2023-08-01 14:34:04,915	root	INFO	loss: 0.141022  accuracy: 94.831461 [40050/161242]
+2023-08-01 14:34:07,873	root	INFO	loss: 0.139627  accuracy: 94.833167 [50050/161242]
+2023-08-01 14:34:10,815	root	INFO	loss: 0.139492  accuracy: 94.852623 [60050/161242]
+2023-08-01 14:34:13,701	root	INFO	loss: 0.139848  accuracy: 94.810849 [70050/161242]
+2023-08-01 14:34:16,579	root	INFO	loss: 0.139237  accuracy: 94.826983 [80050/161242]
+2023-08-01 14:34:19,466	root	INFO	loss: 0.138501  accuracy: 94.840644 [90050/161242]
+2023-08-01 14:34:22,352	root	INFO	loss: 0.137879  accuracy: 94.865567 [100050/161242]
+2023-08-01 14:34:25,246	root	INFO	loss: 0.137633  accuracy: 94.860518 [110050/161242]
+2023-08-01 14:34:28,154	root	INFO	loss: 0.137012  accuracy: 94.888796 [120050/161242]
+2023-08-01 14:34:31,130	root	INFO	loss: 0.136618  accuracy: 94.908881 [130050/161242]
+2023-08-01 14:34:34,104	root	INFO	loss: 0.136713  accuracy: 94.880400 [140050/161242]
+2023-08-01 14:34:37,045	root	INFO	loss: 0.136851  accuracy: 94.885705 [150050/161242]
+2023-08-01 14:34:40,028	root	INFO	loss: 0.136241  accuracy: 94.907841 [160050/161242]
+2023-08-01 14:34:40,409	root	INFO	Train  Loss: 0.136358 accuracy: 94.903595% 
+2023-08-01 14:34:41,223	root	INFO	Val loss: 0.219595 Val accuracy: 90.046083%
+2023-08-01 14:34:41,223	root	INFO	====> Epoch: 6
+2023-08-01 14:34:41,251	root	INFO	loss: 0.214108  accuracy: 94.000000 [   50/161242]
+2023-08-01 14:34:44,189	root	INFO	loss: 0.131107  accuracy: 94.945274 [10050/161242]
+2023-08-01 14:34:47,142	root	INFO	loss: 0.134704  accuracy: 94.872818 [20050/161242]
+2023-08-01 14:34:50,101	root	INFO	loss: 0.132857  accuracy: 94.935108 [30050/161242]
+2023-08-01 14:34:53,063	root	INFO	loss: 0.133446  accuracy: 94.866417 [40050/161242]
+2023-08-01 14:34:56,019	root	INFO	loss: 0.131767  accuracy: 94.951049 [50050/161242]
+2023-08-01 14:34:58,983	root	INFO	loss: 0.131214  accuracy: 94.967527 [60050/161242]
+2023-08-01 14:35:01,943	root	INFO	loss: 0.130569  accuracy: 94.992148 [70050/161242]
+2023-08-01 14:35:04,917	root	INFO	loss: 0.130201  accuracy: 95.016864 [80050/161242]
+2023-08-01 14:35:07,885	root	INFO	loss: 0.129919  accuracy: 95.029428 [90050/161242]
+2023-08-01 14:35:10,865	root	INFO	loss: 0.129196  accuracy: 95.069465 [100050/161242]
+2023-08-01 14:35:13,847	root	INFO	loss: 0.129170  accuracy: 95.057701 [110050/161242]
+2023-08-01 14:35:16,821	root	INFO	loss: 0.129278  accuracy: 95.046231 [120050/161242]
+2023-08-01 14:35:19,800	root	INFO	loss: 0.128658  accuracy: 95.075740 [130050/161242]
+2023-08-01 14:35:22,784	root	INFO	loss: 0.127817  accuracy: 95.115316 [140050/161242]
+2023-08-01 14:35:25,777	root	INFO	loss: 0.127656  accuracy: 95.122959 [150050/161242]
+2023-08-01 14:35:28,765	root	INFO	loss: 0.127848  accuracy: 95.118400 [160050/161242]
+2023-08-01 14:35:29,144	root	INFO	Train  Loss: 0.127843 accuracy: 95.119882% 
+2023-08-01 14:35:29,854	root	INFO	Val loss: 0.210138 Val accuracy: 90.073733%
+2023-08-01 14:35:29,854	root	INFO	====> Epoch: 7
+2023-08-01 14:35:29,883	root	INFO	loss: 0.117621  accuracy: 96.000000 [   50/161242]
+2023-08-01 14:35:32,828	root	INFO	loss: 0.117068  accuracy: 95.532338 [10050/161242]
+2023-08-01 14:35:35,786	root	INFO	loss: 0.122341  accuracy: 95.276808 [20050/161242]
+2023-08-01 14:35:38,755	root	INFO	loss: 0.123205  accuracy: 95.154742 [30050/161242]
+2023-08-01 14:35:41,716	root	INFO	loss: 0.121622  accuracy: 95.225968 [40050/161242]
+2023-08-01 14:35:44,682	root	INFO	loss: 0.121884  accuracy: 95.234765 [50050/161242]
+2023-08-01 14:35:47,648	root	INFO	loss: 0.120192  accuracy: 95.310575 [60050/161242]
+2023-08-01 14:35:50,616	root	INFO	loss: 0.121129  accuracy: 95.269094 [70050/161242]
+2023-08-01 14:35:53,572	root	INFO	loss: 0.120315  accuracy: 95.319176 [80050/161242]
+2023-08-01 14:35:56,545	root	INFO	loss: 0.120810  accuracy: 95.333703 [90050/161242]
+2023-08-01 14:35:59,514	root	INFO	loss: 0.121306  accuracy: 95.312344 [100050/161242]
+2023-08-01 14:36:02,489	root	INFO	loss: 0.121561  accuracy: 95.294866 [110050/161242]
+2023-08-01 14:36:05,463	root	INFO	loss: 0.121233  accuracy: 95.308621 [120050/161242]
+2023-08-01 14:36:08,439	root	INFO	loss: 0.120786  accuracy: 95.340254 [130050/161242]
+2023-08-01 14:36:11,418	root	INFO	loss: 0.120390  accuracy: 95.339522 [140050/161242]
+2023-08-01 14:36:14,396	root	INFO	loss: 0.120677  accuracy: 95.316894 [150050/161242]
+2023-08-01 14:36:17,379	root	INFO	loss: 0.120364  accuracy: 95.310840 [160050/161242]
+2023-08-01 14:36:17,754	root	INFO	Train  Loss: 0.120277 accuracy: 95.312632% 
+2023-08-01 14:36:18,541	root	INFO	Val loss: 0.199769 Val accuracy: 90.801843%
+2023-08-01 14:36:18,542	root	INFO	====> Epoch: 8
+2023-08-01 14:36:18,570	root	INFO	loss: 0.093868  accuracy: 96.000000 [   50/161242]
+2023-08-01 14:36:21,517	root	INFO	loss: 0.112734  accuracy: 95.621891 [10050/161242]
+2023-08-01 14:36:24,478	root	INFO	loss: 0.112680  accuracy: 95.695761 [20050/161242]
+2023-08-01 14:36:27,432	root	INFO	loss: 0.115927  accuracy: 95.457571 [30050/161242]
+2023-08-01 14:36:30,387	root	INFO	loss: 0.117257  accuracy: 95.418227 [40050/161242]
+2023-08-01 14:36:33,354	root	INFO	loss: 0.116147  accuracy: 95.502498 [50050/161242]
+2023-08-01 14:36:36,323	root	INFO	loss: 0.116386  accuracy: 95.483764 [60050/161242]
+2023-08-01 14:36:39,293	root	INFO	loss: 0.116291  accuracy: 95.488936 [70050/161242]
+2023-08-01 14:36:42,266	root	INFO	loss: 0.116463  accuracy: 95.464085 [80050/161242]
+2023-08-01 14:36:45,235	root	INFO	loss: 0.116360  accuracy: 95.468073 [90050/161242]
+2023-08-01 14:36:48,202	root	INFO	loss: 0.115791  accuracy: 95.479260 [100050/161242]
+2023-08-01 14:36:51,170	root	INFO	loss: 0.115297  accuracy: 95.521127 [110050/161242]
+2023-08-01 14:36:54,142	root	INFO	loss: 0.114766  accuracy: 95.546022 [120050/161242]
+2023-08-01 14:36:57,122	root	INFO	loss: 0.114928  accuracy: 95.530950 [130050/161242]
+2023-08-01 14:37:00,100	root	INFO	loss: 0.114570  accuracy: 95.546591 [140050/161242]
+2023-08-01 14:37:03,078	root	INFO	loss: 0.114425  accuracy: 95.539487 [150050/161242]
+2023-08-01 14:37:06,053	root	INFO	loss: 0.114378  accuracy: 95.533271 [160050/161242]
+2023-08-01 14:37:06,433	root	INFO	Train  Loss: 0.114240 accuracy: 95.538368% 
+2023-08-01 14:37:07,157	root	INFO	Val loss: 0.195781 Val accuracy: 90.866359%
+2023-08-01 14:37:07,157	root	INFO	====> Epoch: 9
+2023-08-01 14:37:07,183	root	INFO	loss: 0.040703  accuracy: 100.000000 [   50/161242]
+2023-08-01 14:37:10,129	root	INFO	loss: 0.111009  accuracy: 95.651741 [10050/161242]
+2023-08-01 14:37:13,088	root	INFO	loss: 0.110057  accuracy: 95.705736 [20050/161242]
+2023-08-01 14:37:16,044	root	INFO	loss: 0.108694  accuracy: 95.730449 [30050/161242]
+2023-08-01 14:37:18,999	root	INFO	loss: 0.106623  accuracy: 95.870162 [40050/161242]
+2023-08-01 14:37:21,968	root	INFO	loss: 0.107770  accuracy: 95.802198 [50050/161242]
+2023-08-01 14:37:24,929	root	INFO	loss: 0.108000  accuracy: 95.795171 [60050/161242]
+2023-08-01 14:37:27,900	root	INFO	loss: 0.107607  accuracy: 95.808708 [70050/161242]
+2023-08-01 14:37:30,884	root	INFO	loss: 0.108478  accuracy: 95.785134 [80050/161242]
+2023-08-01 14:37:33,849	root	INFO	loss: 0.109142  accuracy: 95.782343 [90050/161242]
+2023-08-01 14:37:36,815	root	INFO	loss: 0.109382  accuracy: 95.769115 [100050/161242]
+2023-08-01 14:37:39,791	root	INFO	loss: 0.109119  accuracy: 95.760109 [110050/161242]
+2023-08-01 14:37:42,761	root	INFO	loss: 0.109111  accuracy: 95.785090 [120050/161242]
+2023-08-01 14:37:45,739	root	INFO	loss: 0.109195  accuracy: 95.773933 [130050/161242]
+2023-08-01 14:37:48,723	root	INFO	loss: 0.109238  accuracy: 95.768654 [140050/161242]
+2023-08-01 14:37:51,705	root	INFO	loss: 0.109035  accuracy: 95.766078 [150050/161242]
+2023-08-01 14:37:54,675	root	INFO	loss: 0.108731  accuracy: 95.775070 [160050/161242]
+2023-08-01 14:37:55,058	root	INFO	Train  Loss: 0.108630 accuracy: 95.780111% 
+2023-08-01 14:37:55,868	root	INFO	Val loss: 0.185242 Val accuracy: 91.539171%
+2023-08-01 14:37:55,868	root	INFO	====> Epoch: 10
+2023-08-01 14:37:55,894	root	INFO	loss: 0.046301  accuracy: 98.000000 [   50/161242]
+2023-08-01 14:37:58,844	root	INFO	loss: 0.105663  accuracy: 95.810945 [10050/161242]
+2023-08-01 14:38:01,804	root	INFO	loss: 0.102015  accuracy: 96.039900 [20050/161242]
+2023-08-01 14:38:04,772	root	INFO	loss: 0.103965  accuracy: 95.950083 [30050/161242]
+2023-08-01 14:38:07,736	root	INFO	loss: 0.104145  accuracy: 95.905119 [40050/161242]
+2023-08-01 14:38:10,703	root	INFO	loss: 0.104039  accuracy: 95.916084 [50050/161242]
+2023-08-01 14:38:13,671	root	INFO	loss: 0.104363  accuracy: 95.916736 [60050/161242]
+2023-08-01 14:38:16,635	root	INFO	loss: 0.105258  accuracy: 95.887223 [70050/161242]
+2023-08-01 14:38:19,607	root	INFO	loss: 0.105481  accuracy: 95.883823 [80050/161242]
+2023-08-01 14:38:22,573	root	INFO	loss: 0.104885  accuracy: 95.921155 [90050/161242]
+2023-08-01 14:38:25,549	root	INFO	loss: 0.105116  accuracy: 95.917041 [100050/161242]
+2023-08-01 14:38:28,535	root	INFO	loss: 0.105124  accuracy: 95.900045 [110050/161242]
+2023-08-01 14:38:31,512	root	INFO	loss: 0.105122  accuracy: 95.884215 [120050/161242]
+2023-08-01 14:38:34,486	root	INFO	loss: 0.104617  accuracy: 95.901576 [130050/161242]
+2023-08-01 14:38:37,463	root	INFO	loss: 0.104401  accuracy: 95.915030 [140050/161242]
+2023-08-01 14:38:40,444	root	INFO	loss: 0.104374  accuracy: 95.918027 [150050/161242]
+2023-08-01 14:38:43,427	root	INFO	loss: 0.103856  accuracy: 95.927523 [160050/161242]
+2023-08-01 14:38:43,805	root	INFO	Train  Loss: 0.103974 accuracy: 95.920886% 
+2023-08-01 14:38:44,506	root	INFO	Val loss: 0.185138 Val accuracy: 91.216590%
+2023-08-01 14:38:44,507	root	INFO	====> Epoch: 11
+2023-08-01 14:38:44,543	root	INFO	loss: 0.203062  accuracy: 90.000000 [   50/161242]
+2023-08-01 14:38:47,496	root	INFO	loss: 0.100214  accuracy: 95.980100 [10050/161242]
+2023-08-01 14:38:50,453	root	INFO	loss: 0.101911  accuracy: 95.940150 [20050/161242]
+2023-08-01 14:38:53,402	root	INFO	loss: 0.102805  accuracy: 95.893511 [30050/161242]
+2023-08-01 14:38:56,361	root	INFO	loss: 0.104149  accuracy: 95.877653 [40050/161242]
+2023-08-01 14:38:59,309	root	INFO	loss: 0.103785  accuracy: 95.904096 [50050/161242]
+2023-08-01 14:39:02,213	root	INFO	loss: 0.103436  accuracy: 95.948376 [60050/161242]
+2023-08-01 14:39:05,082	root	INFO	loss: 0.102724  accuracy: 95.968594 [70050/161242]
+2023-08-01 14:39:07,995	root	INFO	loss: 0.102390  accuracy: 95.996252 [80050/161242]
+2023-08-01 14:39:10,961	root	INFO	loss: 0.101353  accuracy: 96.032204 [90050/161242]

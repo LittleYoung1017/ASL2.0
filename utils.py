@@ -121,7 +121,7 @@ class MyDataset(Dataset):
         return self._len
     
 #================================================================
-
+#extract and save feature
 def featureExtracting(wav,sr,feature_name,**params):
     if feature_name=='mfcc':
         mfccs = mfcc(wav,fs=sr,
@@ -158,7 +158,12 @@ def featureExtracting(wav,sr,feature_name,**params):
                                             low_freq=params['low_freq'],
                                             high_freq=sr/2)
         return mel_spec
- 
+def extract_melspec(wav,sr):
+    spectrogram = librosa.feature.melspectrogram(y=wav, sr=sr)
+    spectrogram_db = librosa.power_to_db(spectrogram, ref=np.max)
+    return spectrogram_db
+def extract_stft(wav,sr):
+    return np.abs(librosa.stft(wav))
 def saving_feature(audioset_dirs):
     config_path = 'config.json'
     hps = get_hparams_from_file(config_path)
@@ -263,6 +268,88 @@ def saving_feature(audioset_dirs):
     
 
 
+#=====================================================
+# for large dataset training
+
+def load_test_data(hps):   #load test data
+    print('Loading data...')
+    test_data_x = np.empty((1,32,300))
+    test_data_y = np.empty((1,))
+    setList = os.listdir(hps.data.downsample_data)
+    temp_count=0
+    for s in setList:
+      setpath = os.path.join(hps.data.downsample_data,s,'feature_data')
+      print(setpath)
+      npyList = os.listdir(setpath)
+    
+      count = sum(1 for item in npyList if 'test' in item)
+      for i in tqdm(range(count)):
+          npyName = os.path.join(setpath,'test_data_mfcc_lfcc.npz')
+          data = np.load(npyName.split('.')[0]+str(i)+'.npz')
+          matrix = data['matrix']
+          labels = data['labels']
+          test_data_x = np.concatenate((test_data_x,matrix),axis=0)
+          test_data_y = np.concatenate((test_data_y,labels),axis=0)
+          temp_count+=1
+          if temp_count>=10:
+            break
+      if temp_count>=10:
+        break
+    test_data_x = test_data_x[1:]
+    test_data_y = test_data_y[1:]
+    test_data_x = test_data_x[:,np.newaxis,:,:]  #for LCNN
+    test_data_y = test_data_y.astype('int64')
+    
+    return test_data_x, test_data_y
+
+
+def preprocess_train_data(batch_data):
+    train_data_x = np.empty((1,32,300))
+    train_data_y = np.empty((1,))
+    for name in tqdm(batch_data):
+      data = np.load(name)
+      matrix = data['matrix']
+      labels = data['labels']
+      train_data_x = np.concatenate((train_data_x,matrix),axis=0)
+      train_data_y = np.concatenate((train_data_y,labels),axis=0)
+    train_data_x = train_data_x[1:]
+    train_data_y = train_data_y[1:]
+    train_data_x = train_data_x[:,np.newaxis,:,:]  #for LCNN
+    train_data_y = train_data_y.astype('int64')
+    return train_data_x, train_data_y
+  
+def get_train_data_list(hps):
+  train_file_all = []
+  setList = os.listdir(hps.data.downsample_data)
+  for s in setList:
+    setpath = os.path.join(hps.data.downsample_data,s,'feature_data')
+    npyList = os.listdir(setpath)
+    count = sum(1 for item in npyList if 'train' in item)
+    npyName = os.path.join(setpath,'train_data_mfcc_lfcc.npz')
+    for i in tqdm(range(count)):
+        data_name = npyName.split('.')[0]+str(i)+'.npz'
+        train_file_all.append(data_name)
+  return train_file_all
+
+def train_data_generator(train_file_all,batch_size):   #generate training data
+    print('Loading training data.')
+    num_data = len(train_file_all)
+    indices = np.arange(num_data)
+    np.random.shuffle(indices) #随机打乱数据
+    
+    start_idx = 0
+    while start_idx < num_data:
+        if start_idx + batch_size >= num_data:#保留最后不足batch部分
+            excerpt = indices[ start_idx : num_data]
+        else:
+            excerpt = indices[ start_idx : start_idx + batch_size]
+        batch_data = [train_file_all[i] for i in excerpt ]
+
+        start_idx = start_idx + batch_size
+        batch_x, batch_y = preprocess_train_data(batch_data)
+        yield batch_x, batch_y
+#====================================================
+#load data
 def load_data_new(hps):
 
     print('Loading data...')
@@ -291,15 +378,20 @@ def load_data_new(hps):
 
 
     train_data_x = train_data_x[1:]
+    train_data_x = train_data_x[:,np.newaxis,:,:]  #for LCNN
     train_data_y = train_data_y[1:]
+    
     test_data_x = test_data_x[1:]
+    test_data_x = test_data_x[:,np.newaxis,:,:]  #for LCNN
     test_data_y = test_data_y[1:]
+    
     train_data_y = train_data_y.astype('int64')
     test_data_y = test_data_y.astype('int64')
-
+    print(train_data_x.shape)
+    print(test_data_x.shape)
     return train_data_x, train_data_y, test_data_x, test_data_y  
 
-
+#resample
 def resample(file_path,save_path,sr,sr_re=8000):
     file_list = os.listdir(file_path)
     sr=sr
@@ -327,8 +419,7 @@ def resample(file_path,save_path,sr,sr_re=8000):
         --t_sr 8000
 """
 #=================================================================================
-
-        
+#data cutting 
 def data_splicing(data_path,save_path,sr,cutting_time,drop_last):
     data_list = os.listdir(data_path)
     
@@ -368,7 +459,7 @@ def data_splicing(data_path,save_path,sr,cutting_time,drop_last):
         --cutting_time 3
 """
 #=================================================================================
-
+#data concat
 def concat(data_path,data_path_2,save_path,sr):
     file_path_1 = data_path
     file_path_2 = data_path_2
@@ -431,6 +522,7 @@ def concat(data_path,data_path_2,save_path,sr):
 """
 
 #================================================================================
+#dividing train/test set and then resample and split data 
 def dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_time,split_ratio=0.8,drop_last=1):
     #get dataset name
     dataset_Name = data_path.split('/')
@@ -515,6 +607,7 @@ def dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_
             --cutting_time 3
 """
 #=================================================================================
+#audio preprocessing
 def audio_preprocessing(data_path_1,data_path_2,save_path,s_sr,s_sr2,t_sr,
                         cutting_time,spliting_ratio=0.8,drop_last=1):
     os.makedirs(save_path,exist_ok = True)
@@ -559,10 +652,32 @@ def audio_preprocessing(data_path_1,data_path_2,save_path,s_sr,s_sr2,t_sr,
             --cutting_time 3
 """
 #====================================================================================
+#calculate audio num
+def audio_num(npz_data_path):
+    set_list = os.listdir(npz_data_path)
+    train_num_all=0
+    test_num_all=0
+    for set_name in set_list:
+        set_path = os.path.join(npz_data_path, set_name,'feature_data')
+        data_list = os.listdir(set_path)
+        train_num_per_set=0
+        test_num_per_set=0
+        for data_file in data_list:
+            data = np.load(os.path.join(set_path,data_file))
+            data_x = data['matrix']
+            if 'train' in data_file: 
+                train_num_per_set += len(data_x)
+                train_num_all +=len(data_x)
+            elif 'test' in data_file:
+                test_num_per_set += len(data_x)
+                test_num_all +=len(data_x)
+        print(set_name,', train:',train_num_per_set,' test:',test_num_per_set)
 
+    print('all train file number:',train_num_all)
+    print('all test file number:',test_num_all)
 #=======================================================================================
-if __name__ == '__main__':
-    
+#main
+def main():
     config_path = 'config.json'
     hps = get_hparams_from_file(config_path)
     
@@ -605,4 +720,16 @@ if __name__ == '__main__':
     elif args.type =='audio_preprocessing':
         modify_config(['data','downsample_data'],save_path)
         audio_preprocessing(data_path,data_path2,save_path,s_sr,s_sr2,t_sr,cutting_time,spliting_ratio=0.8)
-        
+
+if __name__ == '__main__':
+    test_audio_path = '/home/yangruixiong/dataset/ESC-50/ESC/1-137-A-32.wav'
+    wav, sr = librosa.load(test_audio_path)
+    data = extract_stft(wav,sr)
+    data2,_ = mel_spectrogram(wav,sr)
+    mfcc = mfcc(wav,sr)
+    print(data.shape)
+    print(data2.shape)
+    print(mfcc.shape)
+    data_path = '/home/yangruixiong/ASL2/data'
+    audio_num(data_path)
+    

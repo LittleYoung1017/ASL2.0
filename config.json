@@ -1,6 +1,6 @@
 {
     "data": {
-        "downsample_data": "data_ASL11",
+        "downsample_data": "/home/yangruixiong/ASL2/data",
         "@downsample_data": "path to save downsampled data with format npz ",
         "train_test_split_rate": 0.9,
         "sampling_rate": 8000,
@@ -21,7 +21,7 @@
         "nfilts": 39,
         "nfft": 512,
         "cutting_time": 3,
-        "load_data_batch": 60
+        "load_data_batch": 10
     },
     "train": {
         "device": "cuda:0",
@@ -36,7 +36,7 @@
         "log_tsb_path": "log/tsb"
     },
     "model": {
-        "model_name": "CNNLSTM"
+        "model_name": "LCNN"
     },
     "test": {
         "checkpoint_name": "/home/yangruixiong/ASL2/ASL10/ckpt/epoch60CNNLSTM-mfcc-lfcc.pth",
