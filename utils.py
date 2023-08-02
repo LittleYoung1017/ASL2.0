@@ -562,6 +562,7 @@ def dividing_train_test_resample_spliting(data_path,save_path,s_sr,t_sr,cutting_
         src_path = os.path.join(data_path, file_name)  
         try:
             data,rate = librosa.load(src_path,sr=s_sr)
+            data = librosa.resample(y=data, orig_sr=s_sr, target_sr=t_sr)
         except:
             print('Wrong: cant read audio file.')
             continue
@@ -643,11 +644,11 @@ def audio_preprocessing(data_path_1,data_path_2,save_path,s_sr,s_sr2,t_sr,
         python utils.py \
             --type audio_preprocessing \
             --drop_last 1 \
-            --s_path /home/yangruixiong/dataset/splicing-detection/music/music-8k-p1 \
-            --s_path2 /home/yangruixiong/dataset/splicing-detection/music/music-8k-p2 \
-            --t_path /home/yangruixiong/ASL2/data_ASL11 \
-            --s_sr 8000 \
-            --s_sr2 8000 \
+            --s_path /home/yangruixiong/dataset/train \
+            --s_path2 /home/yangruixiong/dataset/test \
+            --t_path /home/yangruixiong/ASL2/data \
+            --s_sr 44100 \
+            --s_sr2 44100 \
             --t_sr 8000 \
             --cutting_time 3
 """
@@ -677,7 +678,7 @@ def audio_num(npz_data_path):
     print('all test file number:',test_num_all)
 #=======================================================================================
 #main
-def main():
+if __name__ == '__main__':
     config_path = 'config.json'
     hps = get_hparams_from_file(config_path)
     
@@ -721,15 +722,16 @@ def main():
         modify_config(['data','downsample_data'],save_path)
         audio_preprocessing(data_path,data_path2,save_path,s_sr,s_sr2,t_sr,cutting_time,spliting_ratio=0.8)
 
-if __name__ == '__main__':
-    test_audio_path = '/home/yangruixiong/dataset/ESC-50/ESC/1-137-A-32.wav'
-    wav, sr = librosa.load(test_audio_path)
-    data = extract_stft(wav,sr)
-    data2,_ = mel_spectrogram(wav,sr)
-    mfcc = mfcc(wav,sr)
-    print(data.shape)
-    print(data2.shape)
-    print(mfcc.shape)
-    data_path = '/home/yangruixiong/ASL2/data'
-    audio_num(data_path)
+# if __name__ == '__main__':
+    
+    # test_audio_path = '/home/yangruixiong/dataset/ESC-50/ESC/1-137-A-32.wav'
+    # wav, sr = librosa.load(test_audio_path)
+    # data = extract_stft(wav,sr)
+    # data2,_ = mel_spectrogram(wav,sr)
+    # mfcc = mfcc(wav,sr)
+    # print(data.shape)
+    # print(data2.shape)
+    # print(mfcc.shape)
+    # data_path = '/home/yangruixiong/ASL2/data'
+    # audio_num(data_path)
     

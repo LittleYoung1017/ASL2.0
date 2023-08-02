@@ -9,8 +9,8 @@ from torch.autograd import Variable
 from torchvision.transforms import ToTensor
 from torchvision import datasets
 from model import CNN
-from model.LCNN import LCNN
-from model.CNNLSTM import CNNLSTM
+from model.LCNN2 import LCNN
+from model.CNNLSTM2 import CNNLSTM2
 import utils
 import librosa
 from utils import featureExtracting
@@ -26,19 +26,20 @@ def test(X_data, y_data, model,files ):
     test_num = len(X_data)
     correct = 0
     with torch.no_grad():
-        for X in X_data:
-            X = np.array(X)
-            X = X[np.newaxis,:,:]
+
+        for i in range(test_num):
+            X = np.array(X_data[i])
+            X = X[np.newaxis,np.newaxis,:,:]
             X = torch.tensor(X).to(device)
             # y = y.reshape(-1,1)
             X = X.type(torch.cuda.FloatTensor)
             pred = model(X)
             result = pred.argmax(1)
-            print("files:",files[count],"predict:",pred.argmax(1))
+            print("files:",files[i],"predict:",pred.argmax(1))
             print("--------------------------")
-            if 'original' in files[count] and result == 0:
+            if 'original' in files[i] and result == 0:
                 correct+=1
-            elif 'tampered' in files[count] and result == 1:
+            elif 'tampered' in files[i] and result == 1:
                 correct+=1
 
     accuracy = correct / test_num
@@ -64,8 +65,6 @@ if __name__ == '__main__':
 
         for i in range(len(files)):
             wav,sr = librosa.load(os.path.join(test_dir,files[i]),sr=8000)
-
-            split_audios = audio_cutting(wav,sr)
             
             data_feature_mfcc = featureExtracting(wav,sr,hps.data.feature_type[0],
                     num_ceps= hps.data.n_mel_channels[0],
@@ -84,7 +83,9 @@ if __name__ == '__main__':
 
             #concat mfcc and lfcc
             data_feature = np.vstack((data_feature_mfcc,data_feature_lfcc))
-
+            if data_feature.shape[1] < 300:
+                arr_0 = np.zeros((32,300-data_feature.shape[1]))
+                data_feature = np.concatenate((data_feature,arr_0),axis=1)
             X_data.append(data_feature)
             if 'original' in files[i]:
                 y_data.append(0)
@@ -107,12 +108,12 @@ if __name__ == '__main__':
     elif model_name == 'CNN':
         model = CNN().to(device)
     elif model_name == 'CNNLSTM':
-        model = CNNLSTM(32,64,2,3).to(device)
+        model = CNNLSTM(32,32,2,3).to(device)
     else:
         raise Exception(f"Error: {model_name}")
     print(model)
 
-    model.load_state_dict(torch.load(hps.test.checkpoint_name))
+    model.load_state_dict(torch.load(hps.test.checkpoint_name),strict=False)
 
     test(X_data,y_data,model,files)
         

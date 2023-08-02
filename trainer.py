@@ -5,10 +5,7 @@ import argparse
 from torch import nn
 from torch.utils import data
 from torch.utils.data import DataLoader,Dataset
-import matplotlib.pyplot as plt
-from torch.autograd import Variable
-from torchvision.transforms import ToTensor
-from torchvision import datasets
+
 from utils import MyDataset
 from model.CNN import CNN
 from model.LCNN2 import LCNN
