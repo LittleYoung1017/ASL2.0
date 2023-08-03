@@ -4319,3 +4319,227 @@
 2023-08-01 17:37:54,807	root	INFO	loss: 0.077701  accuracy: 96.828714 [110050/140842]
 2023-08-01 17:37:57,816	root	INFO	loss: 0.077146  accuracy: 96.852145 [120050/140842]
 2023-08-01 17:38:00,811	root	INFO	loss: 0.077459  accuracy: 96.849673 [130050/140842]
+2023-08-03 15:07:47,450	root	INFO	Using cuda:0 device
+2023-08-03 15:07:47,473	root	INFO	Start training with LCNN model
+2023-08-03 15:07:47,473	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=560, out_features=8, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-03 15:08:19,674	root	INFO	Using cuda:0 device
+2023-08-03 15:08:19,674	root	INFO	Start training with LCNN model
+2023-08-03 15:08:19,674	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=560, out_features=8, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-03 15:15:41,259	root	INFO	Using cuda:0 device
+2023-08-03 15:15:41,300	root	INFO	Start training with LCNN model
+2023-08-03 15:15:41,300	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=560, out_features=8, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-03 15:15:41,301	root	INFO	====> Epoch: 1
+2023-08-03 15:32:42,081	root	INFO	Using cuda:0 device
+2023-08-03 15:32:42,122	root	INFO	Start training with LCNN model
+2023-08-03 15:32:42,122	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=560, out_features=8, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-03 15:32:42,123	root	INFO	====> Epoch: 1
+2023-08-03 15:38:31,782	root	INFO	Using cuda:0 device
+2023-08-03 15:38:31,824	root	INFO	Start training with LCNN model
+2023-08-03 15:38:31,824	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=560, out_features=8, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-03 15:38:31,825	root	INFO	====> Epoch: 1
+2023-08-03 15:43:26,525	root	INFO	Using cuda:0 device
+2023-08-03 15:43:26,566	root	INFO	Start training with LCNN model
+2023-08-03 15:43:26,567	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=560, out_features=8, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-03 15:43:26,568	root	INFO	====> Epoch: 1
+2023-08-03 16:03:41,868	root	INFO	Using cuda:0 device
+2023-08-03 16:03:41,897	root	INFO	Start training with LCNN model
+2023-08-03 16:03:41,898	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=560, out_features=8, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-03 16:03:41,898	root	INFO	====> Epoch: 1
+2023-08-03 16:03:53,649	root	INFO	loss: 0.631143  accuracy: 100.000000
+2023-08-03 16:04:08,028	root	INFO	loss: 0.683343  accuracy: 53.666667
+2023-08-03 16:04:28,497	root	INFO	loss: 0.617107  accuracy: 63.807980
+2023-08-03 16:04:51,827	root	INFO	loss: 0.617136  accuracy: 63.395769
+2023-08-03 16:05:28,672	root	INFO	loss: 0.619860  accuracy: 64.923667
+2023-08-03 16:06:11,703	root	INFO	loss: 0.623098  accuracy: 65.271586
+2023-08-03 16:06:33,981	root	INFO	loss: 0.624583  accuracy: 65.494469
+2023-08-03 16:06:54,998	root	INFO	loss: 0.624275  accuracy: 65.743652
+2023-08-03 16:07:05,723	root	INFO	Train  Loss: 0.622441 accuracy: 66.090756% 
+2023-08-03 16:13:40,370	root	INFO	Using cuda:0 device
+2023-08-03 16:13:40,402	root	INFO	Start training with LCNN model
+2023-08-03 16:13:40,402	root	INFO	LCNN(
+  (conv1): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv2): Sequential(
+    (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (conv3): Sequential(
+    (0): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1))
+    (1): ReLU()
+    (2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Dropout(p=0.25, inplace=False)
+    (4): Flatten(start_dim=1, end_dim=-1)
+    (5): Linear(in_features=560, out_features=8, bias=True)
+    (6): ReLU()
+  )
+  (output): Sequential(
+    (0): Linear(in_features=8, out_features=2, bias=True)
+  )
+)
+2023-08-03 16:13:40,404	root	INFO	====> Epoch: 1
+2023-08-03 16:13:50,895	root	INFO	loss: 0.787880  accuracy: 0.000000 [  100]

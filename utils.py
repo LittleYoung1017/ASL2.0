@@ -676,6 +676,10 @@ def audio_num(npz_data_path):
 
     print('all train file number:',train_num_all)
     print('all test file number:',test_num_all)
+'''
+    python utils.py --type audio_num
+'''    
+
 #=======================================================================================
 #main
 if __name__ == '__main__':
@@ -721,7 +725,8 @@ if __name__ == '__main__':
     elif args.type =='audio_preprocessing':
         modify_config(['data','downsample_data'],save_path)
         audio_preprocessing(data_path,data_path2,save_path,s_sr,s_sr2,t_sr,cutting_time,spliting_ratio=0.8)
-
+    elif args.type =='audio_num':
+        audio_num('/home/yangruixiong/ASL2/data')
 # if __name__ == '__main__':
     
     # test_audio_path = '/home/yangruixiong/dataset/ESC-50/ESC/1-137-A-32.wav'
