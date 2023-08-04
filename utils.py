@@ -680,6 +680,37 @@ def audio_num(npz_data_path):
     python utils.py --type audio_num
 '''    
 
+#=====================================================================================
+def spliting_npz_file(npz_data_path):
+    save_file_path = '/home/yangruixiong/ASL2/single_data/'
+    os.makedirs(save_file_path,exist_ok=True)
+    set_list = os.listdir(npz_data_path)
+    for set_name in tqdm(set_list):
+        set_path = os.path.join(npz_data_path, set_name,'feature_data')
+        data_list = os.listdir(set_path)
+        save_set_path = os.path.join(save_file_path, set_name,'feature_data')
+        os.makedirs(save_set_path,exist_ok=True)
+        
+        for data_file in data_list:
+            count = 0
+            data = np.load(os.path.join(set_path,data_file))
+            data_x = data['matrix']
+            data_y = data['labels']
+            for i in range(len(data_x)):
+                x, y = data_x[i], data_y[i]
+                save_path = os.path.join(save_set_path ,data_file + '_' + str(count)) 
+                np.savez(save_path,matrix=x,labels=y)               
+                count+=1
+'''
+    python utils.py  \
+    --type spliting_npz_file  \
+    --s_path /home/yangruixiong/ASL2/data
+'''
+
+#=============================================================
+def npz_to_hdf5(npz_data_path):
+    import h5py
+    data_to_write = [] 
 #=======================================================================================
 #main
 if __name__ == '__main__':
@@ -698,6 +729,7 @@ if __name__ == '__main__':
     parser.add_argument("--t_sr",type=int,default=8000, help="target sample rate")
     parser.add_argument("--cutting_time",type=float,default=3,help="data spliting interval")
     parser.add_argument("--split_ratop",type=float,default=0.8,help="training and validation dataset ratio")
+
     args = parser.parse_args()
     types= args.type
     data_path = args.s_path
@@ -727,6 +759,8 @@ if __name__ == '__main__':
         audio_preprocessing(data_path,data_path2,save_path,s_sr,s_sr2,t_sr,cutting_time,spliting_ratio=0.8)
     elif args.type =='audio_num':
         audio_num('/home/yangruixiong/ASL2/data')
+    elif args.type =='spliting_npz_file':
+        spliting_npz_file(data_path)
 # if __name__ == '__main__':
     
     # test_audio_path = '/home/yangruixiong/dataset/ESC-50/ESC/1-137-A-32.wav'

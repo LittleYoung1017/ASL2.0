@@ -86,7 +86,7 @@ class Trainer:
     def val(self, dataloader, epoch):
         self.model.eval()
         # size = len(dataloader.dataset)
-        num_batches = len(dataloader)
+        # num_batches = len(dataloader)
         
         val_loss_sum, val_correct_sum = [], []
         val_acc_sum = []

@@ -25,8 +25,7 @@ class MyIterableDataset(IterableDataset):
                 X_data = data['matrix']
                 X_data = X_data[:,np.newaxis,:,:]
                 y_data = data['labels']
-                for i in range(len(X_data)):
-                    yield X_data[i], y_data[i]
+                yield X_data, y_data
     def load_data_multi(self,worker_info):
         num_workers = worker_info.num_workers
         worker_id = worker_info.id
@@ -42,10 +41,10 @@ class MyIterableDataset(IterableDataset):
                 for f in file_list:
                     data = np.load(os.path.join(data_path, f))
                     X_data = data['matrix']
-                    X_data = X_data[:,np.newaxis,:,:]
+                    X_data = X_data[np.newaxis,:,:]
                     y_data = data['labels']
-                    for i in range(len(X_data)):
-                        yield X_data[i], y_data[i]
+                    # for i in range(len(X_data)):
+                    yield X_data, y_data
                         
     def __iter__(self):
         # Process a single data depending on how the data is read
@@ -58,13 +57,13 @@ class MyIterableDataset(IterableDataset):
         
 if __name__ =='__main__':
     start_time = time.time()
-    file_path = '/home/yangruixiong/ASL2/data/'
+    file_path = '/home/yangruixiong/ASL2/single_data/'
     print(file_path)
     num_workers = multiprocessing.cpu_count()
     print('num_workers:',num_workers)
     
     train_dataset = MyIterableDataset(file_path,'train')
-    mydataloader = DataLoader(mydataset,batch_size=500,num_workers=16,pin_memory=True,drop_last=False)
+    mydataloader = DataLoader(train_dataset,batch_size=500,num_workers=16,pin_memory=True,drop_last=True)
     for X,y in mydataloader:
         print(X.shape)
     end_time = time.time()
