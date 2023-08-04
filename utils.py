@@ -23,7 +23,7 @@ from spafe.features.lfcc import lfcc
 from spafe.features.cqcc import cqcc
 from spafe.features.mfcc import mel_spectrogram
 from spafe.utils.preprocessing import SlidingWindow
-
+import h5py
 MATPLOTLIB_FLAG = False
 
 logging.basicConfig(stream=sys.stdout, level=logging.WARNING)
@@ -710,7 +710,91 @@ def spliting_npz_file(npz_data_path):
 #=============================================================
 def npz_to_hdf5(npz_data_path):
     import h5py
-    data_to_write = [] 
+    set_list = os.listdir(npz_data_path)
+    save_file_path = '/home/yangruixiong/ASL2/data_hdf5'
+    os.makedirs(save_file_path,exist_ok = True)
+    for set_name in tqdm(set_list):
+        set_path = os.path.join(npz_data_path, set_name,'feature_data')
+        data_list = os.listdir(set_path)
+        save_set_path = os.path.join(save_file_path, set_name,'feature_data')
+        os.makedirs(save_set_path,exist_ok=True)
+        train_x = np.empty((1,32,300))
+        train_y = np.empty((1,))
+        test_x = np.empty((1,32,300))
+        test_y = np.empty((1,))
+        for data_file in data_list:
+            data = np.load(os.path.join(set_path,data_file))
+            data_x = data['matrix']
+            data_y = data['labels']
+            if 'train' in data_file:
+                train_x = np.concatenate((train_x,data_x),axis=0)
+                train_y = np.concatenate((train_y,data_y),axis=0)
+            elif 'test' in data_file:
+                test_x = np.concatenate((test_x,data_x),axis=0)
+                test_y = np.concatenate((test_y,data_y),axis=0)
+        new_train_file = os.path.join(save_set_path ,'train_data.h5')
+        new_test_file = os.path.join(save_set_path ,'test_data.h5')
+        if len(train_x) > 1:
+            f = h5py.File(new_train_file, 'w')
+            f['data'] = train_x[1:]
+            f['labels'] = train_y[1:]
+            f.close()      
+        if len(test_x) > 1:
+            f = h5py.File(new_test_file, 'w')
+            f['data'] = test_x[1:]
+            f['labels'] = test_y[1:]
+            f.close()
+'''
+    python utils.py \
+        --type npz_to_hdf5  \
+        --s_path /home/yangruixiong/ASL2/data
+'''     
+ 
+#===========
+#load h5 to np
+def load_h5_to_np(path):
+    
+    print('Loading data...')
+    train_data_x = np.empty((1,32,300))
+    train_data_y = np.empty((1,))
+    test_data_x = np.empty((1,32,300))
+    test_data_y = np.empty((1,))
+    setList = os.listdir(path)
+    for s in tqdm(setList):
+        setpath = os.path.join(path,s,'feature_data')
+        print(setpath)
+        npzList = os.listdir(setpath)
+        for item in npzList:
+            h5file = os.path.join(setpath,item)
+            data = h5py.FIle(h5file,'r')
+            matrix = data['matrix']
+            labels = data['labels']
+            if 'train' in h5file:
+                train_data_x = np.concatenate((train_data_x,matrix),axis=0)
+                train_data_y = np.concatenate((train_data_y,labels),axis=0)
+            elif 'test' in h5file:
+                test_data_x = np.concatenate((test_data_x,matrix),axis=0)
+                test_data_y = np.concatenate((test_data_y,labels),axis=0)
+
+
+    train_data_x = train_data_x[1:]
+    train_data_x = train_data_x[:,np.newaxis,:,:]  #for LCNN
+    train_data_y = train_data_y[1:]
+    
+    test_data_x = test_data_x[1:]
+    test_data_x = test_data_x[:,np.newaxis,:,:]  #for LCNN
+    test_data_y = test_data_y[1:]
+    
+    train_data_y = train_data_y.astype('int64')
+    test_data_y = test_data_y.astype('int64')
+    print(train_data_x.shape)
+    print(test_data_x.shape)
+    return train_data_x, train_data_y, test_data_x, test_data_y  
+'''
+    python utils.py \
+        --type load_h5_to_np    \
+        --s_path /home/yangruixiong/ASL2/data_hdf5
+'''
 #=======================================================================================
 #main
 if __name__ == '__main__':
@@ -761,6 +845,10 @@ if __name__ == '__main__':
         audio_num('/home/yangruixiong/ASL2/data')
     elif args.type =='spliting_npz_file':
         spliting_npz_file(data_path)
+    elif args.type == 'npz_to_hdf5':
+        npz_to_hdf5(data_path)
+    elif args.type == 'load_h5_to_np':
+        load_h5_to_np(data_path)
 # if __name__ == '__main__':
     
     # test_audio_path = '/home/yangruixiong/dataset/ESC-50/ESC/1-137-A-32.wav'
